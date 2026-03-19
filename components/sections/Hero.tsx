@@ -1,0 +1,240 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import Link from 'next/link'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const VIDEOS = [
+  '/videos/ballroom.mp4',
+  '/videos/first-dance.mp4',
+  '/videos/champagne.mp4',
+  '/videos/chef-plating.mp4',
+]
+
+export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    // Video crossfade
+    const videos = section.querySelectorAll<HTMLVideoElement>('.hero-vid')
+    let current = 0
+
+    // Show first video
+    if (videos[0]) {
+      gsap.set(videos[0], { opacity: 1 })
+    }
+
+    const crossfade = setInterval(() => {
+      gsap.to(videos[current], { opacity: 0, duration: 0.8, ease: 'power1.inOut' })
+      current = (current + 1) % videos.length
+      gsap.to(videos[current], { opacity: 1, duration: 0.8, ease: 'power1.inOut' })
+    }, 3500)
+
+    const ctx = gsap.context(() => {
+      // Content entrance animation
+      const content = contentRef.current
+      if (content) {
+        const logo = content.querySelector('.hero-logo')
+        const title = content.querySelector('.hero-title')
+        const line = content.querySelector('.hero-line')
+        const tagline = content.querySelector('.hero-tagline')
+        const buttons = content.querySelectorAll('.hero-btn')
+        const arrow = content.querySelector('.hero-arrow')
+
+        const tl = gsap.timeline({ delay: 0.6 })
+
+        if (logo) {
+          tl.from(logo, {
+            y: -20,
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power2.out',
+          }, 0)
+        }
+
+        // Title character reveal (free SplitText alternative)
+        if (title) {
+          const text = title.textContent || ''
+          const chars = text.split('')
+          title.innerHTML = chars
+            .map(
+              (char) =>
+                `<span class="inline-block">${char === ' ' ? '&nbsp;' : char}</span>`
+            )
+            .join('')
+          const charSpans = title.querySelectorAll('span')
+
+          tl.from(charSpans, {
+            y: 60,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.03,
+            ease: 'power2.out',
+          }, 0)
+        }
+
+        if (tagline) {
+          tl.from(tagline, {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+          }, 0.4)
+        }
+
+        if (line) {
+          tl.from(line, {
+            width: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+          }, 0.5)
+        }
+
+        if (buttons.length) {
+          tl.from(buttons, {
+            y: 15,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.15,
+            ease: 'power2.out',
+          }, 0.65)
+        }
+
+        if (arrow) {
+          tl.to(arrow, {
+            opacity: 0.6,
+            duration: 0.3,
+          }, 0.9)
+
+          // Infinite bounce
+          gsap.to(arrow, {
+            y: 10,
+            duration: 1,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut',
+            delay: 2,
+          })
+        }
+      }
+
+      // Parallax
+      gsap.to('.hero-videos-container', {
+        yPercent: -15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      })
+
+      gsap.to('.hero-content', {
+        yPercent: -20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      })
+    })
+
+    return () => {
+      clearInterval(crossfade)
+      ctx.revert()
+    }
+  }, [])
+
+  return (
+    <section
+      id="hero"
+      ref={sectionRef}
+      className="relative w-full h-screen h-[100svh] overflow-hidden"
+      style={{ backgroundColor: 'var(--hero-bg)' }}
+    >
+      {/* Video Background */}
+      <div className="hero-videos-container absolute inset-0 w-full h-full">
+        {VIDEOS.map((src, i) => (
+          <video
+            key={i}
+            className="hero-vid absolute inset-0 w-full h-full object-cover"
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ opacity: i === 0 ? 1 : 0 }}
+          />
+        ))}
+        {/* Dark Overlay */}
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: 'var(--hero-overlay)' }}
+        />
+      </div>
+
+      {/* Content */}
+      <div
+        ref={contentRef}
+        className="hero-content relative z-10 flex flex-col items-center justify-center h-full text-center px-6"
+      >
+
+
+        <h1 className="hero-title heading-hero text-[var(--hero-text)] mb-4 sm:mb-6 px-2 text-[clamp(28px,8vw,56px)] leading-[1.1]">
+          AURUM EVENTS & CATERING
+        </h1>
+
+        <div
+          className="hero-line mx-auto mb-4 sm:mb-6"
+          style={{ width: '60px', height: '1.5px', backgroundColor: 'var(--hero-gold)' }}
+        />
+
+        <p
+          className="hero-tagline font-barlow font-light italic text-[11px] sm:text-[13px] uppercase mb-7 sm:mb-10"
+          style={{ color: 'var(--hero-gold)', letterSpacing: '3px' }}
+        >
+          Freehold NJ · Premiere Event Space
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-[320px] sm:max-w-none px-6 sm:px-0">
+          <Link
+            href="/book-a-tour"
+            className="hero-btn btn-gold-filled w-full sm:w-auto"
+          >
+            Book a Tour
+          </Link>
+          <a
+            href="tel:7322940031"
+            className="hero-btn btn-gold-outline w-full sm:w-auto border-white text-white hover:border-[var(--gold)]"
+          >
+            Call (732) 294-0031
+          </a>
+        </div>
+
+        {/* Scroll Arrow */}
+        <div className="hero-arrow absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="var(--hero-gold)"
+            strokeWidth="2"
+            className="mx-auto"
+          >
+            <path d="M12 4v16M5 13l7 7 7-7" />
+          </svg>
+        </div>
+      </div>
+    </section>
+  )
+}

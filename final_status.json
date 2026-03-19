@@ -1,0 +1,16 @@
+{
+  "account": {
+    "Name": "mohan rao",
+    "Email": "dontalaappalanaidu@gmail.com",
+    "Teams": [
+      "dontalaappalanaidu’s team"
+    ]
+  },
+  "siteData": {
+    "site-name": "aurum-events-v1-test",
+    "config-path": "C:\\Users\\DELL\\Documents\\Aunum Website - Latest\\aurum-website\\netlify.toml",
+    "admin-url": "https://app.netlify.com/projects/aurum-events-v1-test",
+    "site-url": "https://aurum-events-v1-test.netlify.app",
+    "site-id": "2063e41b-1abc-4878-83e5-d03cc8da8c27"
+  }
+}

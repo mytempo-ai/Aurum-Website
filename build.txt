@@ -1,0 +1,62 @@
+﻿
+> aurum-website@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/6) ...
+   Generating static pages (1/6) 
+npm :  ΓÜá metadataBase property in 
+metadata export is not set for 
+resolving social open graph or 
+twitter images, using 
+"http://localhost:3000". See https://n
+extjs.org/docs/app/api-reference/funct
+ions/generate-metadata#metadatabase
+At line:1 char:1
++ npm run build 2>&1 | Out-File 
+-Encoding utf8 build.txt
++ ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpec 
+   ified: ( ΓÜá metadataBa...ta#meta  
+  database:String) [], RemoteExcept   
+ ion
+    + FullyQualifiedErrorId : NativeC 
+   ommandError
+ 
+ ΓÜá metadataBase property in 
+metadata export is not set for 
+resolving social open graph or 
+twitter images, using 
+"http://localhost:3000". See https://n
+extjs.org/docs/app/api-reference/funct
+ions/generate-metadata#metadatabase
+ ΓÜá metadataBase property in 
+metadata export is not set for 
+resolving social open graph or 
+twitter images, using 
+"http://localhost:3000". See https://n
+extjs.org/docs/app/api-reference/funct
+ions/generate-metadata#metadatabase
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ Γ£ô Generating static pages (6/6)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+Γöî Γùï /                                    5.35 kB        92.6 kB
+Γö£ Γùï /_not-found                          873 B          88.1 kB
+Γöö Γùï /menus/hors-doeuvres                 2.62 kB         126 kB
++ First Load JS shared by all            87.3 kB
+  Γö£ chunks/117-baab43fc83142998.js       31.7 kB
+  Γö£ chunks/fd9d1056-87da80e0c187477b.js  53.6 kB
+  Γöö other shared chunks (total)          1.89 kB
+
+
+Γùï  (Static)  prerendered as static content
+

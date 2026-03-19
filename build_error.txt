@@ -1,0 +1,21 @@
+﻿
+> aurum-website@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+
+   Creating an optimized production build ...
+npm : uncaughtException [Error: EPERM: operation not permitted, open 'C:\Users\DELL\Documents\Aunum 
+Website - Latest\aurum-website\.next\trace'] {
+At line:1 char:1
++ npm run build *>&1 | Out-File build_error.txt -Encoding utf8
++ ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (uncaughtExcepti....next\trace'] {:String) [], RemoteExce 
+   ption
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'open',
+  path: 'C:\\Users\\DELL\\Documents\\Aunum Website - Latest\\aurum-website\\.next\\trace'
+}

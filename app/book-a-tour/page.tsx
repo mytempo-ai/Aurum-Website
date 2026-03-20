@@ -166,7 +166,7 @@ export default function BookATourPage() {
                 <div>
                   <h4 className="font-oswald font-bold text-[var(--gold-dark)] uppercase tracking-wider">Success!</h4>
                   <p className="font-barlow text-[14px] text-[var(--gold-dark)]">
-                    We've received your inquiry. One of our event specialists will contact you shortly.
+                    We&apos;ve received your inquiry. One of our event specialists will contact you shortly.
                   </p>
                 </div>
               </div>

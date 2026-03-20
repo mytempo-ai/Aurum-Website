@@ -41,7 +41,7 @@ export default function ChildrensMenu() {
   ]
 
   return (
-    <MenuLayout title="Children's Menu" heroImage="/images/menu-header.png">
+    <MenuLayout title="Children&apos;s Menu" heroImage="/images/menu-header.png">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
         {CATEGORIES.map((cat, i) => (
           <div key={i} className="menu-item">

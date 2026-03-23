@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     description: 'Aurum Events & Catering is a premiere event space in Freehold, NJ specializing in weddings, sweet sixteens, bar/bat mitzvahs, and corporate events.',
     images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: 'Aurum Events & Catering' }],
   },
+  icons: {
+    icon: '/images/footer-logo.png',
+    apple: '/images/footer-logo.png',
+  },
 };
 
 export default function RootLayout({

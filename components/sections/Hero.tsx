@@ -7,11 +7,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const VIDEOS = [
-  '/videos/ballroom.mp4',
-  '/videos/first-dance.mp4',
-  '/videos/champagne.mp4',
-  '/videos/chef-plating.mp4',
+const VIDEO_CONFIG = [
+  { src: '/videos/ballroom.mp4', duration: 5, speed: 1 },
+  { src: '/videos/first-dance.mp4', duration: 4, speed: 1 },
+  { src: '/videos/first-dance-1.mp4', duration: 5, speed: 1 },
+  { src: '/videos/champagne.mp4', duration: 4, speed: 2.5 }, // Fast motion
+  { src: '/videos/chef-plating.mp4', duration: 5, speed: 1 },
 ]
 
 export default function Hero() {
@@ -22,20 +23,33 @@ export default function Hero() {
     const section = sectionRef.current
     if (!section) return
 
-    // Video crossfade
+    // Video crossfade with custom durations
     const videos = section.querySelectorAll<HTMLVideoElement>('.hero-vid')
     let current = 0
+    let timeoutId: NodeJS.Timeout
 
-    // Show first video
+    // Initialize playback speeds and show first video
+    videos.forEach((vid, i) => {
+      if (VIDEO_CONFIG[i]) {
+        vid.playbackRate = VIDEO_CONFIG[i].speed
+      }
+    })
+
     if (videos[0]) {
       gsap.set(videos[0], { opacity: 1 })
     }
 
-    const crossfade = setInterval(() => {
-      gsap.to(videos[current], { opacity: 0, duration: 0.8, ease: 'power1.inOut' })
-      current = (current + 1) % videos.length
-      gsap.to(videos[current], { opacity: 1, duration: 0.8, ease: 'power1.inOut' })
-    }, 3500)
+    const playNext = () => {
+      const config = VIDEO_CONFIG[current]
+      timeoutId = setTimeout(() => {
+        gsap.to(videos[current], { opacity: 0, duration: 1, ease: 'power1.inOut' })
+        current = (current + 1) % videos.length
+        gsap.to(videos[current], { opacity: 1, duration: 1, ease: 'power1.inOut' })
+        playNext()
+      }, config.duration * 1000)
+    }
+
+    playNext()
 
     const ctx = gsap.context(() => {
       // Content entrance animation
@@ -150,7 +164,7 @@ export default function Hero() {
     })
 
     return () => {
-      clearInterval(crossfade)
+      clearTimeout(timeoutId)
       ctx.revert()
     }
   }, [])
@@ -164,11 +178,11 @@ export default function Hero() {
     >
       {/* Video Background */}
       <div className="hero-videos-container absolute inset-0 w-full h-full">
-        {VIDEOS.map((src, i) => (
+        {VIDEO_CONFIG.map((config, i) => (
           <video
             key={i}
             className="hero-vid absolute inset-0 w-full h-full object-cover"
-            src={src}
+            src={config.src}
             autoPlay
             muted
             loop

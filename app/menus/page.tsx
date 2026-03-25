@@ -1,4 +1,27 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Catering Menus | Aurum Events & Catering — Freehold, NJ',
+  description: 'Explore Aurum Events & Catering\'s full menus — passed hors d\'oeuvres, action stations, plated dinners, children\'s selections, and elaborate dessert displays. Premier catering in Freehold, Monmouth County NJ.',
+  keywords: [
+    'catering menu Freehold NJ',
+    'event catering Monmouth County NJ',
+    'hors doeuvres catering NJ',
+    'wedding catering New Jersey',
+    'banquet menu NJ',
+    'action stations catering NJ',
+  ],
+  alternates: {
+    canonical: 'https://aurum.events/menus',
+  },
+  openGraph: {
+    title: 'Catering Menus | Aurum Events & Catering — Freehold, NJ',
+    description: 'Passed hors d\'oeuvres, action stations, plated dinners, and spectacular dessert displays. In-house catering excellence at Aurum Events & Catering, Freehold NJ.',
+    url: 'https://aurum.events/menus',
+    images: [{ url: '/images/menu-header.png', width: 1200, height: 630, alt: 'Catering Menus at Aurum Events Freehold NJ' }],
+  },
+}
 
 const CATEGORIES = [
   { id: 'hors-doeuvres', title: "Hors d'Oeuvres", desc: "Passed & stationary appetizers to start the evening", image: "/images/menu/hors-doeuvres-1.png" },
@@ -14,7 +37,14 @@ export default function MenusPage() {
     <div className="pt-[72px]">
       <div className="relative h-[300px] md:h-[400px] overflow-hidden">
         <div className="absolute inset-0 bg-[var(--hero-bg)]">
-          <img src="/images/menu-header.png" alt="Our Menus" className="w-full h-full object-cover opacity-60" />
+          <img
+            src="/images/menu-header.png"
+            alt="Aurum Events & Catering full-service menus — Freehold NJ"
+            className="w-full h-full object-cover opacity-60"
+            width={1600}
+            height={900}
+            fetchPriority="high"
+          />
           <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
@@ -22,7 +52,7 @@ export default function MenusPage() {
             Our Menus
           </h1>
           <p className="font-barlow text-lg text-white/80 max-w-2xl">
-            From passed hors d&apos;oeuvres to interactive action stations and dramatic desserts, our culinary team delivers unforgettable dining experiences.
+            From passed hors d&apos;oeuvres to interactive action stations and dramatic desserts, our culinary team delivers unforgettable dining experiences in Freehold, NJ.
           </p>
         </div>
       </div>
@@ -31,10 +61,17 @@ export default function MenusPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {CATEGORIES.map((cat) => (
             <Link key={cat.id} href={`/menus/${cat.id}`} className="group block h-[320px] relative overflow-hidden rounded bg-[var(--surface)]">
-              <img src={cat.image} alt={cat.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <img
+                src={cat.image}
+                alt={`${cat.title} — Aurum Events catering Freehold NJ`}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                width={600}
+                height={320}
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300" />
               <div className="absolute inset-x-8 bottom-8 z-10 border-t border-[var(--gold)]/50 pt-4">
-                <h3 className="font-oswald font-bold text-white text-2xl uppercase tracking-[2px] mb-2">{cat.title}</h3>
+                <h2 className="font-oswald font-bold text-white text-2xl uppercase tracking-[2px] mb-2">{cat.title}</h2>
                 <p className="font-barlow text-white/80 italic">{cat.desc}</p>
               </div>
             </Link>

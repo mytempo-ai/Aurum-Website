@@ -134,11 +134,37 @@ export default function Footer() {
         {/* Divider */}
         <div className="w-full h-px bg-[var(--gold)] mb-6" />
 
-        {/* Bottom Bar */}
-        <p className="font-barlow font-light text-[12px] text-[var(--text-light)] text-center">
-          © 2025 Aurum Events & Catering. All Rights Reserved · 17 South Street, Freehold, NJ
-          07728 · (732) 294-0031
-        </p>
+        {/* Bottom Bar — NAP structured data for local SEO */}
+        <div
+          className="text-center"
+          itemScope
+          itemType="https://schema.org/LocalBusiness"
+        >
+          <meta itemProp="name" content="Aurum Events & Catering" />
+          <p className="font-barlow font-light text-[12px] text-[var(--text-light)]">
+            © 2025{' '}
+            <span itemProp="name">Aurum Events &amp; Catering</span>. All Rights Reserved
+            {' '}·{' '}
+            <span
+              itemProp="address"
+              itemScope
+              itemType="https://schema.org/PostalAddress"
+            >
+              <span itemProp="streetAddress">17 South Street</span>,{' '}
+              <span itemProp="addressLocality">Freehold</span>,{' '}
+              <span itemProp="addressRegion">NJ</span>{' '}
+              <span itemProp="postalCode">07728</span>
+            </span>
+            {' '}·{' '}
+            <a
+              href="tel:+17322940031"
+              itemProp="telephone"
+              className="hover:text-[var(--gold)] transition-colors"
+            >
+              (732) 294-0031
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   )

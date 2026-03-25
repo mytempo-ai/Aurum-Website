@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
 import LenisProvider from "@/components/layout/LenisProvider";
+import StructuredData from "@/components/seo/StructuredData";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -16,18 +17,79 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://aurum.events'),
-  title: 'Aurum Events & Catering | Freehold NJ Premiere Event Space',
-  description: 'Aurum Events & Catering is a premiere event space in Freehold, NJ specializing in weddings, sweet sixteens, bar/bat mitzvahs, and corporate events.',
-  keywords:
-    "event venue Freehold NJ, wedding venue NJ, sweet 16 venue NJ, bar mitzvah venue NJ, catering hall Freehold, Aurum Events",
+  title: {
+    default: 'Aurum Events & Catering | Premier Event Venue Freehold NJ',
+    template: '%s | Aurum Events & Catering — Freehold, NJ',
+  },
+  description: 'Aurum Events & Catering is Freehold NJ\'s premier event venue specializing in weddings, sweet sixteens, bar & bat mitzvahs, and corporate events. Serving all of Monmouth County, NJ. Schedule a private tour today.',
+  keywords: [
+    'event venue Freehold NJ',
+    'wedding venue Freehold NJ',
+    'wedding venue Monmouth County NJ',
+    'sweet 16 venue Freehold NJ',
+    'sweet sixteen venue NJ',
+    'bar mitzvah venue NJ',
+    'bat mitzvah venue New Jersey',
+    'catering hall Freehold NJ',
+    'event space Monmouth County',
+    'party venue Manalapan NJ',
+    'party venue Marlboro NJ',
+    'party venue Howell NJ',
+    'banquet hall Freehold NJ',
+    'corporate event venue NJ',
+    'quinceañera venue New Jersey',
+    'event catering NJ',
+    'Aurum Events',
+    'Aurum Events and Catering',
+  ],
+  authors: [{ name: 'Aurum Events & Catering', url: 'https://aurum.events' }],
+  creator: 'Aurum Events & Catering',
+  publisher: 'Aurum Events & Catering',
+  category: 'Event Venue, Catering',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Aurum Events & Catering | Freehold NJ Premiere Event Space',
-    description: 'Aurum Events & Catering is a premiere event space in Freehold, NJ specializing in weddings, sweet sixteens, bar/bat mitzvahs, and corporate events.',
-    images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: 'Aurum Events & Catering' }],
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Aurum Events & Catering',
+    title: 'Aurum Events & Catering | Premier Event Venue Freehold NJ',
+    description: 'Premier event venue in Freehold, NJ specializing in weddings, sweet sixteens, bar/bat mitzvahs, and corporate events. Serving all of Monmouth County, NJ.',
+    url: 'https://aurum.events',
+    images: [
+      {
+        url: '/images/hero-bg.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Aurum Events & Catering — Premier Event Venue in Freehold, NJ',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Aurum Events & Catering | Premier Event Venue Freehold NJ',
+    description: 'Premier event venue in Freehold, NJ. Weddings, sweet sixteens, mitzvahs, corporate events. Serving Monmouth County, NJ.',
+    images: ['/images/hero-bg.jpg'],
+  },
+  alternates: {
+    canonical: 'https://aurum.events',
   },
   icons: {
     icon: '/images/footer-logo.png',
     apple: '/images/footer-logo.png',
+    shortcut: '/images/footer-logo.png',
+  },
+  verification: {
+    google: 'your-google-search-console-verification-token',
   },
 };
 
@@ -37,12 +99,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-US">
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
           rel="stylesheet"
         />
+        {/* Geo meta tags for local search engines & crawlers */}
+        <meta name="geo.region" content="US-NJ" />
+        <meta name="geo.placename" content="Freehold, New Jersey" />
+        <meta name="geo.position" content="40.2643;-74.2738" />
+        <meta name="ICBM" content="40.2643, -74.2738" />
+        {/* JSON-LD structured data for SEO and GEO */}
+        <StructuredData />
       </head>
       <body>
         <LenisProvider>

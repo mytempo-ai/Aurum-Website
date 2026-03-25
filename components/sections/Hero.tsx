@@ -204,34 +204,82 @@ export default function Hero() {
       >
 
 
-        <h1 className="hero-title heading-hero text-[var(--hero-text)] mb-4 sm:mb-6 px-2 text-[clamp(28px,8vw,56px)] leading-[1.1]">
-          AURUM EVENTS & CATERING
+        <h1
+          className="hero-title text-[var(--hero-text)] mb-4 sm:mb-6 px-2 uppercase"
+          style={{
+            fontFamily: "'Oswald', sans-serif",
+            fontWeight: 700,
+            fontSize: 'clamp(30px, 7.5vw, 90px)',
+            letterSpacing: 'clamp(4px, 1vw, 10px)',
+            lineHeight: '1.05',
+            textShadow: '0 2px 24px rgba(0,0,0,0.55)',
+          }}
+        >
+          AURUM EVENTS &amp; CATERING
         </h1>
 
         <div
-          className="hero-line mx-auto mb-4 sm:mb-6"
-          style={{ width: '60px', height: '1.5px', backgroundColor: 'var(--hero-gold)' }}
+          className="hero-line mx-auto mb-5 sm:mb-7"
+          style={{ width: '56px', height: '1.5px', backgroundColor: 'var(--hero-gold)' }}
         />
 
         <p
-          className="hero-tagline font-barlow font-light italic text-[11px] sm:text-[13px] uppercase mb-7 sm:mb-10"
-          style={{ color: 'var(--hero-gold)', letterSpacing: '3px' }}
+          className="hero-tagline mb-8 sm:mb-12"
+          style={{
+            fontFamily: "'Inter', 'Barlow', sans-serif",
+            fontWeight: 400,
+            fontSize: 'clamp(10px, 1.3vw, 13px)',
+            letterSpacing: '5px',
+            textTransform: 'uppercase',
+            color: 'var(--hero-gold)',
+            opacity: 0.9,
+          }}
         >
-          Freehold NJ · Premiere Event Space
+          Freehold NJ &nbsp;&middot;&nbsp; Premiere Event Space
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-[320px] sm:max-w-none px-6 sm:px-0">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-[340px] sm:max-w-none px-6 sm:px-0">
           <Link
             href="/book-a-tour"
-            className="hero-btn btn-gold-filled w-full sm:w-auto"
+            className="hero-btn w-full sm:w-auto"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontFamily: "'Inter', 'Barlow', sans-serif",
+              fontWeight: 600,
+              fontSize: '11px',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              backgroundColor: 'var(--hero-gold)',
+              color: '#fff',
+              padding: '16px 36px',
+              border: '1.5px solid var(--hero-gold)',
+              transition: 'all 0.3s',
+            }}
           >
-            Book a Tour
+            BOOK A TOUR
           </Link>
           <a
             href="tel:7322940031"
-            className="hero-btn btn-gold-outline w-full sm:w-auto border-white text-white hover:border-[var(--gold)]"
+            className="hero-btn w-full sm:w-auto"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontFamily: "'Inter', 'Barlow', sans-serif",
+              fontWeight: 600,
+              fontSize: '11px',
+              letterSpacing: '3px',
+              textTransform: 'uppercase',
+              backgroundColor: 'transparent',
+              color: '#fff',
+              padding: '16px 36px',
+              border: '1.5px solid rgba(255,255,255,0.75)',
+              transition: 'all 0.3s',
+            }}
           >
-            Call (732) 294-0031
+            CALL (732) 294-0031
           </a>
         </div>
 

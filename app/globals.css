@@ -2,33 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Inter font is loaded via <link> tag in layout.tsx — no @import needed here */
+
 :root {
-  --bg:           #FFFFFF;
-  --surface:      #FAFAFA;
+  --bg: #FFFFFF;
+  --surface: #FAFAFA;
   --surface-warm: #FBF6EE;
   --surface-gold: #F5ECD7;
 
-  --gold:         #C8933A;
-  --gold-light:   #E8B86D;
-  --gold-dark:    #9B6A1E;
-  --gold-pale:    #FBF0DC;
-  --gold-glow:    rgba(200,147,58,0.12);
+  --gold: #C8933A;
+  --gold-light: #E8B86D;
+  --gold-dark: #9B6A1E;
+  --gold-pale: #FBF0DC;
+  --gold-glow: rgba(200, 147, 58, 0.12);
 
-  --text:         #1A1A1A;
-  --text-brown:   #4A3828;
-  --text-muted:   #6B5C4E;
-  --text-light:   #A89880;
+  --text: #1A1A1A;
+  --text-brown: #3D2E1E;
+  /* slightly richer for headings */
+  --text-muted: #5C4A38;
+  /* improved contrast from #6B5C4E */
+  --text-light: #998070;
 
-  --border:       #EDE0CC;
-  --border-strong:#D4B896;
-  --border-gold:  rgba(200,147,58,0.35);
+  --border: #EDE0CC;
+  --border-strong: #D4B896;
+  --border-gold: rgba(200, 147, 58, 0.35);
 
-  --hero-bg:      #1C0F06;
-  --hero-overlay: rgba(20,10,2,0.58);
-  --hero-text:    #FAF3E0;
-  --hero-gold:    #D4A044;
+  --hero-bg: #1C0F06;
+  --hero-overlay: rgba(20, 10, 2, 0.55);
+  --hero-text: #FAF3E0;
+  --hero-gold: #D4A044;
 
-  --font-serif:   'Playfair Display', serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-body: 'Inter', 'Barlow', sans-serif;
 }
 
 html {
@@ -38,10 +43,13 @@ html {
 body {
   color: var(--text);
   background: var(--bg);
-  font-family: 'Barlow', sans-serif;
+  /* Inter for body — clean, legible, modern */
+  font-family: var(--font-body);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
 /* Prevent scroll when mobile menu is open */
@@ -49,71 +57,69 @@ body.menu-open {
   overflow: hidden;
 }
 
-/* Base Headings */
-h1, h2, h3, h4, h5, h6 {
+/* Base Headings — keep Oswald for brand identity */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Oswald', sans-serif;
   color: var(--text-brown);
+  line-height: 1.15;
 }
 
 /* ─── SECTION TEXTURES ─────────────────────────────────────────────────────── */
-
-/* Warm cream sections – very subtle diagonal weave */
 .section-warm {
   background-color: var(--surface-warm);
   background-image:
-    repeating-linear-gradient(
-      60deg,
+    repeating-linear-gradient(60deg,
       transparent,
       transparent 28px,
-      rgba(200,147,58,0.028) 28px,
-      rgba(200,147,58,0.028) 29px
-    ),
-    repeating-linear-gradient(
-      -60deg,
+      rgba(200, 147, 58, 0.025) 28px,
+      rgba(200, 147, 58, 0.025) 29px),
+    repeating-linear-gradient(-60deg,
       transparent,
       transparent 28px,
-      rgba(200,147,58,0.018) 28px,
-      rgba(200,147,58,0.018) 29px
-    );
+      rgba(200, 147, 58, 0.015) 28px,
+      rgba(200, 147, 58, 0.015) 29px);
 }
 
-/* White sections – micro dot grid */
 .section-white {
   background-color: var(--bg);
-  background-image: radial-gradient(
-    rgba(200,147,58,0.055) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(rgba(200, 147, 58, 0.05) 1px,
+      transparent 1px);
   background-size: 26px 26px;
 }
 
-/* Surface (very light grey) – subtle horizontal lines */
 .section-surface {
   background-color: var(--surface);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 47px,
-    rgba(200,147,58,0.04) 47px,
-    rgba(200,147,58,0.04) 48px
-  );
+  background-image: repeating-linear-gradient(to bottom,
+      transparent,
+      transparent 47px,
+      rgba(200, 147, 58, 0.04) 47px,
+      rgba(200, 147, 58, 0.04) 48px);
 }
 
-/* Gold strip – diagonal shimmer */
 .section-gold {
   background-color: var(--gold);
-  background-image: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 8px,
-    rgba(255,255,255,0.04) 8px,
-    rgba(255,255,255,0.04) 9px
-  );
+  background-image: repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 8px,
+      rgba(255, 255, 255, 0.04) 8px,
+      rgba(255, 255, 255, 0.04) 9px);
 }
 
 /* ─── TYPOGRAPHY UTILITY ────────────────────────────────────────────────────── */
 @layer utilities {
-  .text-balance { text-wrap: balance; }
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Helper to use Inter cleanly */
+  .font-inter {
+    font-family: var(--font-body);
+  }
 }
 
 /* ─── COMPONENTS ────────────────────────────────────────────────────────────── */
@@ -121,40 +127,75 @@ h1, h2, h3, h4, h5, h6 {
 
   /* ── Buttons ── */
   .btn-gold-filled {
-    @apply inline-flex items-center justify-center font-oswald font-semibold text-[12px] uppercase tracking-[2.5px] bg-[var(--gold)] text-white px-9 py-[14px] transition-all duration-300 hover:bg-[var(--gold-dark)] hover:shadow-[0_8px_24px_rgba(200,147,58,0.35)] hover:-translate-y-0.5 overflow-hidden relative;
-    letter-spacing: 2.5px;
+    @apply inline-flex items-center justify-center uppercase overflow-hidden relative;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 3px;
+    background-color: var(--gold);
+    color: #fff;
+    padding: 15px 36px;
+    border: 1.5px solid var(--gold);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
   }
+
+  .btn-gold-filled:hover {
+    background-color: var(--gold-dark);
+    border-color: var(--gold-dark);
+    box-shadow: 0 8px 24px rgba(200, 147, 58, 0.35);
+    transform: translateY(-2px);
+  }
+
   .btn-gold-filled::after {
     content: '';
     position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
     transition: 0.5s;
   }
+
   .btn-gold-filled:hover::after {
     left: 100%;
   }
 
   .btn-gold-outline {
-    @apply inline-flex items-center justify-center font-oswald font-semibold text-[12px] uppercase tracking-[2.5px] bg-transparent text-[var(--gold-dark)] border border-[var(--gold-dark)] px-9 py-[14px] transition-all duration-300 hover:bg-[var(--gold-dark)] hover:text-white hover:shadow-[0_8px_24px_rgba(200,147,58,0.25)] hover:-translate-y-0.5;
-    letter-spacing: 2.5px;
+    @apply inline-flex items-center justify-center uppercase;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 3px;
+    background-color: transparent;
+    color: var(--gold-dark);
+    padding: 15px 36px;
+    border: 1.5px solid var(--gold-dark);
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
   }
 
-  /* ── Section Label – with decorative gold rules ── */
+  .btn-gold-outline:hover {
+    background-color: var(--gold-dark);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(200, 147, 58, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* ── Section Label ── */
   .section-label-el {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 14px;
-    font-family: 'Barlow', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 10.5px;
     text-transform: uppercase;
     letter-spacing: 5px;
     color: var(--gold);
     margin-bottom: 14px;
   }
+
   .section-label-el::before,
   .section-label-el::after {
     content: '';
@@ -166,39 +207,52 @@ h1, h2, h3, h4, h5, h6 {
 
   /* ── Headings ── */
   .heading-hero {
-    @apply font-oswald font-bold text-white uppercase leading-[1.05];
-    font-size: clamp(52px, 9vw, 110px);
-    letter-spacing: 6px;
-    text-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 80px rgba(0,0,0,0.3);
+    @apply font-oswald font-bold text-white uppercase;
+    font-size: clamp(30px, 7.5vw, 90px);
+    letter-spacing: clamp(4px, 1vw, 10px);
+    line-height: 1.05;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
   }
 
   .heading-section {
-    @apply font-oswald font-bold uppercase leading-[1.08] text-[var(--text-brown)];
-    font-size: clamp(28px, 5vw, 60px);
+    @apply font-oswald font-bold uppercase text-[var(--text-brown)];
+    font-size: clamp(28px, 5vw, 58px);
     letter-spacing: 2px;
+    line-height: 1.1;
   }
+
   .heading-serif {
     font-family: var(--font-serif);
     @apply italic;
   }
+
   @media (min-width: 640px) {
-    .heading-section { letter-spacing: 2.5px; }
+    .heading-section {
+      letter-spacing: 2.5px;
+    }
   }
 
   .heading-card {
     @apply font-oswald font-semibold uppercase text-[22px] text-[var(--text-brown)];
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
   }
 
   .sub-heading {
-    @apply font-barlow italic font-light text-[16px] text-[var(--text-muted)];
-    line-height: 1.7;
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-style: italic;
   }
 
   /* ── Body copy ── */
   .body-copy {
-    @apply font-barlow font-normal text-[16px] text-[var(--text-muted)];
-    line-height: 1.9;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.85;
   }
 
   /* ── Menu items ── */
@@ -206,19 +260,30 @@ h1, h2, h3, h4, h5, h6 {
     @apply font-oswald font-semibold text-[18px] text-[var(--gold-dark)] uppercase;
     letter-spacing: 0.5px;
   }
+
   .menu-item-desc {
-    @apply font-barlow text-[14px] text-[var(--text-muted)] italic;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--text-muted);
+    font-style: italic;
     line-height: 1.65;
   }
 
   /* ── Nav ── */
   .text-nav-link {
-    @apply font-oswald font-medium text-[12px] uppercase;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 11.5px;
+    text-transform: uppercase;
     letter-spacing: 2.5px;
   }
+
   .text-button {
-    @apply font-oswald font-semibold text-[12px] uppercase;
-    letter-spacing: 1.5px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 
   /* ── Stats ── */
@@ -226,8 +291,12 @@ h1, h2, h3, h4, h5, h6 {
     @apply font-oswald font-bold leading-none mb-1;
     font-size: clamp(40px, 5.5vw, 62px);
   }
+
   .text-stat-label {
-    @apply font-barlow font-light text-[11px] uppercase;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
     letter-spacing: 3px;
   }
 
@@ -241,6 +310,7 @@ h1, h2, h3, h4, h5, h6 {
   .section-header {
     @apply text-center mb-16;
   }
+
   .section-header .heading-section {
     margin-top: 6px;
   }
@@ -248,12 +318,13 @@ h1, h2, h3, h4, h5, h6 {
   /* ── Premium card base ── */
   .card-premium {
     @apply bg-white border border-[var(--border)] rounded transition-all duration-300;
-    box-shadow: 0 1px 4px rgba(200,147,58,0.04);
+    box-shadow: 0 1px 4px rgba(200, 147, 58, 0.04);
   }
+
   .card-premium:hover {
     transform: translateY(-5px);
     border-color: var(--border-strong);
-    box-shadow: 0 12px 36px rgba(200,147,58,0.14);
+    box-shadow: 0 12px 36px rgba(200, 147, 58, 0.14);
   }
 
   /* ── Gold top-border card ── */
@@ -264,14 +335,43 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─── LENIS SMOOTH SCROLL ───────────────────────────────────────────────────── */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
-.lenis.lenis-smooth iframe { pointer-events: none; }
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
 
 /* ─── SELECTION ─────────────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(200,147,58,0.18);
+  background: rgba(200, 147, 58, 0.18);
   color: var(--text-brown);
+}
+
+/* ─── READABLE PARAGRAPH DEFAULTS ─────────────────────────────────────────── */
+p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+/* ─── FOCUS RING ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }

@@ -11,6 +11,13 @@ export const metadata: Metadata = {
         'Monmouth County event venue tour',
         'Aurum Events contact',
         'Aurum Events tour booking',
+        'contact Aurum Events Freehold NJ',
+        'event venue contact NJ',
+        '(732) 294-0031',
+        '17 South Street Freehold NJ',
+        'Spanish speaking event venue NJ',
+        'bilingual event venue NJ',
+        'English Spanish event venue NJ',
     ],
     alternates: {
         canonical: 'https://aurum.events/book-a-tour',
@@ -24,5 +31,33 @@ export const metadata: Metadata = {
 }
 
 export default function BookATourPage() {
-    return <BookATourForm />
+    const contactSchema = {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Aurum Events & Catering",
+      "url": "https://aurum.events/book-a-tour",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Aurum Events & Catering",
+        "telephone": "+17322940031",
+        "email": "info@aurum.events",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "17 South Street",
+          "addressLocality": "Freehold",
+          "addressRegion": "NJ",
+          "postalCode": "07728"
+        }
+      }
+    }
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+            />
+            <BookATourForm />
+        </>
+    )
 }

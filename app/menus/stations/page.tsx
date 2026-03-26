@@ -1,6 +1,28 @@
+import type { Metadata } from 'next'
 import MenuLayout from '@/components/layout/MenuLayout'
 import MenuGallery from '@/components/ui/MenuGallery'
 
+export const metadata: Metadata = {
+  title: 'Action Stations Catering NJ',
+  description: "Interactive action stations for events in Freehold NJ. Skirt Steak Grill, Sushi Bar, Brazilian Rodízio & more. A la carte catering options.",
+  keywords: [
+    'action stations catering NJ',
+    'a la carte catering NJ',
+    'catering stations NJ',
+    'interactive catering NJ',
+    'skirt steak grill station',
+    'sushi bar catering NJ',
+    'food stations event NJ',
+    'live cooking stations NJ',
+  ],
+  alternates: { canonical: 'https://aurum.events/menus/stations' },
+  openGraph: {
+    title: 'Action Stations Catering NJ | Aurum Events',
+    description: "Interactive action stations for events in Freehold NJ. Skirt Steak Grill, Sushi Bar, Brazilian Rodízio & more.",
+    url: 'https://aurum.events/menus/stations',
+    images: [{ url: '/images/menu/stations-1.png', width: 1200, height: 630, alt: 'Action stations catering at Aurum Events Freehold NJ' }],
+  },
+}
 export default function StationsMenu() {
   const STATIONS = [
     { 

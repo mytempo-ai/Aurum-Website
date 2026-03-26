@@ -1,4 +1,24 @@
+import type { Metadata } from 'next'
 import MenuLayout from '@/components/layout/MenuLayout'
+
+export const metadata: Metadata = {
+  title: 'First Course & Salads — Event Catering NJ',
+  description: "Artisan first course salads and bread service for events in Freehold NJ. Caprese, Roasted Beet, Red Wine Poached Pear & more gourmet options.",
+  keywords: [
+    'first course catering NJ',
+    'salad course event catering',
+    'gourmet salads catering NJ',
+    'event first course Freehold NJ',
+  ],
+  alternates: { canonical: 'https://aurum.events/menus/first-course' },
+  openGraph: {
+    title: 'First Course & Salads — Event Catering NJ | Aurum Events',
+    description: "Artisan first course salads and bread service for events in Freehold NJ. Caprese, Roasted Beet, Red Wine Poached Pear & more.",
+    url: 'https://aurum.events/menus/first-course',
+    images: [{ url: '/images/menu/first-course-1.png', width: 1200, height: 630, alt: 'First course salads at Aurum Events Freehold NJ' }],
+  },
+}
+
 
 export default function FirstCourseMenu() {
   return (

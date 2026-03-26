@@ -16,17 +16,14 @@ const FAQ_ITEMS = [
         q: 'Does Aurum provide in-house catering?',
         a: "Yes — our full-service in-house culinary team offers cocktail hour, action stations, plated dinners, children's menus, and stunning dessert displays. No outside caterers needed.",
     },
-    {
-        q: 'What luxury enhancements are available?',
-        a: 'Aurum offers an all-white LED dance floor, photo booth, dancing on clouds (dry-ice effect), CO₂ blast cannons, custom monogram gobos, foosball tables, and more premium add-ons.',
-    },
+
     {
         q: 'Which areas near Freehold NJ does Aurum serve?',
         a: 'We serve all of Monmouth County, Ocean County, and Middlesex County — including Manalapan, Marlboro, Howell, Jackson, Holmdel, Red Bank, Colts Neck, Eatontown, Rumson, Long Branch, and Asbury Park.',
     },
     {
         q: 'How do I book a tour or get a quote?',
-        a: 'Visit our Book a Tour page to submit your request, or call us at (732) 294-0031. Our dedicated events team will schedule a personalized walkthrough and discuss your vision.',
+        a: 'Visit our Book a Tour page to submit your request, call us at (732) 294-0031, or simply talk to our AI chatbot right here on the website! Our dedicated events team will schedule a personalized walkthrough and discuss your vision.',
     },
     {
         q: 'Is Aurum Events a full-service venue?',

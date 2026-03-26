@@ -1,6 +1,23 @@
+import type { Metadata } from 'next'
 import MenuLayout from '@/components/layout/MenuLayout'
 import MenuGallery from '@/components/ui/MenuGallery'
 
+export const metadata: Metadata = {
+  title: "Children's Catering Menu NJ",
+  description: "Kid-friendly catering menu for events in NJ. Pizza, chicken tenders, sliders, pasta & more. Perfect for Sweet 16s, Mitzvahs, and family events.",
+  keywords: [
+    "children's catering menu NJ",
+    'kids menu event catering',
+    "children's party food NJ",
+  ],
+  alternates: { canonical: 'https://aurum.events/menus/childrens-menu' },
+  openGraph: {
+    title: "Children's Catering Menu NJ | Aurum Events",
+    description: "Kid-friendly catering menu for events in NJ. Pizza, chicken tenders, sliders, pasta & more.",
+    url: 'https://aurum.events/menus/childrens-menu',
+    images: [{ url: '/images/menu/kids-1.png', width: 1200, height: 630, alt: "Children's catering menu at Aurum Events Freehold NJ" }],
+  },
+}
 export default function ChildrensMenu() {
   const CATEGORIES = [
     {

@@ -141,7 +141,7 @@ const faqSchema = {
             name: 'How do I book a tour of Aurum Events?',
             acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'You can book a private tour of Aurum Events & Catering by submitting the form at https://aurum.events/book-a-tour or by calling us directly at (732) 294-0031. Our events team will contact you to schedule a personalized walkthrough of our venue.',
+                text: 'You can book a private tour of Aurum Events & Catering by submitting the form at https://aurum.events/book-a-tour, calling us directly at (732) 294-0031, or talking directly to our AI chatbot. Our events team will contact you to schedule a personalized walkthrough of our venue.',
             },
         },
         {
@@ -160,14 +160,7 @@ const faqSchema = {
                 text: 'Yes, Aurum Events & Catering provides full in-house catering services. Our culinary team offers passed hors d\'oeuvres, action stations, first course, dinner selections, children\'s menus, and elaborate dessert displays. View our full menu at https://aurum.events/menus.',
             },
         },
-        {
-            '@type': 'Question',
-            name: 'What enhancements are available at Aurum Events?',
-            acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'Aurum Events & Catering offers premium event enhancements including an all-white LED dance floor, photo booth, dancing on clouds (dry ice effect), CO2 blast cannons, custom monogram gobos, foosball, and more. View all enhancements at https://aurum.events/enhancements.',
-            },
-        },
+
         {
             '@type': 'Question',
             name: 'What areas near Freehold NJ does Aurum Events serve?',

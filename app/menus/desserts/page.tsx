@@ -1,6 +1,28 @@
+import type { Metadata } from 'next'
 import MenuLayout from '@/components/layout/MenuLayout'
 import MenuGallery from '@/components/ui/MenuGallery'
 
+export const metadata: Metadata = {
+  title: 'Dessert Catering NJ — S\'mores, Cannolis & More',
+  description: "Showstopping desserts for events in Freehold NJ. S'mores station, hot cookie dough, cannolis, custom Bar Mitzvah cakes & more by Aurum Events.",
+  keywords: [
+    'dessert catering NJ',
+    'event desserts Freehold NJ',
+    'wedding desserts NJ',
+    "s'mores catering",
+    'hot cookie dough desserts',
+    'Bar Mitzvah cake NJ',
+    'passed desserts catering NJ',
+    'sundae bar catering NJ',
+  ],
+  alternates: { canonical: 'https://aurum.events/menus/desserts' },
+  openGraph: {
+    title: 'Dessert Catering NJ — S\'mores, Cannolis & More | Aurum Events',
+    description: "Showstopping desserts for events in Freehold NJ. S'mores station, hot cookie dough, cannolis, custom Bar Mitzvah cakes & more.",
+    url: 'https://aurum.events/menus/desserts',
+    images: [{ url: '/images/menu/dessert-1.png', width: 1200, height: 630, alt: 'Dessert catering at Aurum Events Freehold NJ' }],
+  },
+}
 export default function DessertsMenu() {
   const CARTS = [
     { name: "Flourless Chocolate Cake", desc: "Gluten-free, rich chocolate ganache, raspberry coulis" },

@@ -9,16 +9,33 @@ import Contact from '@/components/sections/Contact'
 import GeoContent from '@/components/seo/GeoContent'
 
 export const metadata: Metadata = {
-  title: 'Aurum Events & Catering | Premier Event Venue Freehold NJ',
-  description: 'Aurum Events & Catering — Freehold NJ\'s most elegant event venue. Award-winning catering, breathtaking ballroom, and luxury enhancements for weddings, sweet sixteens, bar/bat mitzvahs, and corporate events in Monmouth County, NJ.',
+  title: "Aurum Events & Catering — Freehold NJ's Premiere Event Space",
+  description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Chris Harammis. Call (732) 294-0031.",
+  keywords: [
+    'Aurum Events',
+    'Aurum Events & Caterers',
+    'Aurum Events Freehold NJ',
+    'event venue Freehold NJ',
+    'event space Freehold NJ',
+    'Freehold NJ premiere event space',
+    'catering hall NJ',
+    'modern catering venue NJ',
+    'catering hall near me Freehold NJ',
+    'NYC loft event venue NJ',
+    'wedding venue NJ',
+    'Sweet 16 venue NJ',
+    'Bar Mitzvah venue NJ',
+    'reception hall NJ',
+    'event planning Freehold NJ',
+  ],
   alternates: {
     canonical: 'https://aurum.events',
   },
   openGraph: {
-    title: 'Aurum Events & Catering | Premier Event Venue Freehold NJ',
-    description: 'Freehold NJ\'s premier event venue. Weddings, sweet sixteens, bar/bat mitzvahs, corporate events. In-house catering & luxury enhancements. Serving all of Monmouth County.',
+    title: "Aurum Events & Catering — Freehold NJ's Premiere Event Space",
+    description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Chris Harammis.",
     url: 'https://aurum.events',
-    images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: 'Aurum Events & Catering Ballroom — Freehold NJ' }],
+    images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: 'Aurum Events & Catering ballroom — Freehold NJ premiere event venue' }],
   },
 }
 

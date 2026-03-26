@@ -9,6 +9,7 @@ export type EventData = {
   description: string[]
   highlights: string[]
   gallery: GalleryImage[]
+  seoKeywords?: string[]
 }
 
 export const EVENTS: EventData[] = [
@@ -18,6 +19,20 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/wedding.jpg',
     heroAlt: 'Elegant wedding at Aurum Events',
     tagline: "Say 'I Do' at Freehold's Most Stunning Venue",
+    seoKeywords: [
+      'wedding venue Freehold NJ',
+      'wedding venue NJ',
+      'wedding catering NJ',
+      'wedding reception venue NJ',
+      'wedding catering Freehold NJ',
+      'all inclusive wedding venue NJ',
+      'NJ wedding catering packages',
+      'outdoor wedding venue NJ',
+      'wedding venue with outdoor space NJ',
+      'wedding catering Monmouth County NJ',
+      'affordable wedding venue NJ',
+      'elegant wedding venue NJ',
+    ],
     description: [
       "Your wedding day deserves a venue as extraordinary as your love story. Nestled in the heart of Freehold, NJ, Aurum Events & Catering is a one-of-a-kind NYC loft-inspired space where modern romance meets timeless elegance. Our exposed brick walls, soaring ceilings, and state-of-the-art LED wall lighting create a backdrop that photographers dream about and guests never forget.",
       "We offer flexible spaces that adapt seamlessly to your vision — whether you envision an intimate ceremony, a grand ballroom reception, a cocktail hour on our outdoor patio, or dancing under the stars on our 400 sq ft rooftop deck. Our team, led by owners Dave and Jay with Ryan on-site, guides you through every detail from your first site visit to your last dance.",
@@ -44,6 +59,18 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/mitzvah.jpg',
     heroAlt: 'Bar Mitzvah celebration at Aurum Events',
     tagline: 'A Sacred Milestone, Celebrated in Style',
+    seoKeywords: [
+      'Bar Mitzvah venue NJ',
+      'Bat Mitzvah venue NJ',
+      'Bar Bat Mitzvah catering NJ',
+      'Mitzvah venue Freehold NJ',
+      'Bar Mitzvah party venue New Jersey',
+      'Bat Mitzvah hall NJ',
+      'Jewish event venue NJ',
+      'kosher catering NJ',
+      'kosher style catering Freehold NJ',
+      'Mitzvah catering Monmouth County',
+    ],
     description: [
       "A Bar or Bat Mitzvah is one of life's most meaningful milestones, and it deserves a celebration as special as the moment itself. At Aurum Events & Catering, we understand the deep significance of this tradition and work closely with families to honor every custom while creating an atmosphere of pure joy, beauty, and celebration.",
       "Our versatile spaces transform to reflect your family's unique style and heritage — from elegant, traditional settings to vibrant, modern celebrations complete with themed décor and entertainment. The unique loft inside our main ballroom creates a stunning VIP space, while our outdoor cocktail patio sets the perfect scene for a Kiddush-style reception.",
@@ -70,6 +97,17 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/sweet16.jpg',
     heroAlt: 'Sweet Sixteen party at Aurum Events',
     tagline: 'Turn 16 in the Most Unforgettable Way',
+    seoKeywords: [
+      'Sweet 16 venue NJ',
+      'Sweet Sixteen venue Freehold NJ',
+      'Sweet 16 party venue NJ',
+      'Sweet 16 catering NJ',
+      'Quinceanera venue NJ',
+      'Quinceanera venue Freehold NJ',
+      'birthday party venue Freehold NJ',
+      'teen party venue NJ',
+      'sweet sixteen hall NJ',
+    ],
     description: [
       "Sixteen only happens once, and it should be celebrated with all the glamour, fun, and unforgettable moments that a milestone birthday deserves. At Aurum Events & Catering, we specialize in Sweet Sixteen celebrations that feel like stepping into a dream — a stunning NYC loft backdrop, dazzling LED wall lighting, and a team dedicated to making the birthday girl or boy feel like royalty.",
       "From the grand entrance to the cake cutting, every moment of your Sweet Sixteen at Aurum is designed for maximum impact. Our spacious main ballroom accommodates large parties with ease, while the unique loft provides an exclusive VIP lounge area. Our outdoor cocktail patio adds another dimension of fun for guests between dances.",
@@ -96,6 +134,18 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/corporate.jpg',
     heroAlt: 'Corporate gala at Aurum Events',
     tagline: 'Where Business Meets Brilliance',
+    seoKeywords: [
+      'corporate catering Freehold NJ',
+      'corporate event venue NJ',
+      'corporate meetings NJ',
+      'trade show venue NJ',
+      'business catering NJ',
+      'trade show catering NJ',
+      'corporate holiday party NJ',
+      'gala venue NJ',
+      'award ceremony venue NJ',
+      'product launch venue NJ',
+    ],
     description: [
       "First impressions matter in business, and the venue you choose sends a powerful message. Aurum Events & Catering offers a sophisticated, one-of-a-kind setting that elevates every corporate gathering — whether you're hosting an intimate executive dinner, a company-wide gala, a product launch, or an awards ceremony.",
       "Our NYC loft-inspired venue, with its exposed brick walls, LED-lit feature walls, and flexible floor plans, creates a distinctive environment that energizes attendees and reinforces a culture of excellence. Our state-of-the-art AV and sound systems ensure your presentations, speeches, and entertainment land exactly as intended.",
@@ -122,6 +172,14 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/fundraiser.jpg',
     heroAlt: 'Fundraiser gala at Aurum Events',
     tagline: 'Make Your Cause Impossible to Forget',
+    seoKeywords: [
+      'fundraiser venue NJ',
+      'charity event venue NJ',
+      'gala venue Freehold NJ',
+      'nonprofit event venue NJ',
+      'charity gala NJ',
+      'fundraising dinner venue NJ',
+    ],
     description: [
       "The most successful fundraisers are the ones that move people — and the right venue is the catalyst. Aurum Events & Catering provides a uniquely captivating backdrop for charity galas, benefit dinners, silent auctions, and community fundraising events. Our stunning NYC loft atmosphere creates an air of prestige and occasion that motivates generosity.",
       "We work closely with nonprofit organizations, community groups, and cause-driven teams to create events that honor your mission while delivering an exceptional guest experience. From the cocktail hour on our outdoor patio to the main gala in our ballroom, every moment is crafted to inspire, connect, and celebrate the cause at hand.",
@@ -148,6 +206,15 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/holiday.jpg',
     heroAlt: 'Holiday party at Aurum Events',
     tagline: 'Make the Season Spectacularly Unforgettable',
+    seoKeywords: [
+      'holiday party venue NJ',
+      'holiday party venue Freehold NJ',
+      'Christmas party venue NJ',
+      'corporate holiday party NJ',
+      'private holiday party NJ',
+      "New Year's Eve party venue NJ",
+      'company holiday party NJ',
+    ],
     description: [
       "The holiday season calls for something extraordinary, and Aurum Events & Catering delivers exactly that. Whether you're planning a company holiday party, a private seasonal gathering, or a festive community celebration, our NYC loft venue transforms into a warm and magical space that captures the spirit of the season in the most spectacular way.",
       "Imagine arriving to twinkling lights and festive décor amidst the rich texture of exposed brick and glowing LED walls. Our main ballroom, intimate loft space, and outdoor patio come together to create a holiday experience that guests will be talking about long after the tinsel comes down. We handle every detail so you can simply enjoy the celebration.",
@@ -174,6 +241,15 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/private.jpg',
     heroAlt: 'Private social event at Aurum Events',
     tagline: 'Your Celebration, Entirely Your Own',
+    seoKeywords: [
+      'social event venue NJ',
+      'private party venue NJ',
+      'engagement party venue NJ',
+      'communion party venue NJ',
+      'birthday party venue Freehold NJ',
+      'private event hall NJ',
+      'celebration venue NJ',
+    ],
     description: [
       "Life's most precious moments deserve a stage worthy of their significance. At Aurum Events & Catering, we host every kind of social celebration — from milestone birthday parties and anniversary dinners to graduation parties, engagement celebrations, retirement soirées, and everything in between. Whatever the occasion, we pour the same passion and expertise into every single event.",
       "Our NYC loft venue is completely private when you book with us — this is entirely your space, your night, your story. The exposed brick walls, LED lighting, and unique loft create an atmosphere that feels both upscale and deeply personal. We work with you to customize every element of the décor, menu, and timing to reflect what makes your celebration unique.",
@@ -200,6 +276,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/tradeshow.jpg',
     heroAlt: 'Trade show at Aurum Events',
     tagline: 'Showcase Your Brand at Its Best',
+    seoKeywords: [
+      'trade show venue NJ',
+      'trade show catering NJ',
+      'exhibition venue NJ',
+    ],
     description: [
       "A trade show is your moment to make a lasting impression, and the venue sets the tone for everything. Aurum Events & Catering offers a unique, memorable setting in the heart of Freehold, NJ that distinguishes your event from the standard convention hall. Our NYC loft-inspired space — with its exposed brick, LED walls, and open floor plans — creates an energizing atmosphere that keeps attendees engaged.",
       "Our flexible main ballroom can be configured with booth layouts, presentation areas, networking zones, and registration stations, while our additional spaces provide room for VIP meetings, breakout sessions, and catered hospitality areas. Our state-of-the-art sound and lighting systems ensure every presentation and demonstration lands with maximum impact.",

@@ -1,6 +1,27 @@
+import type { Metadata } from 'next'
 import MenuLayout from '@/components/layout/MenuLayout'
 import MenuGallery from '@/components/ui/MenuGallery'
 
+export const metadata: Metadata = {
+  title: "Passed Hors d'Oeuvres Catering NJ",
+  description: "Elegant passed hors d'oeuvres for weddings, Sweet 16s, and events in NJ. Short Rib & Polenta, Lamb Chops, Tuna Tartare & more. Freehold NJ.",
+  keywords: [
+    "passed hors d'oeuvres catering NJ",
+    'cocktail hour food NJ',
+    'event appetizers Freehold NJ',
+    'short rib polenta catering',
+    'lamb chops catering NJ',
+    'wedding appetizers NJ',
+    'cocktail hour catering NJ',
+  ],
+  alternates: { canonical: 'https://aurum.events/menus/hors-doeuvres' },
+  openGraph: {
+    title: "Passed Hors d'Oeuvres Catering NJ | Aurum Events",
+    description: "Elegant passed hors d'oeuvres for weddings & events in Freehold NJ. Short Rib & Polenta, Lamb Chops, Tuna Tartare & more.",
+    url: 'https://aurum.events/menus/hors-doeuvres',
+    images: [{ url: '/images/menu/hors-doeuvres-1.png', width: 1200, height: 630, alt: "Passed hors d'oeuvres at Aurum Events Freehold NJ" }],
+  },
+}
 const ITEMS = [
   { name: 'Sesame & Flax Seed Crusted Chicken', desc: 'Sriracha honey glaze' },
   { name: 'Hot Dog Sliders', desc: 'Spicy mustard, caramelized onions' },

@@ -1,6 +1,28 @@
+import type { Metadata } from 'next'
 import MenuLayout from '@/components/layout/MenuLayout'
 import MenuGallery from '@/components/ui/MenuGallery'
 
+export const metadata: Metadata = {
+  title: 'Dinner Selections — Event Dinner Catering NJ',
+  description: "Extensive dinner menu for weddings & events in Freehold NJ. Chicken, beef, seafood, pasta & vegetarian options by Executive Chef Chris Harammis.",
+  keywords: [
+    'dinner catering NJ',
+    'event dinner menu',
+    'wedding dinner catering NJ',
+    'steak catering NJ',
+    'chicken catering NJ',
+    'seafood catering NJ',
+    'pasta catering NJ',
+    'entree selections NJ',
+  ],
+  alternates: { canonical: 'https://aurum.events/menus/dinner' },
+  openGraph: {
+    title: 'Dinner Selections — Event Dinner Catering NJ | Aurum Events',
+    description: "Extensive dinner menu for weddings & events in Freehold NJ. Chicken, beef, seafood, pasta & vegetarian options.",
+    url: 'https://aurum.events/menus/dinner',
+    images: [{ url: '/images/menu/dinner-1.png', width: 1200, height: 630, alt: 'Dinner catering at Aurum Events Freehold NJ' }],
+  },
+}
 const CATEGORIES = [
   {
     title: "Meat Selection",

@@ -15,9 +15,9 @@ export function generateMetadata({ params }: Props): Metadata {
   const event = getEventBySlug(params.slug)
   if (!event) return {}
   return {
-    title: `${event.name} Venue Freehold NJ | Aurum Events & Catering`,
+    title: `${event.name} Venue Freehold NJ — Aurum Events & Catering`,
     description: `${event.name} at Aurum Events & Catering in Freehold, NJ. ${event.tagline}. Serving Monmouth County and all of Central NJ. Call (732) 294-0031 to book your event.`,
-    keywords: [
+    keywords: event.seoKeywords || [
       `${event.name} venue Freehold NJ`,
       `${event.name} venue Monmouth County NJ`,
       `${event.name} venue New Jersey`,

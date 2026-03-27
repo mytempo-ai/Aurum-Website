@@ -76,7 +76,7 @@ export default function Contact() {
               <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Name *</label>
               <input 
                 {...register("name", { required: "Name is required" })}
-                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[15px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
+                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                 placeholder="John Doe"
               />
               {errors.name && <span className="text-red-500 text-xs mt-1 block">{errors.name.message}</span>}
@@ -89,7 +89,7 @@ export default function Contact() {
                   required: "Email is required",
                   pattern: { value: /^\S+@\S+$/i, message: "Invalid email" }
                 })}
-                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[15px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
+                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                 placeholder="john@example.com"
               />
               {errors.email && <span className="text-red-500 text-xs mt-1 block">{errors.email.message}</span>}
@@ -99,7 +99,7 @@ export default function Contact() {
               <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Phone *</label>
               <input 
                 {...register("phone", { required: "Phone is required" })}
-                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[15px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
+                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                 placeholder="(555) 555-5555"
               />
               {errors.phone && <span className="text-red-500 text-xs mt-1 block">{errors.phone.message}</span>}
@@ -109,7 +109,7 @@ export default function Contact() {
               <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Event Type *</label>
               <select 
                 {...register("eventType", { required: "Please select an event type" })}
-                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[15px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all appearance-none"
+                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all appearance-none"
               >
                 <option value="" disabled>Event Type*</option>
                 <option value="Wedding">Wedding</option>
@@ -127,7 +127,7 @@ export default function Contact() {
               <textarea 
                 {...register("message")}
                 rows={5}
-                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[15px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all resize-y"
+                className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all resize-y"
                 placeholder="Tell us about your event..."
               />
             </div>

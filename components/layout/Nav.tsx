@@ -80,7 +80,7 @@ export default function Nav() {
             <img
               src="/images/logo.png"
               alt="Aurum Events"
-              className="h-[38px] sm:h-[44px] lg:h-[48px] w-auto"
+              className="h-[44px] sm:h-[52px] lg:h-[60px] w-auto"
             />
           </Link>
 

@@ -215,7 +215,7 @@ export default function Hero() {
             textShadow: '0 2px 24px rgba(0,0,0,0.55)',
           }}
         >
-          AURUM EVENTS &amp; CATERING
+          AURUM EVENTS <br className="sm:hidden" /> &amp; CATERING
         </h1>
 
         <div

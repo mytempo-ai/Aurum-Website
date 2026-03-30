@@ -75,23 +75,38 @@ export default function Hero() {
 
         // Title character reveal (free SplitText alternative)
         if (title) {
-          const text = title.textContent || ''
-          const chars = text.split('')
-          title.innerHTML = chars
-            .map(
-              (char) =>
-                `<span class="inline-block">${char === ' ' ? '&nbsp;' : char}</span>`
-            )
-            .join('')
-          const charSpans = title.querySelectorAll('span')
+          const rowSpans = title.querySelectorAll('.title-row')
+          const allCharSpans: HTMLSpanElement[] = []
 
-          tl.from(charSpans, {
-            y: 60,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.03,
-            ease: 'power2.out',
-          }, 0)
+          rowSpans.forEach((row) => {
+            const text = row.textContent || ''
+            const chars = text.split('')
+            row.innerHTML = chars
+              .map(
+                (char) =>
+                  `<span class="inline-block">${char === ' ' ? '&nbsp;' : char}</span>`
+              )
+              .join('')
+            row.querySelectorAll('span').forEach((s) => allCharSpans.push(s))
+          })
+
+          if (allCharSpans.length > 0) {
+            tl.from(allCharSpans, {
+              y: 60,
+              opacity: 0,
+              duration: 0.5,
+              stagger: 0.03,
+              ease: 'power2.out',
+            }, 0)
+          } else {
+            // Fallback in case there are no title-row elements
+            tl.from(title, {
+              y: 60,
+              opacity: 0,
+              duration: 0.5,
+              ease: 'power2.out',
+            }, 0)
+          }
         }
 
         if (tagline) {
@@ -205,18 +220,18 @@ export default function Hero() {
 
 
         <h1
-          className="hero-title text-[var(--hero-text)] mb-4 sm:mb-6 px-2 uppercase flex flex-col items-center justify-center gap-1"
+          className="hero-title text-[var(--hero-text)] mb-4 sm:mb-6 uppercase text-center"
           style={{
             fontFamily: "'Oswald', sans-serif",
             fontWeight: 700,
-            fontSize: 'clamp(30px, 7.5vw, 90px)',
-            letterSpacing: 'clamp(3px, 1vw, 10px)',
-            lineHeight: '1',
+            fontSize: 'clamp(28px, 7.5vw, 90px)',
+            letterSpacing: 'clamp(2px, 0.8vw, 10px)',
+            lineHeight: '1.15',
             textShadow: '0 2px 24px rgba(0,0,0,0.55)',
           }}
         >
-          <span className="block text-center whitespace-nowrap">AURUM EVENTS</span>
-          <span className="block text-center whitespace-nowrap text-[0.9em] sm:text-[1em]">&amp; CATERING</span>
+          <span className="block whitespace-nowrap title-row">AURUM EVENTS</span>
+          <span className="block whitespace-nowrap title-row" style={{ fontSize: '0.9em', marginTop: '2px' }}>&amp; CATERING</span>
         </h1>
 
         <div

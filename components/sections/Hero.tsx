@@ -205,21 +205,18 @@ export default function Hero() {
 
 
         <h1
-          className="hero-title text-[var(--hero-text)] mb-4 sm:mb-6 px-2 uppercase"
+          className="hero-title text-[var(--hero-text)] mb-4 sm:mb-6 px-2 uppercase flex flex-col items-center justify-center gap-1"
           style={{
             fontFamily: "'Oswald', sans-serif",
             fontWeight: 700,
-            fontSize: 'clamp(28px, 7vw, 90px)',
-            letterSpacing: 'clamp(2px, 1vw, 10px)',
-            lineHeight: '1.1',
+            fontSize: 'clamp(30px, 7.5vw, 90px)',
+            letterSpacing: 'clamp(3px, 1vw, 10px)',
+            lineHeight: '1',
             textShadow: '0 2px 24px rgba(0,0,0,0.55)',
-            wordBreak: 'keep-all',
-            overflowWrap: 'normal'
           }}
         >
-          <span className="block sm:inline whitespace-nowrap">AURUM EVENTS</span>
-          <span className="hidden sm:inline"> &amp; </span>
-          <span className="block sm:inline whitespace-nowrap"><span className="sm:hidden">&amp; </span>CATERING</span>
+          <span className="block text-center whitespace-nowrap">AURUM EVENTS</span>
+          <span className="block text-center whitespace-nowrap text-[0.9em] sm:text-[1em]">&amp; CATERING</span>
         </h1>
 
         <div
@@ -228,18 +225,20 @@ export default function Hero() {
         />
 
         <p
-          className="hero-tagline mb-8 sm:mb-12"
+          className="hero-tagline mb-8 sm:mb-12 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center w-full px-4"
           style={{
             fontFamily: "'Inter', 'Barlow', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(10px, 1.3vw, 13px)',
-            letterSpacing: '5px',
+            fontSize: 'clamp(11px, 1.3vw, 13px)',
+            letterSpacing: '4px',
             textTransform: 'uppercase',
             color: 'var(--hero-gold)',
             opacity: 0.9,
           }}
         >
-          Freehold NJ &nbsp;&middot;&nbsp; Premiere Event Space
+          <span className="whitespace-nowrap">Freehold NJ</span>
+          <span className="hidden sm:inline opacity-60">&middot;</span>
+          <span className="whitespace-nowrap">Premiere Event Space</span>
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-[340px] sm:max-w-none px-6 sm:px-0">

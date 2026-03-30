@@ -209,13 +209,17 @@ export default function Hero() {
           style={{
             fontFamily: "'Oswald', sans-serif",
             fontWeight: 700,
-            fontSize: 'clamp(30px, 7.5vw, 90px)',
-            letterSpacing: 'clamp(4px, 1vw, 10px)',
-            lineHeight: '1.05',
+            fontSize: 'clamp(28px, 7vw, 90px)',
+            letterSpacing: 'clamp(2px, 1vw, 10px)',
+            lineHeight: '1.1',
             textShadow: '0 2px 24px rgba(0,0,0,0.55)',
+            wordBreak: 'keep-all',
+            overflowWrap: 'normal'
           }}
         >
-          AURUM EVENTS <br className="sm:hidden" /> &amp; CATERING
+          <span className="block sm:inline whitespace-nowrap">AURUM EVENTS</span>
+          <span className="hidden sm:inline"> &amp; </span>
+          <span className="block sm:inline whitespace-nowrap"><span className="sm:hidden">&amp; </span>CATERING</span>
         </h1>
 
         <div

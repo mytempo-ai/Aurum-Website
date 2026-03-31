@@ -4,7 +4,7 @@ import MenuGallery from '@/components/ui/MenuGallery'
 
 export const metadata: Metadata = {
   title: 'Dinner Selections — Event Dinner Catering NJ',
-  description: "Extensive dinner menu for weddings & events in Freehold NJ. Chicken, beef, seafood, pasta & vegetarian options by Executive Chef Chris Harammis.",
+  description: "Extensive dinner menu for weddings & events in Freehold NJ. Chicken, beef, seafood, pasta & vegetarian options by Executive Chef Aaron Hode.",
   keywords: [
     'dinner catering NJ',
     'event dinner menu',

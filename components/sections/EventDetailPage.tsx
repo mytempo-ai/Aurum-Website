@@ -21,7 +21,7 @@ const WHY_CHOOSE = [
   },
   {
     title: 'World-Class Cuisine',
-    desc: "Executive Chef Chris Harammis leads a kitchen dedicated to innovation and excellence. From elegantly passed hors d'oeuvres to showstopping dessert displays — every bite is a highlight.",
+    desc: "Executive Chef Aaron Hode leads a kitchen dedicated to innovation and excellence. From elegantly passed hors d'oeuvres to showstopping dessert displays — every bite is a highlight.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8">
         <path d="M12 2v20M4.5 8.5h15M8 2v4M16 2v4M4 13h16M4 18h16" />
@@ -212,12 +212,12 @@ export default function EventDetailPage({ event }: { event: EventData }) {
             <div className="gold-line-anim w-[40px] h-[2px] bg-[var(--gold)] mx-auto mt-4 mb-6" />
             <h2 className="section-heading heading-section">See It for Yourself</h2>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className={`grid gap-3 ${event.gallery.length === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-[900px] mx-auto' : 'grid-cols-2 lg:grid-cols-4'}`}>
             {event.gallery.map((img, i) => (
               <div
                 key={i}
-                className={`gallery-img overflow-hidden rounded-sm ${i === 0 ? 'col-span-2 row-span-2 lg:col-span-2' : ''}`}
-                style={{ aspectRatio: i === 0 ? '1/1' : '4/3' }}
+                className={`gallery-img overflow-hidden rounded-sm ${event.gallery.length !== 2 && i === 0 ? 'col-span-2 row-span-2 lg:col-span-2' : ''}`}
+                style={{ aspectRatio: event.gallery.length === 2 ? '4/3' : (i === 0 ? '1/1' : '4/3') }}
               >
                 <img
                   src={img.src}

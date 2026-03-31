@@ -23,6 +23,8 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
   const stripRef = useRef<HTMLDivElement>(null)
   const topImageRef = useRef<HTMLDivElement>(null)
 
+  const defaultBgImage = mediaFiles.includes('venue-1.jpeg') ? 'venue-1.jpeg' : mediaFiles.find(f => /\.(jpg|jpeg|png|webp)$/i.test(f)) || mediaFiles[0];
+
   const getLabel = (fileName: string) => {
     const lowerName = fileName.toLowerCase();
     if (lowerName.includes('23.21.26')) return "Main Ballroom"
@@ -131,7 +133,7 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
         {/* Left Column (55%) */}
         <div className="relative w-full lg:w-[55%] h-[350px] md:h-[500px] lg:h-auto overflow-hidden" ref={topImageRef}>
           <Image
-            src={`/images/venue-images/${mediaFiles[0]}`}
+            src={`/images/venue-images/${defaultBgImage}`}
             alt="Aurum Venue Hero"
             fill
             className="object-cover"

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     default: 'Aurum Events & Catering — Freehold NJ Premier Event Venue',
     template: '%s | Aurum Events & Catering',
   },
-  description: 'Freehold NJ\'s premiere event space. Weddings, Sweet 16s, Bar/Bat Mitzvahs, Corporate Events, and more. NYC loft ambiance with Executive Chef Chris Harammis. Call (732) 294-0031.',
+  description: 'Freehold NJ\'s premiere event space. Weddings, Sweet 16s, Bar/Bat Mitzvahs, Corporate Events, and more. NYC loft ambiance with Executive Chef Aaron Hode. Call (732) 294-0031.',
   keywords: [
     // Brand
     'Aurum Events',

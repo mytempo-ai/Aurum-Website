@@ -10,7 +10,7 @@ import GeoContent from '@/components/seo/GeoContent'
 
 export const metadata: Metadata = {
   title: "Aurum Events & Catering — Freehold NJ's Premiere Event Space",
-  description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Chris Harammis. Call (732) 294-0031.",
+  description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Aaron Hode. Call (732) 294-0031.",
   keywords: [
     'Aurum Events',
     'Aurum Events & Caterers',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Aurum Events & Catering — Freehold NJ's Premiere Event Space",
-    description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Chris Harammis.",
+    description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Aaron Hode.",
     url: 'https://aurum.events',
     images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: 'Aurum Events & Catering ballroom — Freehold NJ premiere event venue' }],
   },

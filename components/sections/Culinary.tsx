@@ -120,14 +120,14 @@ export default function Culinary() {
             </p>
 
             <h3 className="chef-name font-oswald font-bold text-[44px] text-[var(--text)] mb-4 leading-tight max-md:text-3xl">
-              Chris Harammis
+              Aaron Hode
             </h3>
 
             {/* Gold divider */}
             <div className="w-10 h-[1.5px] bg-[var(--gold)] mb-6" />
 
             <p className="font-barlow text-base leading-[1.8] text-[var(--text-muted)] mb-10">
-              Chef Chris leads a kitchen dedicated to bringing the freshest, most innovative cuisine
+              Chef Aaron Hode leads a kitchen dedicated to bringing the freshest, most innovative cuisine
               to the catering world. Using cutting-edge techniques and the finest ingredients,
               Aurum&apos;s kitchen delivers unforgettable dining — from passed hors d&apos;oeuvres to
               showstopping desserts. Backed by the incredible Aaron & Rosa, our kitchen is the heart

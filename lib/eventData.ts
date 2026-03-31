@@ -36,21 +36,19 @@ export const EVENTS: EventData[] = [
     description: [
       "Your wedding day deserves a venue as extraordinary as your love story. Nestled in the heart of Freehold, NJ, Aurum Events & Catering is a one-of-a-kind NYC loft-inspired space where modern romance meets timeless elegance. Our exposed brick walls, soaring ceilings, and state-of-the-art LED wall lighting create a backdrop that photographers dream about and guests never forget.",
       "We offer flexible spaces that adapt seamlessly to your vision — whether you envision an intimate ceremony, a grand ballroom reception, a cocktail hour on our outdoor patio, or dancing under the stars on our 400 sq ft rooftop deck. Our team, led by owners Dave and Jay with Ryan on-site, guides you through every detail from your first site visit to your last dance.",
-      "Executive Chef Chris Harammis and his celebrated kitchen team craft a personalized wedding menu that reflects your unique tastes. From elegantly passed hors d'oeuvres to action stations and plated desserts, every bite tells the story of your day. With Aurum, your wedding isn't just an event — it's a masterpiece.",
+      "Executive Chef Aaron Hode and his celebrated kitchen team craft a personalized wedding menu that reflects your unique tastes. From elegantly passed hors d'oeuvres to action stations and plated desserts, every bite tells the story of your day. With Aurum, your wedding isn't just an event — it's a masterpiece.",
     ],
     highlights: [
       "Stunning NYC loft atmosphere with exposed brick walls and state-of-the-art LED lighting",
       "Multiple event spaces — main ballroom, intimate loft, cocktail patio & 400 sq ft rooftop deck",
       "Fully customizable ceremony, cocktail hour, and reception packages",
-      "Executive Chef Chris Harammis designing an exclusive menu just for you",
+      "Executive Chef Aaron Hode designing an exclusive menu just for you",
       "State-of-the-art sound and lighting system for your ceremony and first dance",
       "English & Spanish spoken — welcoming all families and traditions",
     ],
     gallery: [
-      { src: '/images/wedding.jpg', alt: 'Wedding ceremony at Aurum' },
-      { src: '/images/slide1.jpg', alt: 'Aurum ballroom elegantly set' },
-      { src: '/images/champagne.jpg', alt: 'Champagne toast celebration' },
-      { src: '/images/slide2.jpg', alt: 'Aurum event space' },
+      { src: '/images/venue-images/venue-1.jpeg', alt: 'Aurum Venue' },
+      { src: '/images/venue-images/venue-2.jpeg', alt: 'Aurum Event Space' },
     ],
   },
   {
@@ -74,7 +72,7 @@ export const EVENTS: EventData[] = [
     description: [
       "A Bar or Bat Mitzvah is one of life's most meaningful milestones, and it deserves a celebration as special as the moment itself. At Aurum Events & Catering, we understand the deep significance of this tradition and work closely with families to honor every custom while creating an atmosphere of pure joy, beauty, and celebration.",
       "Our versatile spaces transform to reflect your family's unique style and heritage — from elegant, traditional settings to vibrant, modern celebrations complete with themed décor and entertainment. The unique loft inside our main ballroom creates a stunning VIP space, while our outdoor cocktail patio sets the perfect scene for a Kiddush-style reception.",
-      "Our bilingual staff (English and Spanish) ensures every guest feels at home, and Executive Chef Chris Harammis crafts a menu that honors your dietary needs and delights every palate. From passed hors d'oeuvres to a spectacular dessert display, every detail is executed with care and precision — because this is a day your family will talk about for generations.",
+      "Our bilingual staff (English and Spanish) ensures every guest feels at home, and Executive Chef Aaron Hode crafts a menu that honors your dietary needs and delights every palate. From passed hors d'oeuvres to a spectacular dessert display, every detail is executed with care and precision — because this is a day your family will talk about for generations.",
     ],
     highlights: [
       "Versatile spaces that adapt to both intimate family gatherings and large celebrations",
@@ -85,10 +83,8 @@ export const EVENTS: EventData[] = [
       "Dedicated event coordinator by your side from planning through the last dance",
     ],
     gallery: [
-      { src: '/images/mitzvah.jpg', alt: 'Bar Mitzvah celebration' },
-      { src: '/images/food.jpg', alt: 'Aurum catering spread' },
-      { src: '/images/patio-night.jpg', alt: 'Outdoor patio event at night' },
-      { src: '/images/slide1.jpg', alt: 'Aurum ballroom beautifully decorated' },
+      { src: '/images/venue-images/venue-1.jpeg', alt: 'Aurum Venue' },
+      { src: '/images/venue-images/venue-2.jpeg', alt: 'Aurum Event Space' },
     ],
   },
   {
@@ -122,10 +118,8 @@ export const EVENTS: EventData[] = [
       "Experienced team that specializes in creating magical milestone moments",
     ],
     gallery: [
-      { src: '/images/sweet16.jpg', alt: 'Sweet Sixteen party' },
-      { src: '/images/champagne.jpg', alt: 'Celebration drinks' },
-      { src: '/images/patio-night.jpg', alt: 'Outdoor patio at night' },
-      { src: '/images/food.jpg', alt: 'Aurum catering' },
+      { src: '/images/events/sweet_16_1_1774937824267.png', alt: 'Glamorous Sweet Sixteen Party Setup' },
+      { src: '/images/events/sweet_16_2_1774937886509.png', alt: 'Luxurious Sweet Sixteen Dance Floor' },
     ],
   },
   {
@@ -149,21 +143,19 @@ export const EVENTS: EventData[] = [
     description: [
       "First impressions matter in business, and the venue you choose sends a powerful message. Aurum Events & Catering offers a sophisticated, one-of-a-kind setting that elevates every corporate gathering — whether you're hosting an intimate executive dinner, a company-wide gala, a product launch, or an awards ceremony.",
       "Our NYC loft-inspired venue, with its exposed brick walls, LED-lit feature walls, and flexible floor plans, creates a distinctive environment that energizes attendees and reinforces a culture of excellence. Our state-of-the-art AV and sound systems ensure your presentations, speeches, and entertainment land exactly as intended.",
-      "Our culinary team, led by Executive Chef Chris Harammis, offers a full range of corporate dining options — from working lunch stations and passed reception bites to full multi-course dinners. We understand that corporate hospitality is as much about the food as the event itself, and we deliver an experience your clients and colleagues will genuinely remember.",
+      "Our culinary team, led by Executive Chef Aaron Hode, offers a full range of corporate dining options — from working lunch stations and passed reception bites to full multi-course dinners. We understand that corporate hospitality is as much about the food as the event itself, and we deliver an experience your clients and colleagues will genuinely remember.",
     ],
     highlights: [
       "Distinctive NYC loft venue that impresses clients and colleagues alike",
       "State-of-the-art AV, sound, and LED lighting systems",
       "Flexible floor plans for dinners, receptions, presentations, and galas",
-      "Executive catering from Chef Chris Harammis — stations to full plated dinners",
+      "Executive catering from Chef Aaron Hode — stations to full plated dinners",
       "Dedicated event team for seamless, professional execution",
       "Conveniently located in downtown Freehold, NJ — accessible from across the region",
     ],
     gallery: [
-      { src: '/images/corporate.jpg', alt: 'Corporate event at Aurum' },
-      { src: '/images/slide2.jpg', alt: 'Aurum event space setup' },
-      { src: '/images/food.jpg', alt: 'Corporate catering spread' },
-      { src: '/images/tradeshow.jpg', alt: 'Corporate trade show setup' },
+      { src: '/images/venue-images/venue-1.jpeg', alt: 'Aurum Venue' },
+      { src: '/images/venue-images/venue-2.jpeg', alt: 'Aurum Event Space' },
     ],
   },
   {
@@ -194,10 +186,8 @@ export const EVENTS: EventData[] = [
       "Customizable packages for organizations of all sizes and budgets",
     ],
     gallery: [
-      { src: '/images/fundraiser.jpg', alt: 'Fundraiser gala event' },
-      { src: '/images/champagne.jpg', alt: 'Champagne toast at gala' },
-      { src: '/images/slide3.jpg', alt: 'Aurum venue beautifully lit' },
-      { src: '/images/food.jpg', alt: 'Elegant catering spread' },
+      { src: '/images/events/fundraiser_1_1774937843520.png', alt: 'Elegant Charity Gala Setup' },
+      { src: '/images/events/fundraiser_2_1774937906768.png', alt: 'Sophisticated Silent Auction Tables' },
     ],
   },
   {
@@ -218,21 +208,19 @@ export const EVENTS: EventData[] = [
     description: [
       "The holiday season calls for something extraordinary, and Aurum Events & Catering delivers exactly that. Whether you're planning a company holiday party, a private seasonal gathering, or a festive community celebration, our NYC loft venue transforms into a warm and magical space that captures the spirit of the season in the most spectacular way.",
       "Imagine arriving to twinkling lights and festive décor amidst the rich texture of exposed brick and glowing LED walls. Our main ballroom, intimate loft space, and outdoor patio come together to create a holiday experience that guests will be talking about long after the tinsel comes down. We handle every detail so you can simply enjoy the celebration.",
-      "Our holiday menus are crafted with the season in mind — warm, indulgent, and utterly delicious. Chef Chris Harammis and his team create festive action stations, carving tables, and seasonal passed bites that feel like a gift to your guests' palates. From the first holiday cocktail to the last dessert bite, every moment feels like the most wonderful time of the year.",
+      "Our holiday menus are crafted with the season in mind — warm, indulgent, and utterly delicious. Chef Aaron Hode and his team create festive action stations, carving tables, and seasonal passed bites that feel like a gift to your guests' palates. From the first holiday cocktail to the last dessert bite, every moment feels like the most wonderful time of the year.",
     ],
     highlights: [
       "Spectacular venue that transforms beautifully for the holiday season",
       "Festive décor options and fully customizable themes for any holiday celebration",
       "Indoor and outdoor spaces — ballroom, loft, patio, and rooftop deck",
-      "Seasonal menus crafted by Executive Chef Chris Harammis",
+      "Seasonal menus crafted by Executive Chef Aaron Hode",
       "Corporate and private holiday party packages available",
       "Fully private, exclusive buyout of the entire venue",
     ],
     gallery: [
-      { src: '/images/holiday.jpg', alt: 'Holiday party celebration' },
-      { src: '/images/champagne.jpg', alt: 'Champagne and celebration' },
-      { src: '/images/patio-night.jpg', alt: 'Outdoor patio evening event' },
-      { src: '/images/food.jpg', alt: 'Holiday catering spread' },
+      { src: '/images/venue-images/venue-1.jpeg', alt: 'Aurum Venue' },
+      { src: '/images/venue-images/venue-2.jpeg', alt: 'Aurum Event Space' },
     ],
   },
   {
@@ -253,7 +241,7 @@ export const EVENTS: EventData[] = [
     description: [
       "Life's most precious moments deserve a stage worthy of their significance. At Aurum Events & Catering, we host every kind of social celebration — from milestone birthday parties and anniversary dinners to graduation parties, engagement celebrations, retirement soirées, and everything in between. Whatever the occasion, we pour the same passion and expertise into every single event.",
       "Our NYC loft venue is completely private when you book with us — this is entirely your space, your night, your story. The exposed brick walls, LED lighting, and unique loft create an atmosphere that feels both upscale and deeply personal. We work with you to customize every element of the décor, menu, and timing to reflect what makes your celebration unique.",
-      "Executive Chef Chris Harammis and the Aurum kitchen team bring the same culinary excellence to your private gathering that they bring to weddings and galas. From elegant multi-course dinners to fun, interactive food stations and indulgent dessert spreads, the food at your event will be a highlight — and a memory — in itself.",
+      "Executive Chef Aaron Hode and the Aurum kitchen team bring the same culinary excellence to your private gathering that they bring to weddings and galas. From elegant multi-course dinners to fun, interactive food stations and indulgent dessert spreads, the food at your event will be a highlight — and a memory — in itself.",
     ],
     highlights: [
       "Completely exclusive venue buyout — the entire space is entirely yours",
@@ -264,10 +252,8 @@ export const EVENTS: EventData[] = [
       "English and Spanish spoken — welcoming all communities and cultures",
     ],
     gallery: [
-      { src: '/images/private.jpg', alt: 'Private social event celebration' },
-      { src: '/images/patio-night.jpg', alt: 'Outdoor patio evening' },
-      { src: '/images/champagne.jpg', alt: 'Celebration drinks' },
-      { src: '/images/slide1.jpg', alt: 'Aurum venue beautifully lit' },
+      { src: '/images/events/social_1_1774937859760.png', alt: 'Private Milestone Celebration' },
+      { src: '/images/events/social_2_1774937926623.png', alt: 'Elegant Private Social Event' },
     ],
   },
   {
@@ -295,10 +281,8 @@ export const EVENTS: EventData[] = [
       "Additional spaces for VIP meetings, breakout sessions, and receptions",
     ],
     gallery: [
-      { src: '/images/tradeshow.jpg', alt: 'Trade show event setup' },
-      { src: '/images/corporate.jpg', alt: 'Corporate event at Aurum' },
-      { src: '/images/slide2.jpg', alt: 'Aurum main ballroom' },
-      { src: '/images/food.jpg', alt: 'Professional catering service' },
+      { src: '/images/venue-images/venue-1.jpeg', alt: 'Aurum Venue' },
+      { src: '/images/venue-images/venue-2.jpeg', alt: 'Aurum Event Space' },
     ],
   },
 ]

@@ -28,7 +28,7 @@ export default function Hero() {
     let current = 0
     let timeoutId: NodeJS.Timeout
 
-    // Initialize playback speeds and show first video
+    // Initialize playback speeds
     videos.forEach((vid, i) => {
       if (VIDEO_CONFIG[i]) {
         vid.playbackRate = VIDEO_CONFIG[i].speed
@@ -37,19 +37,40 @@ export default function Hero() {
 
     if (videos[0]) {
       gsap.set(videos[0], { opacity: 1 })
+      videos[0].play().catch(() => {})
     }
 
     const playNext = () => {
       const config = VIDEO_CONFIG[current]
       timeoutId = setTimeout(() => {
-        gsap.to(videos[current], { opacity: 0, duration: 1, ease: 'power1.inOut' })
+        const prev = current
         current = (current + 1) % videos.length
+        
+        // Prepare and play the next video
+        videos[current].currentTime = 0
+        const playPromise = videos[current].play()
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {})
+        }
+
+        gsap.to(videos[prev], { 
+          opacity: 0, 
+          duration: 1, 
+          ease: 'power1.inOut',
+          onComplete: () => {
+            videos[prev].pause()
+          }
+        })
         gsap.to(videos[current], { opacity: 1, duration: 1, ease: 'power1.inOut' })
+        
         playNext()
       }, config.duration * 1000)
     }
 
-    playNext()
+    // Delay the start slightly to ensure the first video has time to load
+    timeoutId = setTimeout(() => {
+        playNext()
+    }, 100)
 
     const ctx = gsap.context(() => {
       // Content entrance animation
@@ -192,16 +213,17 @@ export default function Hero() {
       style={{ backgroundColor: 'var(--hero-bg)' }}
     >
       {/* Video Background */}
-      <div className="hero-videos-container absolute inset-0 w-full h-full">
+      <div className="hero-videos-container absolute inset-0 w-full h-full bg-black/50">
         {VIDEO_CONFIG.map((config, i) => (
           <video
             key={i}
             className="hero-vid absolute inset-0 w-full h-full object-cover"
             src={config.src}
-            autoPlay
+            autoPlay={i === 0}
             muted
             loop
             playsInline
+            preload={i === 0 ? "auto" : "metadata"}
             style={{ opacity: i === 0 ? 1 : 0 }}
           />
         ))}

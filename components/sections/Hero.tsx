@@ -2,18 +2,17 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import MuxVideo from '@mux/mux-video-react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const VIDEO_CONFIG = [
-  { playbackId: 'hqXDiQJIsansQeJ8Davb024oUTgFsx38WoWT7tZJ18G00', duration: 5, speed: 1 },
-  { playbackId: '302odUtgiGNfTgzeYts6J7Ezg00SHU8yjCuUqzQRvfUKQ', duration: 4, speed: 1 },
-  { playbackId: 'NOS5frPWmsxXI9v023kOJvfL00xwTBF4FBrwr74LV37FE', duration: 5, speed: 1 },
-  { playbackId: '00nNL9Va00v0144Sd01eEPYktF3GY84dG4p02voCURrYTxJY', duration: 4, speed: 2.5 }, // Fast motion
-  { playbackId: 'RUe02nh2Hxu9XLzAvJ01j25T5bVwKFOzT3rghcVO96Q7Y', duration: 5, speed: 1 },
+  { src: '/videos/ballroom.mp4', duration: 5, speed: 1 },
+  { src: '/videos/first-dance.mp4', duration: 4, speed: 1 },
+  { src: '/videos/first-dance-1.mp4', duration: 5, speed: 1 },
+  { src: '/videos/champagne.mp4', duration: 4, speed: 2.5 }, // Fast motion
+  { src: '/videos/chef-plating.mp4', duration: 5, speed: 1 },
 ]
 
 export default function Hero() {
@@ -216,10 +215,10 @@ export default function Hero() {
       {/* Video Background */}
       <div className="hero-videos-container absolute inset-0 w-full h-full bg-black/50">
         {VIDEO_CONFIG.map((config, i) => (
-          <MuxVideo
+          <video
             key={i}
             className="hero-vid absolute inset-0 w-full h-full object-cover"
-            playbackId={config.playbackId}
+            src={config.src}
             autoPlay={i === 0}
             muted
             loop

@@ -1,0 +1,52 @@
+[0]<a class='nav-logo flex-shrink-0' href='/' />
+	[1]<img  />
+[2]<a class='nav-link text-nav-link relative group text-white hover:text-[var(--gold)] transition-colors duration-200' href='#hero'>Home />
+[3]<a class='nav-link text-nav-link relative group text-white hover:text-[var(--gold)] transition-colors duration-200' href='#venue'>The Venue />
+[4]<a class='nav-link text-nav-link relative group text-white hover:text-[var(--gold)] transition-colors duration-200' href='#events'>Events />
+[5]<a class='nav-link text-nav-link relative group text-white hover:text-[var(--gold)] transition-colors duration-200' href='/menus'>Menus />
+[6]<a class='nav-link text-nav-link relative group text-white hover:text-[var(--gold)] transition-colors duration-200' href='#reviews'>Reviews />
+[7]<a class='nav-link text-nav-link relative group text-white hover:text-[var(--gold)] transition-colors duration-200' href='#contact'>Contact />
+[8]<a class='font-barlow text-[13px] text-white/70 hover:text-[var(--gold)] transition-colors duration-200' href='tel:7322940031'>(732) 294-0031 />
+[9]<a class='text-button px-4 xl:px-5 py-2.5 border-2 border-[var(--gold)] text-[var(--gold)] hover:bg-[var(--gold)] hover:text-white transition-all duration-200 rounded-sm' href='/book-a-tour'>Book a Tour />
+FOLLOW US ON INSTAGRAM
+Your Questions, Answered
+Everything About Aurum
+Freehold, NJ's Premier Event Space
+Aurum Events & Catering
+is located at
+17 South Street, Freehold, NJ 07728
+, serving all of Monmouth County and Central New Jersey.
+We specialize in
+weddings
+,
+sweet sixteens
+,
+bar & bat mitzvahs
+,
+quinceañeras
+, and
+corporate events
+— all backed by our world-class in-house culinary team.
+[10]<button class='w-full flex items-center justify-between gap-4 py-5 px-0 text-left' />
+	[11]<div  />
+		[12]<span  />
+		[13]<span >Where is Aurum Events located? />
+	[14]<span >Read />
+We are located at 17 South Street, Freehold, NJ 07728 — in the heart of Freehold, Monmouth County, easily accessible from Route 9, Route 33, and the Garden State Parkway.
+[15]<button class='w-full flex items-center justify-between gap-4 py-5 px-0 text-left' />
+	[16]<div  />
+		[17]<span  />
+		[18]<span >What types of events does Aurum Events host? />
+	[19]<span >Read />
+We specialize in weddings, sweet sixteens, bar and bat mitzvahs, quinceañeras, corporate events, holiday parties, birthday milestones, and any special celebration. Our team handles every detail from start to finish.
+[20]<button class='w-full flex items-center justify-between gap-4 py-5 px-0 text-left' />
+	[21]<div  />
+		[22]<span  />
+		[23]<span >Does Aurum provide in-house catering? />
+	[24]<span >Read />
+Yes — our full-service in-house culinary team offers cocktail hour, action stations, plated dinners, children's menus, and stunning dessert displays. No outside caterers needed.
+[25]<button class='w-full flex items-center justify-between gap-4 py-5 px-0 text-left' />
+	[26]<div  />
+		[27]<span  />
+		[28]<span >What luxury enhancements are available? />
+	[29]<span >Read />

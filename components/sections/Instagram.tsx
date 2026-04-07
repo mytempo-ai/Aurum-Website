@@ -7,33 +7,31 @@ import SectionLabel from '@/components/ui/SectionLabel'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const BASE = 'https://aurum.events/wp-content/uploads/sb-instagram-feed-images/'
-
 const POSTS = [
-  { type: 'photo', file: '641775678_18423884146143660_7124639696238382695_nfull.webp', url: 'https://www.instagram.com/p/DVCuOHQgHv9/' },
-  { type: 'reel',  file: '624761391_1588659359120186_5390517285653405953_nfull.jpg',  url: 'https://www.instagram.com/reel/DUMz7yQgANo/' },
-  { type: 'reel',  file: '488373572_18379659508143660_1740736176368063884_nfull.jpg', url: 'https://www.instagram.com/reel/DIF9spOAwco/' },
-  { type: 'reel',  file: '485628774_18377992651143660_9191843937866981732_nfull.jpg', url: 'https://www.instagram.com/reel/DHhqKSxg_qg/' },
-  { type: 'reel',  file: '476457381_18372153316143660_6510719533655092795_nfull.jpg', url: 'https://www.instagram.com/reel/DFrBoGiAPjB/' },
-  { type: 'reel',  file: '476040860_18371783590143660_6659959953236131965_nfull.jpg', url: 'https://www.instagram.com/reel/DFjWxCLgu2K/' },
-  { type: 'reel',  file: '474695929_18370372708143660_7569003980961049389_nfull.jpg', url: 'https://www.instagram.com/reel/DFEhaIdg_l9/' },
-  { type: 'reel',  file: '473656565_18369359584143660_922076827287858104_nfull.jpg',  url: 'https://www.instagram.com/reel/DEvXIpKS5UF/' },
-  { type: 'reel',  file: '472376702_18368188105143660_5110723557285678909_nfull.jpg', url: 'https://www.instagram.com/reel/DEYzVLeunre/' },
-  { type: 'reel',  file: '472429487_18368180440143660_91865806970235756_nfull.jpg',   url: 'https://www.instagram.com/reel/DEYoAwOPHdX/' },
-  { type: 'photo', file: '470943877_1227607498324079_663517388446584626_nfull.jpg',   url: 'https://www.instagram.com/p/DD64suoNGvC/' },
-  { type: 'photo', file: '470476913_607003965134059_1429380753281832561_nfull.jpg',   url: 'https://www.instagram.com/p/DDo3HRRNbgM/' },
-  { type: 'reel',  file: '469956943_18364855282143660_5046369155099418735_nfull.jpg', url: 'https://www.instagram.com/reel/DDclVuJxC1L/' },
-  { type: 'reel',  file: '503332651_974898877888060_5306795854252155778_nfull.jpg',   url: 'https://www.instagram.com/reel/DDb_LNbvAFI/' },
-  { type: 'photo', file: '469745382_472926099153212_2630329756832065807_nfull.jpg',   url: 'https://www.instagram.com/p/DDW1jR_t4rc/' },
-  { type: 'photo', file: '469333812_950225843832711_7491679502884325735_nfull.jpg',   url: 'https://www.instagram.com/p/DDJ9mM5tCr9/' },
-  { type: 'reel',  file: '503799787_1021075360133057_5105976194675013402_nfull.jpg',  url: 'https://www.instagram.com/reel/DDE0AYFNmts/' },
-  { type: 'reel',  file: '503318631_730284006145977_2824138164720755760_nfull.jpg',   url: 'https://www.instagram.com/reel/DCy3uZxC4RC/' },
-  { type: 'photo', file: '467649302_1087440759453450_1193643974268039443_nfull.jpg',  url: 'https://www.instagram.com/p/DCgw23UtbKF/' },
-  { type: 'photo', file: '466808195_604950755190478_1054270311156290960_nfull.jpg',   url: 'https://www.instagram.com/p/DCT46W3tDKI/' },
-  { type: 'photo', file: '466427268_910356313992608_4754537237157216951_nfull.jpg',   url: 'https://www.instagram.com/p/DCOvTJft8mn/' },
-  { type: 'photo', file: '465753003_3806418176237519_396176272165127369_nfull.jpg',   url: 'https://www.instagram.com/p/DCB3U1GNd0d/' },
-  { type: 'reel',  file: '503813161_690262160429461_3324004663808498333_nfull.jpg',   url: 'https://www.instagram.com/reel/DB8twA1o6Kc/' },
-  { type: 'reel',  file: '497693658_579245264745051_1700443005066549255_nfull.jpg',   url: 'https://www.instagram.com/reel/C-E6IWNMZBL/' },
+  { type: 'photo', thumb: '/images/instagram/ig_0.jpg',  url: 'https://www.instagram.com/p/DVCuOHQgHv9/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_1.jpg',  url: 'https://www.instagram.com/reel/DUMz7yQgANo/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_2.jpg',  url: 'https://www.instagram.com/reel/DIF9spOAwco/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_3.jpg',  url: 'https://www.instagram.com/reel/DHhqKSxg_qg/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_4.jpg',  url: 'https://www.instagram.com/reel/DFrBoGiAPjB/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_5.jpg',  url: 'https://www.instagram.com/reel/DFjWxCLgu2K/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_6.jpg',  url: 'https://www.instagram.com/reel/DFEhaIdg_l9/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_7.jpg',  url: 'https://www.instagram.com/reel/DEvXIpKS5UF/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_8.jpg',  url: 'https://www.instagram.com/reel/DEYzVLeunre/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_8.jpg',  url: 'https://www.instagram.com/reel/DEYoAwOPHdX/' },
+  { type: 'photo', thumb: '/images/instagram/ig_10.jpg', url: 'https://www.instagram.com/p/DD64suoNGvC/' },
+  { type: 'photo', thumb: '/images/instagram/ig_11.jpg', url: 'https://www.instagram.com/p/DDo3HRRNbgM/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_12.jpg', url: 'https://www.instagram.com/reel/DDclVuJxC1L/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_13.jpg', url: 'https://www.instagram.com/reel/DDb_LNbvAFI/' },
+  { type: 'photo', thumb: '/images/instagram/ig_14.jpg', url: 'https://www.instagram.com/p/DDW1jR_t4rc/' },
+  { type: 'photo', thumb: '/images/instagram/ig_15.jpg', url: 'https://www.instagram.com/p/DDJ9mM5tCr9/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_16.jpg', url: 'https://www.instagram.com/reel/DDE0AYFNmts/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_17.jpg', url: 'https://www.instagram.com/reel/DCy3uZxC4RC/' },
+  { type: 'photo', thumb: '/images/instagram/ig_18.jpg', url: 'https://www.instagram.com/p/DCgw23UtbKF/' },
+  { type: 'photo', thumb: '/images/instagram/ig_19.jpg', url: 'https://www.instagram.com/p/DCT46W3tDKI/' },
+  { type: 'photo', thumb: '/images/instagram/ig_20.jpg', url: 'https://www.instagram.com/p/DCOvTJft8mn/' },
+  { type: 'photo', thumb: '/images/instagram/ig_21.jpg', url: 'https://www.instagram.com/p/DCB3U1GNd0d/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_22.jpg', url: 'https://www.instagram.com/reel/DB8twA1o6Kc/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_23.jpg', url: 'https://www.instagram.com/reel/C-E6IWNMZBL/' },
 ] as const
 
 export default function Instagram() {
@@ -119,7 +117,7 @@ export default function Instagram() {
             >
               {/* Thumbnail */}
               <img
-                src={`${BASE}${post.file}`}
+                src={post.thumb}
                 alt={`Aurum Events Instagram ${post.type === 'reel' ? 'reel' : 'post'} ${i + 1}`}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[400ms] group-hover:scale-105"
                 loading="lazy"

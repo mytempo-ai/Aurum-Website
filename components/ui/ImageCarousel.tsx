@@ -70,6 +70,7 @@ export default function ImageCarousel({
           <img
             src={img.src}
             alt={img.alt}
+            loading="lazy"
             className="w-full h-full object-cover"
           />
         </div>

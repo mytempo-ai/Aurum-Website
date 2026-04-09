@@ -130,6 +130,7 @@ export default function Events() {
               <img
                 src={event.image}
                 alt={event.name}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[350ms] group-hover:scale-105"
               />
 

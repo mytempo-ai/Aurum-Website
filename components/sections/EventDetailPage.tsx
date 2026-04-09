@@ -222,6 +222,7 @@ export default function EventDetailPage({ event }: { event: EventData }) {
                 <img
                   src={img.src}
                   alt={img.alt}
+                  loading="lazy"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>

@@ -212,6 +212,7 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
                     muted
                     loop
                     playsInline
+                    preload="none"
                     className="w-full h-full object-cover"
                   />
                 ) : (

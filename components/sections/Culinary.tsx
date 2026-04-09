@@ -151,6 +151,7 @@ export default function Culinary() {
                   <img
                     src={dish.image}
                     alt={dish.name}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>

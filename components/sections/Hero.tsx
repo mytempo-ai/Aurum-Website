@@ -223,7 +223,7 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload={i === 0 ? "auto" : "metadata"}
+            preload={i === 0 ? "auto" : "none"}
             style={{ opacity: i === 0 ? 1 : 0 }}
           />
         ))}

@@ -228,6 +228,7 @@ export default function EnhancementsPage() {
                   <img
                     src={item.image}
                     alt={item.name}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     style={{ objectPosition: item.objectPosition }}
                   />

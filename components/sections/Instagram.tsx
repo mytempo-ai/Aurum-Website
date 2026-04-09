@@ -121,6 +121,7 @@ export default function Instagram() {
                 alt={`Aurum Events Instagram ${post.type === 'reel' ? 'reel' : 'post'} ${i + 1}`}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[400ms] group-hover:scale-105"
                 loading="lazy"
+                decoding="async"
               />
 
               {/* Reel play icon (always visible) */}

@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger)
 const VIDEO_CONFIG = [
   { src: '/videos/ballroom.mp4', duration: 5, speed: 1 },
   { src: '/videos/first-dance.mp4', duration: 4, speed: 1 },
-  { src: '/videos/first-dance-1.mp4', duration: 5, speed: 1 },
   { src: '/videos/champagne.mp4', duration: 4, speed: 2.5 }, // Fast motion
   { src: '/videos/chef-plating.mp4', duration: 5, speed: 1 },
 ]
@@ -223,7 +222,7 @@ export default function Hero() {
             muted
             loop
             playsInline
-            preload={i === 0 ? "auto" : "metadata"}
+            preload={i === 0 ? "auto" : "none"}
             style={{ opacity: i === 0 ? 1 : 0 }}
           />
         ))}

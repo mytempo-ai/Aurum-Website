@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Inter, Oswald, Barlow, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
@@ -7,6 +8,17 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
 import LenisProvider from "@/components/layout/LenisProvider";
 import StructuredData from "@/components/seo/StructuredData";
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald', display: 'swap' });
+const barlow = Barlow({ 
+  weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'], 
+  variable: '--font-barlow', 
+  display: 'swap' 
+});
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair', display: 'swap', weight: ['400', '700'], style: ['normal', 'italic'] });
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -153,12 +165,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-US">
+    <html lang="en-US" className={`${inter.variable} ${oswald.variable} ${barlow.variable} ${playfair.variable}`}>
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
-          rel="stylesheet"
-        />
         {/* Geo meta tags for local search engines & crawlers */}
         <meta name="geo.region" content="US-NJ" />
         <meta name="geo.placename" content="Freehold, New Jersey" />

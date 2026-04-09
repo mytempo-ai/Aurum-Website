@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionLabel from '@/components/ui/SectionLabel'
@@ -116,13 +117,16 @@ export default function Instagram() {
               style={{ aspectRatio: '1 / 1' }}
             >
               {/* Thumbnail */}
-              <img
-                src={post.thumb}
-                alt={`Aurum Events Instagram ${post.type === 'reel' ? 'reel' : 'post'} ${i + 1}`}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[400ms] group-hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
+              <div className="absolute inset-0 w-full h-full">
+                <Image
+                  src={post.thumb}
+                  alt={`Aurum Events Instagram ${post.type === 'reel' ? 'reel' : 'post'} ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-[400ms] group-hover:scale-105"
+                  quality={85}
+                />
+              </div>
 
               {/* Reel play icon (always visible) */}
               {post.type === 'reel' && (

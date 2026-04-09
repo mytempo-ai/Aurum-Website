@@ -32,8 +32,8 @@
   --hero-text: #FAF3E0;
   --hero-gold: #D4A044;
 
-  --font-serif: 'Playfair Display', serif;
-  --font-body: 'Inter', 'Barlow', sans-serif;
+  --font-serif: var(--font-playfair), 'Playfair Display', serif;
+  --font-body: var(--font-inter), var(--font-barlow), 'Inter', 'Barlow', sans-serif;
 }
 
 html {
@@ -64,7 +64,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-oswald), 'Oswald', sans-serif;
   color: var(--text-brown);
   line-height: 1.15;
 }

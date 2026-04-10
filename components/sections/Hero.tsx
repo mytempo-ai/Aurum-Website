@@ -46,12 +46,14 @@ export default function Hero() {
         current = (current + 1) % videos.length
         
         // Prepare and play the next video
+        videos[current].loop = true
         videos[current].currentTime = 0
         const playPromise = videos[current].play()
         if (playPromise !== undefined) {
           playPromise.catch(() => {})
         }
 
+        videos[prev].loop = false
         gsap.to(videos[prev], { 
           opacity: 0, 
           duration: 1, 
@@ -220,6 +222,7 @@ export default function Hero() {
             src={config.src}
             autoPlay={i === 0}
             muted
+            loop
             playsInline
             preload={i === 0 ? "auto" : "none"}
             style={{ opacity: i === 0 ? 1 : 0 }}

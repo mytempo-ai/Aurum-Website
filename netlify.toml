@@ -11,17 +11,19 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Videos — long cache
+# Videos — long cache + CORS for Bunny CDN pull
 [[headers]]
   for = "/videos/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+    Access-Control-Allow-Origin = "*"
 
-# Images — long cache
+# Images — long cache + CORS for Bunny CDN pull
 [[headers]]
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+    Access-Control-Allow-Origin = "*"
 
 # Fonts — long cache
 [[headers]]

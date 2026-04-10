@@ -27,11 +27,18 @@ export default function Hero() {
     let current = 0
     let timeoutId: NodeJS.Timeout
 
-    // Initialize playback speeds
+    // Initialize playback speeds and add ended-event seamless restart
     videos.forEach((vid, i) => {
       if (VIDEO_CONFIG[i]) {
         vid.playbackRate = VIDEO_CONFIG[i].speed
       }
+      // Restart only the ACTIVE clip when it ends — prevents visible freeze
+      vid.addEventListener('ended', () => {
+        if (i === current) {
+          vid.currentTime = 0
+          vid.play().catch(() => {})
+        }
+      })
     })
 
     if (videos[0]) {
@@ -46,20 +53,19 @@ export default function Hero() {
         current = (current + 1) % videos.length
         
         // Prepare and play the next video
-        videos[current].loop = true
         videos[current].currentTime = 0
         const playPromise = videos[current].play()
         if (playPromise !== undefined) {
           playPromise.catch(() => {})
         }
 
-        videos[prev].loop = false
         gsap.to(videos[prev], { 
           opacity: 0, 
           duration: 1, 
           ease: 'power1.inOut',
           onComplete: () => {
             videos[prev].pause()
+            videos[prev].currentTime = 0
           }
         })
         gsap.to(videos[current], { opacity: 1, duration: 1, ease: 'power1.inOut' })
@@ -214,7 +220,8 @@ export default function Hero() {
       style={{ backgroundColor: 'var(--hero-bg)' }}
     >
       {/* Video Background */}
-      <div className="hero-videos-container absolute inset-0 w-full h-full bg-black/50">
+      {/* Container is 115% tall and offset -10% up so parallax (-15%) never exposes a gap */}
+      <div className="hero-videos-container absolute inset-x-0 bg-black/50" style={{ top: '-10%', height: '120%' }}>
         {VIDEO_CONFIG.map((config, i) => (
           <video
             key={i}
@@ -222,10 +229,9 @@ export default function Hero() {
             src={config.src}
             autoPlay={i === 0}
             muted
-            loop
             playsInline
             preload={i === 0 ? "auto" : "none"}
-            style={{ opacity: i === 0 ? 1 : 0 }}
+            style={{ opacity: i === 0 ? 1 : 0, display: 'block' }}
           />
         ))}
         {/* Dark Overlay */}

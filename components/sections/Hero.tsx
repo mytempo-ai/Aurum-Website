@@ -220,7 +220,6 @@ export default function Hero() {
             src={config.src}
             autoPlay={i === 0}
             muted
-            loop
             playsInline
             preload={i === 0 ? "auto" : "none"}
             style={{ opacity: i === 0 ? 1 : 0 }}

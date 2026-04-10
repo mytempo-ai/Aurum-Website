@@ -8,10 +8,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const VIDEO_CONFIG = [
-  { src: '/videos/ballroom.mp4', duration: 5, speed: 1 },
-  { src: '/videos/first-dance.mp4', duration: 4, speed: 1 },
-  { src: '/videos/champagne.mp4', duration: 4, speed: 2.5 }, // Fast motion
-  { src: '/videos/chef-plating.mp4', duration: 5, speed: 1 },
+  { src: '/videos/ballroom.mp4',    duration: 6, speed: 1   }, // Wide establishing shot
+  { src: '/videos/first-dance.mp4', duration: 5, speed: 1   }, // Romantic energy
+  { src: '/videos/champagne.mp4',   duration: 3, speed: 2.5 }, // Punchy fast motion — 8s÷2.5=3.2s runtime, slot<runtime so clip never loops
+  { src: '/videos/chef-plating.mp4',duration: 5, speed: 1   }, // Premium finish
 ]
 
 export default function Hero() {
@@ -27,18 +27,11 @@ export default function Hero() {
     let current = 0
     let timeoutId: NodeJS.Timeout
 
-    // Initialize playback speeds and add ended-event seamless restart
+    // Set playback speeds — slot durations are set below clip runtime so ended event never fires
     videos.forEach((vid, i) => {
       if (VIDEO_CONFIG[i]) {
         vid.playbackRate = VIDEO_CONFIG[i].speed
       }
-      // Restart only the ACTIVE clip when it ends — prevents visible freeze
-      vid.addEventListener('ended', () => {
-        if (i === current) {
-          vid.currentTime = 0
-          vid.play().catch(() => {})
-        }
-      })
     })
 
     if (videos[0]) {
@@ -51,32 +44,33 @@ export default function Hero() {
       timeoutId = setTimeout(() => {
         const prev = current
         current = (current + 1) % videos.length
-        
-        // Prepare and play the next video
+
+        // Prepare next video
         videos[current].currentTime = 0
         const playPromise = videos[current].play()
         if (playPromise !== undefined) {
           playPromise.catch(() => {})
         }
 
-        gsap.to(videos[prev], { 
-          opacity: 0, 
-          duration: 1, 
-          ease: 'power1.inOut',
+        // Cinema crossfade — outgoing fades out, incoming fades in simultaneously
+        gsap.to(videos[prev], {
+          opacity: 0,
+          duration: 1.2,
+          ease: 'power2.inOut',
           onComplete: () => {
             videos[prev].pause()
             videos[prev].currentTime = 0
           }
         })
-        gsap.to(videos[current], { opacity: 1, duration: 1, ease: 'power1.inOut' })
-        
+        gsap.to(videos[current], { opacity: 1, duration: 1.2, ease: 'power2.inOut' })
+
         playNext()
       }, config.duration * 1000)
     }
 
-    // Delay the start slightly to ensure the first video has time to load
+    // Small delay to ensure first video is ready before starting the cycle
     timeoutId = setTimeout(() => {
-        playNext()
+      playNext()
     }, 100)
 
     const ctx = gsap.context(() => {

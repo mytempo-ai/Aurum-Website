@@ -32,12 +32,12 @@ export const metadata: Metadata = {
 }
 
 const CATEGORIES = [
-  { id: 'hors-doeuvres', title: "Hors d'Oeuvres", desc: "Passed & stationary appetizers to start the evening", image: "/images/menu/hors-doeuvres-1.png" },
-  { id: 'stations', title: "Action Stations", desc: "Interactive dining experiences in every corner", image: "/images/menu/stations-1.png" },
-  { id: 'first-course', title: "First Course", desc: "Fresh greens and elegant starters", image: "/images/menu/first-course-1.png" },
-  { id: 'dinner', title: "Dinner Selections", desc: "Expertly crafted mains and sides", image: "/images/menu/dinner-1.png" },
-  { id: 'childrens-menu', title: "Children's Menu", desc: "Kid-friendly favorites", image: "/images/menu/kids-1.png" },
-  { id: 'desserts', title: "Desserts", desc: "Sweet finales to remember", image: "/images/menu/dessert-1.png" },
+  { id: 'hors-doeuvres', title: "Hors d'Oeuvres", desc: "Passed & stationary appetizers to start the evening", image: "/images/menu/hors-doeuvres-1.jpg" },
+  { id: 'stations', title: "Action Stations", desc: "Interactive dining experiences in every corner", image: "/images/menu/stations-1.jpg" },
+  { id: 'first-course', title: "First Course", desc: "Fresh greens and elegant starters", image: "/images/menu/first-course-1.jpg" },
+  { id: 'dinner', title: "Dinner Selections", desc: "Expertly crafted mains and sides", image: "/images/menu/dinner-1.jpg" },
+  { id: 'childrens-menu', title: "Children's Menu", desc: "Kid-friendly favorites", image: "/images/menu/kids-1.jpg" },
+  { id: 'desserts', title: "Desserts", desc: "Sweet finales to remember", image: "/images/menu/dessert-1.jpg" },
 ]
 
 export default function MenusPage() {

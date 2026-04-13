@@ -118,8 +118,8 @@ export const EVENTS: EventData[] = [
       "Experienced team that specializes in creating magical milestone moments",
     ],
     gallery: [
-      { src: '/images/events/sweet_16_1_1774937824267.png', alt: 'Glamorous Sweet Sixteen Party Setup' },
-      { src: '/images/events/sweet_16_2_1774937886509.png', alt: 'Luxurious Sweet Sixteen Dance Floor' },
+      { src: '/images/events/sweet_16_1_1774937824267.jpg', alt: 'Glamorous Sweet Sixteen Party Setup' },
+      { src: '/images/events/sweet_16_2_1774937886509.jpg', alt: 'Luxurious Sweet Sixteen Dance Floor' },
     ],
   },
   {
@@ -186,8 +186,8 @@ export const EVENTS: EventData[] = [
       "Customizable packages for organizations of all sizes and budgets",
     ],
     gallery: [
-      { src: '/images/events/fundraiser_1_1774937843520.png', alt: 'Elegant Charity Gala Setup' },
-      { src: '/images/events/fundraiser_2_1774937906768.png', alt: 'Sophisticated Silent Auction Tables' },
+      { src: '/images/events/fundraiser_1_1774937843520.jpg', alt: 'Elegant Charity Gala Setup' },
+      { src: '/images/events/fundraiser_2_1774937906768.jpg', alt: 'Sophisticated Silent Auction Tables' },
     ],
   },
   {
@@ -252,8 +252,8 @@ export const EVENTS: EventData[] = [
       "English and Spanish spoken — welcoming all communities and cultures",
     ],
     gallery: [
-      { src: '/images/events/social_1_1774937859760.png', alt: 'Private Milestone Celebration' },
-      { src: '/images/events/social_2_1774937926623.png', alt: 'Elegant Private Social Event' },
+      { src: '/images/events/social_1_1774937859760.jpg', alt: 'Private Milestone Celebration' },
+      { src: '/images/events/social_2_1774937926623.jpg', alt: 'Elegant Private Social Event' },
     ],
   },
   {

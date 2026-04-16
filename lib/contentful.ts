@@ -9,8 +9,8 @@
  * Fields: title, longText (HTML), slug, featuredimage (Media)
  */
 
-const SPACE_ID = process.env.CONTENTFUL_SPACE_ID
-const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN
+const SPACE_ID = process.env.CONTENTFUL_SPACE_ID ?? 'aev88ri4pikz'
+const ACCESS_TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN ?? 'FhXFrolSAtlOhcTUelYJCIhO5VlY8OhwkE_3BK_WfUQ'
 const BASE_URL = `https://cdn.contentful.com/spaces/${SPACE_ID}/environments/master`
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -119,10 +119,6 @@ export function formatDate(iso: string): string {
 export async function getAllPosts(): Promise<
   { post: BlogPost; imageUrl: string; imageDimensions: { width: number; height: number } }[]
 > {
-  if (!SPACE_ID || !ACCESS_TOKEN) {
-    console.error('[Contentful] Missing CONTENTFUL_SPACE_ID or CONTENTFUL_ACCESS_TOKEN')
-    return []
-  }
 
   const url = `${BASE_URL}/entries?access_token=${ACCESS_TOKEN}&content_type=aurumBlogs&include=2&order=-sys.createdAt`
 
@@ -161,10 +157,6 @@ export async function getPostBySlug(urlSlug: string): Promise<{
   imageUrl: string
   imageDimensions: { width: number; height: number }
 } | null> {
-  if (!SPACE_ID || !ACCESS_TOKEN) {
-    console.error('[Contentful] Missing CONTENTFUL_SPACE_ID or CONTENTFUL_ACCESS_TOKEN')
-    return null
-  }
 
   // Convert URL-safe slug back to the Contentful slug (spaces)
   const contentfulSlug = slugToContentful(urlSlug)
@@ -204,8 +196,6 @@ export async function getPostBySlug(urlSlug: string): Promise<{
  * Returns URL-safe slugs (spaces converted to hyphens).
  */
 export async function getAllSlugs(): Promise<string[]> {
-  if (!SPACE_ID || !ACCESS_TOKEN) return []
-
   const url = `${BASE_URL}/entries?access_token=${ACCESS_TOKEN}&content_type=aurumBlogs&select=fields.slug&limit=200`
 
   try {

@@ -12,6 +12,7 @@ const QUICK_LINKS = [
   { label: 'The Venue', href: '#venue' },
   { label: 'Events', href: '#events' },
   { label: 'Menus', href: '/menus' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Reviews', href: '#reviews' },
   { label: 'Contact', href: '#contact' },
   { label: 'Book a Tour', href: '/book-a-tour' },

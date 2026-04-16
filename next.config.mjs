@@ -13,6 +13,12 @@ const nextConfig = {
         hostname: 'aurumsite.b-cdn.net',
         pathname: '/**',
       },
+      {
+        // Contentful CDN — for blog featured images
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+        pathname: '/**',
+      },
     ],
   },
 }

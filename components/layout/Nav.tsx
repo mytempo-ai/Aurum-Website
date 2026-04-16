@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: 'The Venue', href: '#venue', type: 'scroll' },
   { label: 'Events', href: '#events', type: 'scroll' },
   { label: 'Menus', href: '/menus', type: 'route' },
+  { label: 'Blog', href: '/blog', type: 'route' },
   { label: 'Reviews', href: '#reviews', type: 'scroll' },
   { label: 'Contact', href: '#contact', type: 'scroll' },
 ]

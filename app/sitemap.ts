@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 const BASE_URL = 'https://aurum.events'
-const NOW = new Date('2026-03-25')
+const NOW = new Date('2026-05-06')
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
@@ -71,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.8,
         },
-        // Event detail pages
+        // Event detail pages — slugs must match lib/eventData.ts
         {
             url: `${BASE_URL}/events/weddings`,
             lastModified: NOW,
@@ -79,13 +79,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
-            url: `${BASE_URL}/events/sweet-sixteen`,
+            url: `${BASE_URL}/events/sweet-sixteens`,
             lastModified: NOW,
             changeFrequency: 'monthly',
             priority: 0.9,
         },
         {
-            url: `${BASE_URL}/events/bar-bat-mitzvah`,
+            url: `${BASE_URL}/events/bar-bat-mitzvahs`,
             lastModified: NOW,
             changeFrequency: 'monthly',
             priority: 0.9,
@@ -97,10 +97,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
-            url: `${BASE_URL}/events/quinceanera`,
+            url: `${BASE_URL}/events/fundraisers`,
             lastModified: NOW,
             changeFrequency: 'monthly',
             priority: 0.8,
+        },
+        {
+            url: `${BASE_URL}/events/holiday-parties`,
+            lastModified: NOW,
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: `${BASE_URL}/events/social-events`,
+            lastModified: NOW,
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: `${BASE_URL}/events/trade-shows`,
+            lastModified: NOW,
+            changeFrequency: 'monthly',
+            priority: 0.7,
         },
     ]
 }

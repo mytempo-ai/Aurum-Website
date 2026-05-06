@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Passed Hors d'Oeuvres Catering NJ | Aurum Events",
     description: "Elegant passed hors d'oeuvres for weddings & events in Freehold NJ. Short Rib & Polenta, Lamb Chops, Tuna Tartare & more.",
     url: 'https://aurum.events/menus/hors-doeuvres',
-    images: [{ url: '/images/menu/hors-doeuvres-1.png', width: 1200, height: 630, alt: "Passed hors d'oeuvres at Aurum Events Freehold NJ" }],
+    images: [{ url: '/images/menu/hors-doeuvres-1.jpg', width: 1200, height: 630, alt: "Passed hors d'oeuvres at Aurum Events Freehold NJ" }],
   },
 }
 const ITEMS = [
@@ -87,9 +87,9 @@ export default function HorsDoeuvresPage() {
       </p>
 
       <MenuGallery images={[
-        '/images/menu/hors-doeuvres-1.png',
-        '/images/menu/stations-1.png', // Reusing some high quality images
-        '/images/menu/first-course-1.png'
+        '/images/menu/hors-doeuvres-1.jpg',
+        '/images/menu/stations-1.jpg',
+        '/images/menu/first-course-1.jpg'
       ]} />
     </MenuLayout>
   )

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: 'Dinner Selections — Event Dinner Catering NJ | Aurum Events',
     description: "Extensive dinner menu for weddings & events in Freehold NJ. Chicken, beef, seafood, pasta & vegetarian options.",
     url: 'https://aurum.events/menus/dinner',
-    images: [{ url: '/images/menu/dinner-1.png', width: 1200, height: 630, alt: 'Dinner catering at Aurum Events Freehold NJ' }],
+    images: [{ url: '/images/menu/dinner-1.jpg', width: 1200, height: 630, alt: 'Dinner catering at Aurum Events Freehold NJ' }],
   },
 }
 const CATEGORIES = [
@@ -86,9 +86,9 @@ export default function DinnerMenu() {
       </div>
 
       <MenuGallery images={[
-        '/images/menu/dinner-1.png',
-        '/images/menu/stations-2.png',
-        '/images/menu/first-course-1.png'
+        '/images/menu/dinner-1.jpg',
+        '/images/menu/stations-2.jpg',
+        '/images/menu/first-course-1.jpg'
       ]} />
     </MenuLayout>
   )

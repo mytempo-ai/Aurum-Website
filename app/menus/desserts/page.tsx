@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: 'Dessert Catering NJ — S\'mores, Cannolis & More | Aurum Events',
     description: "Showstopping desserts for events in Freehold NJ. S'mores station, hot cookie dough, cannolis, custom Bar Mitzvah cakes & more.",
     url: 'https://aurum.events/menus/desserts',
-    images: [{ url: '/images/menu/dessert-1.png', width: 1200, height: 630, alt: 'Dessert catering at Aurum Events Freehold NJ' }],
+    images: [{ url: '/images/menu/dessert-1.jpg', width: 1200, height: 630, alt: 'Dessert catering at Aurum Events Freehold NJ' }],
   },
 }
 export default function DessertsMenu() {
@@ -88,9 +88,9 @@ export default function DessertsMenu() {
       </div>
 
       <MenuGallery images={[
-        '/images/menu/dessert-1.png',
-        '/images/menu/kids-1.png',
-        '/images/menu/hors-doeuvres-1.png'
+        '/images/menu/dessert-1.jpg',
+        '/images/menu/kids-1.jpg',
+        '/images/menu/hors-doeuvres-1.jpg'
       ]} />
     </MenuLayout>
   )

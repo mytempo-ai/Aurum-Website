@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: 'Action Stations Catering NJ | Aurum Events',
     description: "Interactive action stations for events in Freehold NJ. Skirt Steak Grill, Sushi Bar, Brazilian Rodízio & more.",
     url: 'https://aurum.events/menus/stations',
-    images: [{ url: '/images/menu/stations-1.png', width: 1200, height: 630, alt: 'Action stations catering at Aurum Events Freehold NJ' }],
+    images: [{ url: '/images/menu/stations-1.jpg', width: 1200, height: 630, alt: 'Action stations catering at Aurum Events Freehold NJ' }],
   },
 }
 export default function StationsMenu() {
@@ -135,9 +135,9 @@ export default function StationsMenu() {
       </div>
 
       <MenuGallery images={[
-        '/images/menu/stations-1.png',
-        '/images/menu/stations-2.png',
-        '/images/menu/stations-3.png'
+        '/images/menu/stations-1.jpg',
+        '/images/menu/stations-2.jpg',
+        '/images/menu/stations-3.jpg'
       ]} />
     </MenuLayout>
   )

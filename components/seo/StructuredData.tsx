@@ -5,7 +5,7 @@ const BUSINESS_INFO = {
     name: 'Aurum Events & Catering',
     url: 'https://aurum.events',
     logo: 'https://aurum.events/images/footer-logo.png',
-    image: 'https://aurum.events/images/hero-bg.jpg',
+    image: 'https://aurum.events/images/slide1.jpg',
     phone: '+17322940031',
     phoneDisplay: '(732) 294-0031',
     address: {

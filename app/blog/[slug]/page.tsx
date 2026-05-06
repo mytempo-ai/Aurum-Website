@@ -37,7 +37,7 @@ export async function generateMetadata({
       type: 'article',
       images: imageUrl
         ? [{ url: imageUrl, width: 1200, height: 630, alt: title }]
-        : [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: title }],
+        : [{ url: '/images/slide1.jpg', width: 1200, height: 630, alt: title }],
     },
   }
 }

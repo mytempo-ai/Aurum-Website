@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Children's Catering Menu NJ | Aurum Events",
     description: "Kid-friendly catering menu for events in NJ. Pizza, chicken tenders, sliders, pasta & more.",
     url: 'https://aurum.events/menus/childrens-menu',
-    images: [{ url: '/images/menu/kids-1.png', width: 1200, height: 630, alt: "Children's catering menu at Aurum Events Freehold NJ" }],
+    images: [{ url: '/images/menu/kids-1.jpg', width: 1200, height: 630, alt: "Children's catering menu at Aurum Events Freehold NJ" }],
   },
 }
 export default function ChildrensMenu() {
@@ -77,9 +77,9 @@ export default function ChildrensMenu() {
       </div>
 
       <MenuGallery images={[
-        '/images/menu/kids-1.png',
-        '/images/menu/hors-doeuvres-1.png',
-        '/images/menu/stations-1.png'
+        '/images/menu/kids-1.jpg',
+        '/images/menu/hors-doeuvres-1.jpg',
+        '/images/menu/stations-1.jpg'
       ]} />
     </MenuLayout>
   )

@@ -18,7 +18,7 @@ const POSTS = [
   { type: 'reel',  thumb: '/images/instagram/ig_6.jpg',  url: 'https://www.instagram.com/reel/DFEhaIdg_l9/' },
   { type: 'reel',  thumb: '/images/instagram/ig_7.jpg',  url: 'https://www.instagram.com/reel/DEvXIpKS5UF/' },
   { type: 'reel',  thumb: '/images/instagram/ig_8.jpg',  url: 'https://www.instagram.com/reel/DEYzVLeunre/' },
-  { type: 'reel',  thumb: '/images/instagram/ig_8.jpg',  url: 'https://www.instagram.com/reel/DEYoAwOPHdX/' },
+  { type: 'reel',  thumb: '/images/instagram/ig_10.jpg', url: 'https://www.instagram.com/reel/DEYoAwOPHdX/' },
   { type: 'photo', thumb: '/images/instagram/ig_10.jpg', url: 'https://www.instagram.com/p/DD64suoNGvC/' },
   { type: 'photo', thumb: '/images/instagram/ig_11.jpg', url: 'https://www.instagram.com/p/DDo3HRRNbgM/' },
   { type: 'reel',  thumb: '/images/instagram/ig_12.jpg', url: 'https://www.instagram.com/reel/DDclVuJxC1L/' },

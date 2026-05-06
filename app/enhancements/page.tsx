@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: 'Event Enhancements & Add-Ons | Aurum Events & Catering',
     description: 'Transform your event with premium enhancements at Aurum Events & Catering in Freehold, NJ — LED dance floors, dancing on clouds, CO2 cannons, custom gobos, and more.',
     url: 'https://aurum.events/enhancements',
-    images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: 'Event Enhancements at Aurum Events Freehold NJ' }],
+    images: [{ url: '/images/enhancements/enhancements-featured.jpg', width: 1200, height: 630, alt: 'Event Enhancements at Aurum Events Freehold NJ' }],
   },
 }
 

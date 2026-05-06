@@ -32,7 +32,7 @@ export function generateMetadata({ params }: Props): Metadata {
       title: `${event.name} Venue Freehold NJ | Aurum Events & Catering`,
       description: `${event.name} at Aurum Events & Catering, Freehold NJ. ${event.tagline}. Serving all of Monmouth County, NJ.`,
       url: `https://aurum.events/events/${params.slug}`,
-      images: [{ url: '/images/hero-bg.jpg', width: 1200, height: 630, alt: `${event.name} at Aurum Events Freehold NJ` }],
+      images: [{ url: event.heroImage || '/images/slide1.jpg', width: 1200, height: 630, alt: `${event.name} at Aurum Events Freehold NJ` }],
     },
   }
 }

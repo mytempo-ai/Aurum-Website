@@ -132,7 +132,7 @@ export const metadata: Metadata = {
     url: 'https://aurum.events',
     images: [
       {
-        url: '/images/hero-bg.jpg',
+        url: '/images/slide1.jpg',
         width: 1200,
         height: 630,
         alt: 'Aurum Events & Catering — Premier Event Venue in Freehold, NJ',
@@ -144,7 +144,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Aurum Events & Catering | Premier Event Venue Freehold NJ',
     description: 'Premier event venue in Freehold, NJ. Weddings, sweet sixteens, mitzvahs, corporate events. Serving Monmouth County, NJ.',
-    images: ['/images/hero-bg.jpg'],
+    images: ['/images/slide1.jpg'],
   },
   alternates: {
     canonical: 'https://aurum.events',

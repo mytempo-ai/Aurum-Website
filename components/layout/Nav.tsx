@@ -13,7 +13,20 @@ const NAV_LINKS = [
   { label: 'Blog', href: '/blog', type: 'route' },
   { label: 'Reviews', href: '#reviews', type: 'scroll' },
   { label: 'Contact', href: '#contact', type: 'scroll' },
-]
+] as const
+
+const LINK_CLASS_DESKTOP = (scrolled: boolean, isHomePage: boolean) =>
+  `nav-link text-nav-link relative group ${
+    scrolled || !isHomePage ? 'text-[var(--text)]' : 'text-white'
+  } hover:text-[var(--gold)] transition-colors duration-200`
+
+const LINK_STYLE_DESKTOP = (scrolled: boolean, isHomePage: boolean) => ({
+  textShadow: scrolled || !isHomePage ? 'none' : '0 2px 4px rgba(0,0,0,0.3)',
+})
+
+const UNDERLINE = (
+  <span className="absolute bottom-[-4px] left-0 w-full h-[1.5px] bg-[var(--gold)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+)
 
 export default function Nav() {
   const pathname = usePathname()
@@ -54,14 +67,20 @@ export default function Nav() {
 
   const closeMobile = () => setMobileOpen(false)
 
-  const handleNavClick = (e: React.MouseEvent, href: string, type: string) => {
+  /**
+   * Get the scroll href for non-home pages (prepend / to go to home first).
+   * Route links always use their href as-is via Next.js Link.
+   */
+  const getScrollHref = (href: string) => isHomePage ? href : `/${href}`
+
+  const handleScrollClick = (e: React.MouseEvent, href: string) => {
     closeMobile()
-    if (type === 'scroll' && isHomePage) {
+    if (isHomePage) {
       e.preventDefault()
       const el = document.querySelector(href)
       if (el) el.scrollIntoView({ behavior: 'smooth' })
     }
-    // If not home page, the default <a> behavior with /#id will work
+    // On non-home pages: let the browser navigate to /#section normally
   }
 
   return (
@@ -87,20 +106,32 @@ export default function Nav() {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={isHomePage ? link.href : `/${link.href}`}
-                onClick={(e) => handleNavClick(e, link.href, link.type)}
-                className={`nav-link text-nav-link relative group ${
-                  scrolled || !isHomePage ? 'text-[var(--text)]' : 'text-white'
-                } hover:text-[var(--gold)] transition-colors duration-200`}
-                style={{ textShadow: (scrolled || !isHomePage) ? 'none' : '0 2px 4px rgba(0,0,0,0.3)' }}
-              >
-                {link.label}
-                <span className="absolute bottom-[-4px] left-0 w-full h-[1.5px] bg-[var(--gold)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
-              </a>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.type === 'route' ? (
+                /* Route links: Next.js Link for proper client-side navigation */
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={LINK_CLASS_DESKTOP(scrolled, isHomePage)}
+                  style={LINK_STYLE_DESKTOP(scrolled, isHomePage)}
+                >
+                  {link.label}
+                  {UNDERLINE}
+                </Link>
+              ) : (
+                /* Scroll links: plain anchor with smooth-scroll handler */
+                <a
+                  key={link.label}
+                  href={getScrollHref(link.href)}
+                  onClick={(e) => handleScrollClick(e, link.href)}
+                  className={LINK_CLASS_DESKTOP(scrolled, isHomePage)}
+                  style={LINK_STYLE_DESKTOP(scrolled, isHomePage)}
+                >
+                  {link.label}
+                  {UNDERLINE}
+                </a>
+              )
+            )}
           </div>
 
           {/* Phone + CTA */}
@@ -160,18 +191,31 @@ export default function Nav() {
           </svg>
         </button>
 
-        {/* Links */}
+        {/* Mobile Links */}
         <nav className="flex flex-col items-center gap-5 mb-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={isHomePage ? link.href : `/${link.href}`}
-              onClick={(e) => handleNavClick(e, link.href, link.type)}
-              className="font-oswald font-bold text-[clamp(26px,7vw,36px)] uppercase text-[var(--text)] hover:text-[var(--gold)] transition-colors duration-200 py-1"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.type === 'route' ? (
+              /* Route links: Next.js Link */
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={closeMobile}
+                className="font-oswald font-bold text-[clamp(26px,7vw,36px)] uppercase text-[var(--text)] hover:text-[var(--gold)] transition-colors duration-200 py-1"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              /* Scroll links */
+              <a
+                key={link.label}
+                href={getScrollHref(link.href)}
+                onClick={(e) => handleScrollClick(e, link.href)}
+                className="font-oswald font-bold text-[clamp(26px,7vw,36px)] uppercase text-[var(--text)] hover:text-[var(--gold)] transition-colors duration-200 py-1"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </nav>
 
         {/* Bottom actions */}

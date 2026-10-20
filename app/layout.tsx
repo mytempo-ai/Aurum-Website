@@ -178,6 +178,9 @@ export default function RootLayout({
         <meta name="geo.placename" content="Freehold, New Jersey" />
         <meta name="geo.position" content="40.2643;-74.2738" />
         <meta name="ICBM" content="40.2643, -74.2738" />
+        {/* Chat widget: open connections to Retell early so its script and chat API respond fast */}
+        <link rel="preconnect" href="https://dashboard.retellai.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.retellai.com" crossOrigin="anonymous" />
       </head>
       <body>
         <LenisProvider>

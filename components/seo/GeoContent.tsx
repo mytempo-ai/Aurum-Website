@@ -1,39 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-// ── FAQ accordion items ─────────────────────────────────────────────────────
-const FAQ_ITEMS = [
-    {
-        q: 'Where is Aurum Events located?',
-        a: 'We are located at 17 South Street, Freehold, NJ 07728 — in the heart of Freehold, Monmouth County, easily accessible from Route 9, Route 33, and the Garden State Parkway.',
-    },
-    {
-        q: 'What types of events does Aurum Events host?',
-        a: "We specialize in weddings, sweet sixteens, bar and bat mitzvahs, quinceañeras, corporate events, holiday parties, birthday milestones, and any special celebration. Our team handles every detail from start to finish.",
-    },
-    {
-        q: 'Does Aurum provide in-house catering?',
-        a: "Yes — our full-service in-house culinary team offers cocktail hour, action stations, plated dinners, children's menus, and stunning dessert displays. No outside caterers needed.",
-    },
-
-    {
-        q: 'Which areas near Freehold NJ does Aurum serve?',
-        a: 'We serve all of Monmouth County, Ocean County, and Middlesex County — including Manalapan, Marlboro, Howell, Jackson, Holmdel, Red Bank, Colts Neck, Eatontown, Rumson, Long Branch, and Asbury Park.',
-    },
-    {
-        q: 'How do I book a tour or get a quote?',
-        a: 'Visit our Book a Tour page to submit your request, call us at (732) 294-0031, or simply talk to our AI chatbot right here on the website! Our dedicated events team will schedule a personalized walkthrough and discuss your vision.',
-    },
-    {
-        q: 'Is Aurum Events a full-service venue?',
-        a: 'Absolutely. From the venue itself to in-house catering, event coordination, and premium enhancements, Aurum is a one-stop luxury event destination in Central New Jersey.',
-    },
-    {
-        q: 'What is the capacity at Aurum Events?',
-        a: 'Our flexible ballroom accommodates events of various sizes — from intimate celebrations to large galas. Contact us at (732) 294-0031 for specific capacity details based on your preferred layout.',
-    },
-]
+import { FAQ_ITEMS, PRICING } from '@/lib/site'
 
 // ── Single accordion item ───────────────────────────────────────────────────
 function AccordionItem({ q, a }: { q: string; a: string; index: number }) {
@@ -106,9 +74,7 @@ function AccordionItem({ q, a }: { q: string; a: string; index: number }) {
                         fontWeight: 500,
                         letterSpacing: '2px',
                         textTransform: 'uppercase',
-                        color: 'var(--gold)',
-                        opacity: open ? 1 : 0.5,
-                        transition: 'opacity 0.2s',
+                        color: 'var(--gold-text)',
                     }}
                 >
                     {open ? 'Close' : 'Read'}
@@ -118,7 +84,7 @@ function AccordionItem({ q, a }: { q: string; a: string; index: number }) {
             {/* Answer panel — smooth height transition */}
             <div
                 style={{
-                    maxHeight: open ? '300px' : '0px',
+                    maxHeight: open ? '400px' : '0px',
                     overflow: 'hidden',
                     transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
@@ -152,7 +118,7 @@ export default function GeoContent() {
 
                 {/* Section header */}
                 <div className="text-center mb-14">
-                    <p className="text-[11px] tracking-[4px] uppercase text-[var(--gold)] mb-3 font-medium" style={{ fontFamily: "'Inter', 'Barlow', sans-serif" }}>
+                    <p className="text-[11px] tracking-[4px] uppercase text-[var(--gold-text)] mb-3 font-medium" style={{ fontFamily: "'Inter', 'Barlow', sans-serif" }}>
                         Your Questions, Answered
                     </p>
                     <h2 className="font-oswald font-bold text-[var(--text-brown)] text-4xl md:text-5xl uppercase tracking-[2px] mb-4">
@@ -179,6 +145,10 @@ export default function GeoContent() {
                             </p>
                             <p className="text-[14px] leading-[1.8] text-[var(--text-muted)]" style={{ fontFamily: "'Inter', 'Barlow', sans-serif" }}>
                                 Proudly serving <strong className="text-[var(--text-brown)] font-medium">Manalapan · Marlboro · Howell · Jackson · Holmdel · Colts Neck · Red Bank · Eatontown</strong> and all of NJ.
+                            </p>
+                            <p className="text-[14px] leading-[1.8] text-[var(--text-muted)] mt-4" style={{ fontFamily: "'Inter', 'Barlow', sans-serif" }}>
+                                <strong className="text-[var(--text-brown)] font-semibold">Pricing:</strong> event packages with in-house catering range from{' '}
+                                <strong className="text-[var(--text-brown)] font-semibold">{PRICING.display}</strong>, depending on your menu, stations and enhancements.
                             </p>
 
                             {/* CTA */}

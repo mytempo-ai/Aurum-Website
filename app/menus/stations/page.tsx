@@ -111,7 +111,7 @@ export default function StationsMenu() {
   ]
 
   return (
-    <MenuLayout title="Action Stations" heroImage="/images/menu-header.png">
+    <MenuLayout title="Action Stations" slug="stations" heroImage="/images/menu-header.png">
       <div className="flex flex-col gap-6">
         {STATIONS.map((station, i) => (
           <div key={i} className="menu-item border-b border-[var(--border)] pb-6 last:border-b-0">

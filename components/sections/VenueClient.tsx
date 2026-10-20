@@ -2,13 +2,19 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+export type VenueMedia =
+  | { type: 'image'; src: string; label: string }
+  | { type: 'video'; src: string; poster: string; label: string }
+
 interface VenueClientProps {
-  mediaFiles: string[]
+  media: VenueMedia[]
+  heroImage: string
 }
 
 const SPACES = [
@@ -18,23 +24,37 @@ const SPACES = [
   { id: '04', name: 'Rooftop Deck', desc: '400 sq ft deck off the ballroom' },
 ]
 
-export default function VenueClient({ mediaFiles }: VenueClientProps) {
+export default function VenueClient({ media, heroImage }: VenueClientProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const stripRef = useRef<HTMLDivElement>(null)
   const topImageRef = useRef<HTMLDivElement>(null)
 
-  const defaultBgImage = mediaFiles.includes('venue-1.jpeg') ? 'venue-1.jpeg' : mediaFiles.find(f => /\.(jpg|jpeg|png|webp)$/i.test(f)) || mediaFiles[0];
-
-  const getLabel = (fileName: string) => {
-    const lowerName = fileName.toLowerCase();
-    if (lowerName.includes('23.21.26')) return "Main Ballroom"
-    if (lowerName.includes('23.21.33')) return "The Loft"
-    if (lowerName.includes('23.21.41')) return "Cocktail Patio"
-    if (lowerName.includes('23.21.35')) return "Rooftop Deck"
-    if (lowerName.includes('23.21.37')) return "Aurum Events"
-    if (lowerName.includes('slide2')) return "Ballroom Setup"
-    return "Aurum Events"
-  }
+  // Strip clips: attach the source and play only while on screen
+  useEffect(() => {
+    const strip = stripRef.current
+    if (!strip) return
+    const clips = strip.querySelectorAll('video')
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      // Still frame only
+      clips.forEach((v) => { if (v.dataset.poster) v.poster = v.dataset.poster })
+      return
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const vid = entry.target as HTMLVideoElement
+        if (entry.isIntersecting) {
+          if (!vid.getAttribute('poster') && vid.dataset.poster) vid.poster = vid.dataset.poster
+          if (!vid.getAttribute('src') && vid.dataset.src) vid.src = vid.dataset.src
+          vid.play().catch(() => {})
+        } else {
+          vid.pause()
+        }
+      })
+    }, { rootMargin: '200px' })
+    clips.forEach((v) => observer.observe(v))
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -133,11 +153,11 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
         {/* Left Column (55%) */}
         <div className="relative w-full lg:w-[55%] h-[350px] md:h-[500px] lg:h-auto overflow-hidden" ref={topImageRef}>
           <Image
-            src={`/images/venue-images/${defaultBgImage}`}
-            alt="Aurum Venue Hero"
+            src={heroImage}
+            alt="Main ballroom at Aurum Events & Catering, Freehold NJ"
             fill
+            sizes="(min-width: 1024px) 55vw, 100vw"
             className="object-cover"
-            priority
           />
           {/* Dark Overlay & Gradient for Visibility */}
           <div className="absolute inset-0 bg-[rgba(28,15,6,0.3)]" />
@@ -164,7 +184,7 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
             If you can dream it, we can do it.
           </p>
 
-          <span className="block font-barlow font-normal text-[10px] text-[#C8933A] tracking-[4px] uppercase mb-6">
+          <span className="block font-barlow font-normal text-[10px] text-[var(--gold-text)] tracking-[4px] uppercase mb-6">
             OUR SPACES
           </span>
 
@@ -178,7 +198,7 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
                   <span className="font-oswald font-semibold text-[13px] text-[#1A1A1A] uppercase tracking-[1px]">
                     {space.name}
                   </span>
-                  <span className="font-barlow font-light text-[11px] text-[#9A7A50]">
+                  <span className="font-barlow font-light text-[11px] text-[var(--text-light)]">
                     {space.desc}
                   </span>
                 </div>
@@ -196,42 +216,45 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
           style={{ width: 'max-content' }}
         >
           {/* Create original and clone for infinite loop */}
-          {[...mediaFiles, ...mediaFiles].map((file, index) => {
-            const isVideo = /\.(mp4|mov)$/i.test(file);
-            const label = getLabel(file);
-            
+          {[...media, ...media].map((item, index) => {
+            const isClone = index >= media.length
             return (
-              <div 
-                key={`${file}-${index}`}
+              <div
+                key={`${item.src}-${index}`}
+                aria-hidden={isClone || undefined}
                 className="group relative w-[320px] h-[220px] flex-shrink-0 transition-transform duration-300 hover:scale-[1.03] hover:z-10 hover:border-b-[3px] hover:border-[#C8933A]"
               >
-                {isVideo ? (
+                {item.type === 'video' ? (
                   <video
-                    src={`/images/venue-images/${file}`}
-                    autoPlay
+                    data-src={item.src}
+                    data-poster={item.poster}
                     muted
                     loop
                     playsInline
                     preload="none"
+                    width={320}
+                    height={220}
+                    aria-label={item.label}
                     className="w-full h-full object-cover"
                   />
                 ) : (
                   <div className="relative w-full h-full">
                     <Image
-                      src={`/images/venue-images/${file}`}
-                      alt={label}
+                      src={item.src}
+                      alt={isClone ? '' : item.label}
                       fill
+                      sizes="320px"
                       className="object-cover"
                     />
                   </div>
                 )}
-                
+
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                 
                 {/* Label */}
-                <span className="absolute bottom-4 left-4 font-oswald font-medium text-[12px] text-white uppercase tracking-wider bg-black/30 px-2 py-1 backdrop-blur-sm">
-                  {label}
+                <span className="absolute bottom-4 left-4 font-oswald font-medium text-[12px] text-white uppercase tracking-wider bg-black/50 px-2 py-1 backdrop-blur-sm">
+                  {item.label}
                 </span>
               </div>
             )
@@ -240,16 +263,16 @@ export default function VenueClient({ mediaFiles }: VenueClientProps) {
       </div>
 
       {/* PART 3 — Gold CTA bar */}
-      <div className="bg-[#C8933A] p-6 lg:p-[20px_48px] flex flex-col md:flex-row items-center justify-between text-white">
+      <div className="bg-[#C8933A] p-6 lg:p-[20px_48px] flex flex-col md:flex-row items-center justify-between text-[var(--on-gold)]">
         <span className="font-oswald font-semibold text-[14px] uppercase tracking-[2px] mb-4 md:mb-0">
           Ready to see the space in person?
         </span>
-        <a 
+        <Link
           href="/book-a-tour"
-          className="border-[1.5px] border-white px-6 py-[10px] font-oswald font-semibold text-[11px] uppercase tracking-[2px] transition-all hover:bg-white hover:text-[#C8933A]"
+          className="border-[1.5px] border-[var(--on-gold)] px-6 py-[10px] font-oswald font-semibold text-[11px] uppercase tracking-[2px] transition-all hover:bg-white hover:text-[var(--gold-text)]"
         >
           SCHEDULE A TOUR →
-        </a>
+        </Link>
       </div>
 
     </section>

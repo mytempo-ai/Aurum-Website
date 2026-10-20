@@ -1,7 +1,5 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
+import { contentfulImage } from '@/lib/contentful'
 
 interface PostCard {
   id: string
@@ -12,11 +10,9 @@ interface PostCard {
   imageUrl: string
 }
 
-const INITIAL_VISIBLE = 3
-
+// Server component: every article is a plain <a href> in the HTML so crawlers
+// can reach the whole archive without running JavaScript.
 export default function BlogGrid({ posts }: { posts: PostCard[] }) {
-  const [showAll, setShowAll] = useState(false)
-
   if (posts.length === 0) {
     return (
       <div className="text-center py-24 border border-dashed border-[var(--border-gold)] rounded">
@@ -28,19 +24,15 @@ export default function BlogGrid({ posts }: { posts: PostCard[] }) {
     )
   }
 
-  const visiblePosts = showAll ? posts : posts.slice(0, INITIAL_VISIBLE)
-  const hasMore = posts.length > INITIAL_VISIBLE
-
   return (
     <>
       {/* Posts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {visiblePosts.map((post) => (
+        {posts.map((post, i) => (
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
             className="card-premium group block overflow-hidden"
-            aria-label={`Read: ${post.title}`}
           >
             {/* Image */}
             <div
@@ -50,10 +42,15 @@ export default function BlogGrid({ posts }: { posts: PostCard[] }) {
               {post.imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={post.imageUrl}
+                  src={contentfulImage(post.imageUrl, 720)}
+                  srcSet={`${contentfulImage(post.imageUrl, 400)} 400w, ${contentfulImage(post.imageUrl, 720)} 720w, ${contentfulImage(post.imageUrl, 1080)} 1080w`}
+                  sizes="(min-width: 1024px) 345px, (min-width: 768px) 50vw, 100vw"
                   alt={post.title}
+                  width={720}
+                  height={440}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
+                  loading={i < 3 ? 'eager' : 'lazy'}
+                  decoding="async"
                   style={{ display: 'block' }}
                 />
               ) : (
@@ -69,7 +66,7 @@ export default function BlogGrid({ posts }: { posts: PostCard[] }) {
               {/* Bottom fade */}
               <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
               {/* Date badge */}
-              <span className="absolute top-3 left-3 font-barlow text-[9px] uppercase tracking-[2.5px] text-white bg-[var(--gold)] px-2.5 py-1">
+              <span className="absolute top-3 left-3 font-barlow text-[9px] uppercase tracking-[2.5px] text-white bg-[var(--gold-text)] px-2.5 py-1">
                 {post.date}
               </span>
             </div>
@@ -84,7 +81,7 @@ export default function BlogGrid({ posts }: { posts: PostCard[] }) {
                 {post.excerpt}
               </p>
 
-              <span className="inline-flex items-center gap-2 font-barlow font-semibold text-[10.5px] uppercase tracking-[3px] text-[var(--gold-dark)] group-hover:text-[var(--gold)] transition-colors duration-200">
+              <span className="inline-flex items-center gap-2 font-barlow font-semibold text-[10.5px] uppercase tracking-[3px] text-[var(--gold-text)] group-hover:text-[var(--gold-dark)] transition-colors duration-200">
                 Read Article
                 <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -95,39 +92,6 @@ export default function BlogGrid({ posts }: { posts: PostCard[] }) {
         ))}
       </div>
 
-      {/* View All / Show Less controls */}
-      {hasMore && (
-        <div className="mt-14 text-center">
-          {!showAll ? (
-            <div className="flex flex-col items-center gap-3">
-              <p className="font-barlow text-sm text-[var(--text-muted)]">
-                Showing {INITIAL_VISIBLE} of {posts.length} articles
-              </p>
-              <button
-                onClick={() => setShowAll(true)}
-                className="btn-gold-filled inline-flex items-center gap-3"
-                aria-label={`View all ${posts.length} blog posts`}
-              >
-                VIEW ALL ARTICLES ({posts.length})
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowAll(false)}
-              className="btn-gold-outline inline-flex items-center gap-3"
-              aria-label="Show fewer articles"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-              </svg>
-              SHOW LESS
-            </button>
-          )}
-        </div>
-      )}
     </>
   )
 }

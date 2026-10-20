@@ -1,7 +1,15 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getPostBySlug, getAllSlugs, stripHtml, formatDate } from '@/lib/contentful'
+import { getPostBySlug, getAllSlugs, postDescription, prepareArticleHtml, formatDate, contentfulImage } from '@/lib/contentful'
+import { EVENTS } from '@/lib/eventData'
+import JsonLd, { breadcrumbSchema, BUSINESS_REF } from '@/components/seo/JsonLd'
+import { BRAND, PRICING, SITE_URL } from '@/lib/site'
+
+/** Event pages whose topics appear in the article slug (falls back to the events hub only) */
+function relatedEvents(slug: string) {
+  return EVENTS.filter((e) => e.blogTopics.some((t) => slug.includes(t))).slice(0, 3)
+}
 
 // ─── Static generation ────────────────────────────────────────────────────────
 
@@ -20,24 +28,27 @@ export async function generateMetadata({
   const { slug } = params
   const data = await getPostBySlug(slug)
 
-  if (!data) return { title: 'Post Not Found | Aurum Events & Catering' }
+  if (!data) return { title: 'Post Not Found' }
 
   const { post, imageUrl } = data
   const { title, longText } = post.fields
-  const description = stripHtml(longText, 160)
+  const description = postDescription(longText, title)
+  const ogImage = imageUrl ? contentfulImage(imageUrl, 1200, 80) : '/images/slide1.jpg'
 
   return {
-    title: `${title} | Aurum Events & Catering`,
+    // Brand is appended once by the root layout's title template — unless the
+    // CMS title is already long enough that the suffix would be cut off in results
+    title: `${title} | Aurum Events`.length > 60 ? { absolute: title } : title,
     description,
     alternates: { canonical: `https://aurum.events/blog/${slug}` },
     openGraph: {
-      title: `${title} | Aurum Events & Catering`,
+      title: `${title} | Aurum Events`,
       description,
       url: `https://aurum.events/blog/${slug}`,
       type: 'article',
-      images: imageUrl
-        ? [{ url: imageUrl, width: 1200, height: 630, alt: title }]
-        : [{ url: '/images/slide1.jpg', width: 1200, height: 630, alt: title }],
+      publishedTime: post.sys.createdAt,
+      modifiedTime: post.sys.updatedAt,
+      images: [{ url: ogImage, alt: title }],
     },
   }
 }
@@ -57,20 +68,38 @@ export default async function BlogArticlePage({
   const { post, imageUrl } = data!
   const { title, longText } = post.fields
   const dateStr = formatDate(post.sys.createdAt)
+  const articleHtml = prepareArticleHtml(longText, title)
+  const related = relatedEvents(slug)
+  const url = `${SITE_URL}/blog/${slug}`
+
+  const blogPostingSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: postDescription(longText, title),
+    datePublished: post.sys.createdAt,
+    dateModified: post.sys.updatedAt,
+    mainEntityOfPage: url,
+    url,
+    image: imageUrl ? [contentfulImage(imageUrl, 1200, 80)] : [`${SITE_URL}/images/slide1.jpg`],
+    author: { '@type': 'Organization', name: BRAND, url: SITE_URL },
+    publisher: { ...BUSINESS_REF, '@type': 'Organization', name: BRAND, logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/icon-512.png` } },
+  }
 
   // Reading time estimate: ~200 words per minute
-  const wordCount = longText.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length
+  const wordCount = articleHtml.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length
   const readingTime = Math.max(1, Math.ceil(wordCount / 200))
 
   return (
     <div className="pt-[60px] lg:pt-[72px]" style={{ background: 'var(--surface-warm)' }}>
+      <JsonLd data={[blogPostingSchema, breadcrumbSchema([{ name: 'Blog', path: '/blog' }, { name: title, path: `/blog/${slug}` }])]} />
 
       {/* ── Breadcrumb ──────────────────────────────────────────────────────── */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-0">
         <nav aria-label="Breadcrumb" className="flex items-center gap-2">
           <Link
             href="/blog"
-            className="font-barlow text-[11px] uppercase tracking-[3px] text-[var(--gold)] hover:text-[var(--gold-dark)] transition-colors duration-200 flex items-center gap-1.5"
+            className="font-barlow text-[11px] uppercase tracking-[3px] text-[var(--gold-text)] hover:text-[var(--gold-dark)] transition-colors duration-200 flex items-center gap-1.5"
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -110,7 +139,7 @@ export default async function BlogArticlePage({
               {dateStr}
             </time>
             <span className="w-px h-3 bg-[var(--border-strong)] opacity-60" />
-            <span className="inline-flex items-center gap-1.5 font-barlow text-[11px] uppercase tracking-[3px] text-[var(--gold)]">
+            <span className="inline-flex items-center gap-1.5 font-barlow text-[11px] uppercase tracking-[3px] text-[var(--gold-text)]">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -132,8 +161,13 @@ export default async function BlogArticlePage({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={imageUrl}
+              src={contentfulImage(imageUrl, 1200)}
+              srcSet={`${contentfulImage(imageUrl, 640)} 640w, ${contentfulImage(imageUrl, 960)} 960w, ${contentfulImage(imageUrl, 1200)} 1200w, ${contentfulImage(imageUrl, 1800)} 1800w`}
+              sizes="(min-width: 896px) 848px, 100vw"
               alt={title}
+              width={data!.imageDimensions.width}
+              height={data!.imageDimensions.height}
+              fetchPriority="high"
               style={{
                 display: 'block',
                 width: '100%',
@@ -173,7 +207,7 @@ export default async function BlogArticlePage({
       <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
         <article
           className="blog-content"
-          dangerouslySetInnerHTML={{ __html: longText }}
+          dangerouslySetInnerHTML={{ __html: articleHtml }}
         />
 
         {/* End ornament */}
@@ -186,6 +220,32 @@ export default async function BlogArticlePage({
           </div>
           <div className="flex-1 h-px bg-[var(--border)]" />
         </div>
+
+        {/* Plan your event — links the article to the matching event pages */}
+        <aside className="mb-12 bg-white border border-[var(--border)] rounded-sm p-6 sm:p-8">
+          <h2 className="font-oswald font-semibold text-[18px] uppercase tracking-[1.5px] text-[var(--text-brown)] mb-4">
+            Plan Your Event at Aurum
+          </h2>
+          <ul className="flex flex-col gap-1 font-barlow text-[15px]">
+            {related.map((e) => (
+              <li key={e.slug}>
+                <Link href={`/events/${e.slug}`} className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                  {e.seoTitle}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/events" className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                All events we host in Freehold, NJ
+              </Link>
+            </li>
+            <li>
+              <Link href="/menus" className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                Catering menus — packages from {PRICING.display}
+              </Link>
+            </li>
+          </ul>
+        </aside>
 
         {/* Back button */}
         <div className="text-center">

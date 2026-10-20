@@ -3,9 +3,15 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Link from 'next/link'
+import Image from 'next/image'
 import SectionLabel from '@/components/ui/SectionLabel'
 import GoldButton from '@/components/ui/GoldButton'
 import type { EventData } from '@/lib/eventData'
+import { PRICING } from '@/lib/site'
+
+export type RelatedPost = { title: string; slug: string }
+export type LinkItem = { href: string; label: string }
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -39,7 +45,17 @@ const WHY_CHOOSE = [
   },
 ]
 
-export default function EventDetailPage({ event }: { event: EventData }) {
+interface EventDetailPageProps {
+  event: EventData
+  /** Menu pages suited to this event */
+  menus: LinkItem[]
+  /** The other event types, for cross-linking */
+  otherEvents: LinkItem[]
+  /** Blog articles on the same topic */
+  relatedPosts?: RelatedPost[]
+}
+
+export default function EventDetailPage({ event, menus, otherEvents, relatedPosts = [] }: EventDetailPageProps) {
   const descRef = useRef<HTMLDivElement>(null)
   const highlightsRef = useRef<HTMLDivElement>(null)
   const galleryRef = useRef<HTMLDivElement>(null)
@@ -136,21 +152,24 @@ export default function EventDetailPage({ event }: { event: EventData }) {
     <>
       {/* ── HERO ── */}
       <section className="relative w-full h-[350px] md:h-[70vh] md:min-h-[480px] overflow-hidden flex items-center justify-center">
-        <img
+        <Image
           src={event.heroImage}
           alt={event.heroAlt}
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0" style={{ backgroundColor: 'rgba(20,10,2,0.62)' }} />
         <div className="relative z-10 text-center px-6 max-w-[800px] mx-auto">
           {/* Breadcrumb */}
-          <p className="font-barlow text-[12px] uppercase tracking-[4px] text-white/50 mb-6">
-            <a href="/" className="hover:text-[var(--hero-gold)] transition-colors">Home</a>
-            <span className="mx-2">·</span>
-            <a href="/#events" className="hover:text-[var(--hero-gold)] transition-colors">Events</a>
-            <span className="mx-2">·</span>
+          <nav aria-label="Breadcrumb" className="font-barlow text-[12px] uppercase tracking-[4px] text-white/70 mb-6">
+            <Link href="/" className="hover:text-[var(--hero-gold)] transition-colors">Home</Link>
+            <span className="mx-2" aria-hidden="true">·</span>
+            <Link href="/events" className="hover:text-[var(--hero-gold)] transition-colors">Events</Link>
+            <span className="mx-2" aria-hidden="true">·</span>
             <span style={{ color: 'var(--hero-gold)' }}>{event.name}</span>
-          </p>
+          </nav>
           <h1 className="font-oswald font-bold text-[clamp(42px,7vw,88px)] uppercase tracking-[6px] leading-[1.05] mb-5"
             style={{ color: 'var(--hero-text)', textShadow: '0 4px 30px rgba(0,0,0,0.5)' }}>
             {event.name}
@@ -204,8 +223,35 @@ export default function EventDetailPage({ event }: { event: EventData }) {
         </div>
       </section>
 
+      {/* ── PRICING & MENUS ── */}
+      <section className="py-[100px] max-md:py-16 bg-[var(--bg)]">
+        <div className="max-w-[900px] mx-auto px-6 text-center">
+          <SectionLabel>PRICING &amp; MENUS</SectionLabel>
+          <div className="w-[40px] h-[2px] bg-[var(--gold)] mx-auto mt-4 mb-6" />
+          <h2 className="heading-section mb-5">{event.name} Packages from {PRICING.short} per Person</h2>
+          <p className="font-barlow text-[16px] leading-[1.85] text-[var(--text-muted)] max-w-[720px] mx-auto mb-10">
+            {PRICING.summary} Market-priced items such as dry-aged steaks and Chilean sea bass are quoted separately, and our team will tailor a detailed quote to your guest list during your tour.
+          </p>
+          <h3 className="font-oswald font-semibold text-[15px] uppercase tracking-[2px] text-[var(--text-brown)] mb-4">
+            Menus for your {event.name.toLowerCase()}
+          </h3>
+          <ul className="flex flex-wrap justify-center gap-3">
+            {menus.map((m) => (
+              <li key={m.href}>
+                <Link
+                  href={m.href}
+                  className="inline-block border border-[var(--border-strong)] rounded-sm px-4 py-2 font-barlow text-[14px] text-[var(--text-brown)] hover:border-[var(--gold)] hover:text-[var(--gold-text)] transition-colors"
+                >
+                  {m.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* ── GALLERY ── */}
-      <section className="py-[100px] max-md:py-16 bg-[var(--bg)]" ref={galleryRef}>
+      <section className="py-[100px] max-md:py-16 bg-[var(--surface-warm)]" ref={galleryRef}>
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-14">
             <SectionLabel>THE EXPERIENCE</SectionLabel>
@@ -219,9 +265,12 @@ export default function EventDetailPage({ event }: { event: EventData }) {
                 className={`gallery-img overflow-hidden rounded-sm ${event.gallery.length !== 2 && i === 0 ? 'col-span-2 row-span-2 lg:col-span-2' : ''}`}
                 style={{ aspectRatio: event.gallery.length === 2 ? '4/3' : (i === 0 ? '1/1' : '4/3') }}
               >
-                <img
+                <Image
                   src={img.src}
                   alt={img.alt}
+                  width={900}
+                  height={675}
+                  sizes="(min-width: 900px) 450px, (min-width: 768px) 50vw, 100vw"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -231,7 +280,7 @@ export default function EventDetailPage({ event }: { event: EventData }) {
       </section>
 
       {/* ── WHY CHOOSE AURUM ── */}
-      <section className="py-[100px] max-md:py-16 bg-[var(--surface-warm)]" ref={whyRef}>
+      <section className="py-[100px] max-md:py-16 bg-[var(--bg)]" ref={whyRef}>
         <div className="max-w-[1100px] mx-auto px-6">
           <div className="text-center mb-14">
             <SectionLabel>WHY AURUM</SectionLabel>
@@ -258,6 +307,47 @@ export default function EventDetailPage({ event }: { event: EventData }) {
         </div>
       </section>
 
+      {/* ── OTHER CELEBRATIONS + RELATED READING ── */}
+      <section className="py-[80px] max-md:py-14 bg-[var(--surface-warm)]">
+        <div className={`max-w-[1100px] mx-auto px-6 grid gap-12 ${relatedPosts.length ? 'md:grid-cols-2' : ''}`}>
+          <div>
+            <h2 className="font-oswald font-semibold text-[20px] uppercase tracking-[1.5px] text-[var(--text-brown)] mb-5">
+              Other Celebrations We Host
+            </h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-barlow text-[15px]">
+              {otherEvents.map((e) => (
+                <li key={e.href}>
+                  <Link href={e.href} className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                    {e.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/events" className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                  All events at Aurum
+                </Link>
+              </li>
+            </ul>
+          </div>
+          {relatedPosts.length > 0 && (
+            <div>
+              <h2 className="font-oswald font-semibold text-[20px] uppercase tracking-[1.5px] text-[var(--text-brown)] mb-5">
+                {event.name} Planning Guides
+              </h2>
+              <ul className="flex flex-col gap-1 font-barlow text-[15px]">
+                {relatedPosts.map((post) => (
+                  <li key={post.slug}>
+                    <Link href={`/blog/${post.slug}`} className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                      {post.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* ── BOTTOM CTA ── */}
       <section className="py-[100px] max-md:py-16 bg-[var(--bg)]" ref={ctaRef}>
         <div className="max-w-[760px] mx-auto px-6 text-center">
@@ -275,7 +365,7 @@ export default function EventDetailPage({ event }: { event: EventData }) {
             <GoldButton href="/book-a-tour" variant="filled">
               BOOK A TOUR
             </GoldButton>
-            <GoldButton href="tel:7322940031" variant="outline">
+            <GoldButton href="tel:+17322940031" variant="outline">
               CALL (732) 294-0031
             </GoldButton>
           </div>

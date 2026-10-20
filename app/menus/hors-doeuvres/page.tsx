@@ -64,7 +64,7 @@ const ITEMS = [
 
 export default function HorsDoeuvresPage() {
   return (
-    <MenuLayout title="Passed Hors d'Oeuvres" heroImage="/images/menu-header.png">
+    <MenuLayout title="Passed Hors d'Oeuvres" slug="hors-doeuvres" heroImage="/images/menu-header.png">
       <div className="space-y-0">
         {ITEMS.map((item, i) => (
           <div key={i} className="menu-item py-5 border-b border-[var(--border)] last:border-b-0">
@@ -82,7 +82,7 @@ export default function HorsDoeuvresPage() {
           </div>
         ))}
       </div>
-      <p className="mt-6 font-barlow font-light italic text-sm text-[var(--gold)]">
+      <p className="mt-6 font-barlow font-light italic text-sm text-[var(--gold-text)]">
         ★ Items available at additional cost — premium selection
       </p>
 

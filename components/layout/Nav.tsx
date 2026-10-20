@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
 
 const NAV_LINKS = [
   { label: 'Home', href: '#hero', type: 'scroll' },
   { label: 'The Venue', href: '#venue', type: 'scroll' },
-  { label: 'Events', href: '#events', type: 'scroll' },
+  { label: 'Events', href: '/events', type: 'route' },
   { label: 'Menus', href: '/menus', type: 'route' },
   { label: 'Blog', href: '/blog', type: 'route' },
   { label: 'Reviews', href: '#reviews', type: 'scroll' },
@@ -97,9 +98,12 @@ export default function Nav() {
 
           {/* Logo */}
           <Link href="/" className="nav-logo flex-shrink-0">
-            <img
+            <Image
               src="/images/logo.png"
-              alt="Aurum Events"
+              alt="Aurum Events & Catering — home"
+              width={210}
+              height={60}
+              priority
               className="h-[44px] sm:h-[52px] lg:h-[60px] w-auto"
             />
           </Link>
@@ -137,7 +141,7 @@ export default function Nav() {
           {/* Phone + CTA */}
           <div className="hidden lg:flex items-center gap-5 xl:gap-6">
             <a
-              href="tel:7322940031"
+              href="tel:+17322940031"
               className={`font-barlow text-[13px] ${
                 scrolled || !isHomePage ? 'text-[var(--text-muted)]' : 'text-white/70'
               } hover:text-[var(--gold)] transition-colors duration-200`}
@@ -146,7 +150,7 @@ export default function Nav() {
             </a>
             <Link
               href="/book-a-tour"
-              className="text-button px-4 xl:px-5 py-2.5 border-2 border-[var(--gold)] text-[var(--gold)] hover:bg-[var(--gold)] hover:text-white transition-all duration-200 rounded-sm"
+              className="text-button px-4 xl:px-5 py-2.5 border-2 border-[var(--gold)] text-[var(--gold-text)] hover:bg-[var(--gold)] hover:text-[var(--on-gold)] transition-all duration-200 rounded-sm"
             >
               Book a Tour
             </Link>
@@ -221,7 +225,7 @@ export default function Nav() {
         {/* Bottom actions */}
         <div className="flex flex-col items-center gap-4 w-full max-w-[260px]">
           <a
-            href="tel:7322940031"
+            href="tel:+17322940031"
             className="font-barlow text-[15px] text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors py-2"
           >
             (732) 294-0031

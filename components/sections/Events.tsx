@@ -4,62 +4,14 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
 import SectionLabel from '@/components/ui/SectionLabel'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const EVENTS = [
-  {
-    name: 'Weddings',
-    image: '/images/wedding.jpg',
-    href: '/events/weddings',
-    desc: "Say 'I do' in our stunning indoor & outdoor spaces. Customizable packages, exquisite catering, flawless service.",
-  },
-  {
-    name: 'Sweet Sixteens',
-    image: '/images/sweet16.jpg',
-    href: '/events/sweet-sixteens',
-    desc: 'An unforgettable milestone. Stylish decor, spacious rooms, gourmet catering & entertainment packages.',
-  },
-  {
-    name: 'Bar & Bat Mitzvahs',
-    image: '/images/mitzvah.jpg',
-    href: '/events/bar-bat-mitzvahs',
-    desc: 'Celebrate tradition in style. Our team honors every tradition beautifully.',
-  },
-  {
-    name: 'Corporate Events',
-    image: '/images/corporate.jpg',
-    href: '/events/corporate-events',
-    desc: 'State-of-the-art facilities for meetings, galas, product launches, and celebrations.',
-  },
-  {
-    name: 'Holiday Parties',
-    image: '/images/holiday.jpg',
-    href: '/events/holiday-parties',
-    desc: 'Make the season magical with a fully private bespoke holiday experience.',
-  },
-  {
-    name: 'Fundraisers',
-    image: '/images/fundraiser.jpg',
-    href: '/events/fundraisers',
-    desc: 'Impactful fundraising events with flawless hospitality and catering.',
-  },
-  {
-    name: 'Trade Shows',
-    image: '/images/tradeshow.jpg',
-    href: '/events/trade-shows',
-    desc: 'Spacious, tech-equipped venues for showcasing your brand.',
-  },
-  {
-    name: 'Social Events',
-    image: '/images/private.jpg',
-    href: '/events/social-events',
-    desc: 'Completely exclusive. Fully customizable. Entirely yours.',
-  },
-]
+export type EventCard = { name: string; image: string; href: string; desc: string }
 
-export default function Events() {
+export default function Events({ cards }: { cards: EventCard[] }) {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -119,7 +71,7 @@ export default function Events() {
 
         {/* 4x2 Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[3px]">
-          {EVENTS.map((event, i) => (
+          {cards.map((event, i) => (
             <Link
               key={i}
               href={event.href}
@@ -127,10 +79,12 @@ export default function Events() {
               style={{ height: 'clamp(220px, 40vw, 340px)' }}
             >
               {/* Image */}
-              <img
+              <Image
                 src={event.image}
                 alt={event.name}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[350ms] group-hover:scale-105"
+                fill
+                sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
+                className="object-cover transition-transform duration-[350ms] group-hover:scale-105"
               />
 
               {/* Overlay */}
@@ -153,6 +107,12 @@ export default function Events() {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link href="/events" className="btn-gold-outline">
+            ALL EVENTS WE HOST
+          </Link>
         </div>
       </div>
     </section>

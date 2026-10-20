@@ -26,6 +26,8 @@ export default function Stats() {
         const stat = STATS[i]
         if (stat.isStars) return // stars are static
 
+        // The final number is server-rendered (crawlers that skip JS read it);
+        // the count-up restarts from 0 only when the animation actually begins.
         const target = stat.number
         const obj = { val: 0 }
 
@@ -35,6 +37,9 @@ export default function Stats() {
           delay: i * 0.2,
           ease: 'power2.out',
           immediateRender: false,
+          onStart: () => {
+            el.textContent = `${stat.prefix}0${stat.suffix}`
+          },
           onUpdate: () => {
             el.textContent = `${stat.prefix}${Math.round(obj.val)}${stat.suffix}`
           },
@@ -72,9 +77,9 @@ export default function Stats() {
                 className="stat-number text-[#1A1A1A]"
                 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, lineHeight: 1, marginBottom: 4, fontSize: 'clamp(32px, 8vw, 62px)' }}
               >
-                {stat.isStars ? '★★★★★' : '0'}
+                {stat.isStars ? '★★★★★' : `${stat.prefix}${stat.number}${stat.suffix}`}
               </div>
-              <div className="text-stat-label mt-1" style={{ color: 'rgba(26,26,26,0.6)', letterSpacing: '2px', fontSize: '9px' }}>
+              <div className="text-stat-label mt-1" style={{ color: 'rgba(26,26,26,0.85)', letterSpacing: '2px', fontSize: '9px' }}>
                 {stat.label}
               </div>
             </div>

@@ -7,10 +7,15 @@ import Reviews from '@/components/sections/Reviews'
 import Instagram from '@/components/sections/Instagram'
 import Contact from '@/components/sections/Contact'
 import GeoContent from '@/components/seo/GeoContent'
+import StructuredData from '@/components/seo/StructuredData'
+import { EVENTS } from '@/lib/eventData'
+
+const EVENT_CARDS = EVENTS.map((e) => ({ name: e.name, image: e.heroImage, href: `/events/${e.slug}`, desc: e.cardDesc }))
 
 export const metadata: Metadata = {
-  title: "Aurum Events & Catering — Freehold NJ's Premiere Event Space",
-  description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Aaron Hode. Call (732) 294-0031.",
+  // `absolute` so the layout template doesn't append the brand a second time
+  title: { absolute: 'Aurum Events & Catering — Event Venue in Freehold, NJ' },
+  description: "Freehold NJ's NYC loft-style event venue for weddings, Sweet 16s, mitzvahs & corporate events. In-house catering from $65–$120 per person.",
   keywords: [
     'Aurum Events',
     'Aurum Events & Caterers',
@@ -32,8 +37,8 @@ export const metadata: Metadata = {
     canonical: 'https://aurum.events',
   },
   openGraph: {
-    title: "Aurum Events & Catering — Freehold NJ's Premiere Event Space",
-    description: "Freehold NJ's most unique event venue. Weddings, Sweet 16s, Bar Mitzvahs, Corporate Events & more in a stunning NYC loft setting. Executive Chef Aaron Hode.",
+    title: 'Aurum Events & Catering — Event Venue in Freehold, NJ',
+    description: "Freehold NJ's NYC loft-style event venue for weddings, Sweet 16s, mitzvahs & corporate events. In-house catering from $65–$120 per person.",
     url: 'https://aurum.events',
     images: [{ url: '/images/slide1.jpg', width: 1200, height: 630, alt: 'Aurum Events & Catering ballroom — Freehold NJ premiere event venue' }],
   },
@@ -41,15 +46,16 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <>
+      <StructuredData />
       <Hero />
       <Stats />
       <Venue />
-      <Events />
+      <Events cards={EVENT_CARDS} />
       <Reviews />
       <Instagram />
       <GeoContent />
       <Contact />
-    </main>
+    </>
   )
 }

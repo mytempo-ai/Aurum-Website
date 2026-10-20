@@ -1,24 +1,26 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { CONTACT } from '@/lib/site'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const QUICK_LINKS = [
-  { label: 'Home', href: '#hero' },
-  { label: 'The Venue', href: '#venue' },
-  { label: 'Events', href: '#events' },
+  { label: 'Home', href: '/' },
+  { label: 'The Venue', href: '/#venue' },
+  { label: 'Events', href: '/events' },
   { label: 'Menus', href: '/menus' },
+  { label: 'Enhancements', href: '/enhancements' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Reviews', href: '/#reviews' },
   { label: 'Book a Tour', href: '/book-a-tour' },
 ]
 
-export default function Footer() {
+export default function Footer({ eventLinks }: { eventLinks: { href: string; label: string }[] }) {
   const footerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -36,13 +38,15 @@ export default function Footer() {
   return (
     <footer ref={footerRef} className="bg-[#F0E8D8] pt-12 md:pt-[60px] pb-7">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10">
           {/* Col 1: Logo + Tagline */}
           <div className="footer-col">
-            <img
+            <Image
               src="/images/footer-logo.png"
-              alt="Aurum Events"
-              className="w-[120px] mb-4"
+              alt="Aurum Events & Catering"
+              width={120}
+              height={132}
+              className="w-[120px] h-auto mb-4"
             />
             <p className="font-barlow font-light text-[13px] text-[var(--text-muted)]">
               Aurum — Latin for Gold & New Beginnings
@@ -51,10 +55,10 @@ export default function Footer() {
 
           {/* Col 2: Quick Links */}
           <div className="footer-col">
-            <h4 className="font-oswald font-semibold text-sm uppercase tracking-[2px] text-[var(--text-brown)] mb-4">
+            <h2 className="font-oswald font-semibold text-sm uppercase tracking-[2px] text-[var(--text-brown)] mb-4">
               Quick Links
-            </h4>
-            <ul className="space-y-2">
+            </h2>
+            <ul className="space-y-1">
               {QUICK_LINKS.map((link) => (
                 <li key={link.label}>
                   {link.href.startsWith('http') ? (
@@ -62,21 +66,21 @@ export default function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors duration-200"
+                      className="inline-block py-1 font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold-text)] transition-colors duration-200"
                     >
                       {link.label}
                     </a>
                   ) : link.href.startsWith('/') ? (
                     <Link
                       href={link.href}
-                      className="font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors duration-200"
+                      className="inline-block py-1 font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold-text)] transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
                   ) : (
                     <a
                       href={link.href}
-                      className="font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors duration-200"
+                      className="inline-block py-1 font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold-text)] transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -86,11 +90,36 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Connect */}
+          {/* Col 3: Event types */}
           <div className="footer-col">
-            <h4 className="font-oswald font-semibold text-sm uppercase tracking-[2px] text-[var(--text-brown)] mb-4">
+            <h2 className="font-oswald font-semibold text-sm uppercase tracking-[2px] text-[var(--text-brown)] mb-4">
+              Events We Host
+            </h2>
+            <ul className="space-y-1">
+              {eventLinks.map((e) => (
+                <li key={e.href}>
+                  <Link
+                    href={e.href}
+                    className="inline-block py-1 font-barlow text-sm text-[var(--text-muted)] hover:text-[var(--gold-text)] transition-colors duration-200"
+                  >
+                    {e.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4: Connect */}
+          <div className="footer-col">
+            <h2 className="font-oswald font-semibold text-sm uppercase tracking-[2px] text-[var(--text-brown)] mb-4">
               Connect
-            </h4>
+            </h2>
+            <p className="font-barlow text-sm text-[var(--text-muted)] mb-1">
+              <a href={CONTACT.phoneHref} className="hover:text-[var(--gold-text)] transition-colors">{CONTACT.phoneDisplay}</a>
+            </p>
+            <p className="font-barlow text-sm text-[var(--text-muted)] mb-4">
+              <a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--gold-text)] transition-colors">{CONTACT.email}</a>
+            </p>
             <div className="flex items-center gap-4">
               <a
                 href="https://www.instagram.com/Aurum_events/"

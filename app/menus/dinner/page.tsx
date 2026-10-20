@@ -64,7 +64,7 @@ const CATEGORIES = [
 
 export default function DinnerMenu() {
   return (
-    <MenuLayout title="Dinner Selections" heroImage="/images/menu-header.png">
+    <MenuLayout title="Dinner Selections" slug="dinner" heroImage="/images/menu-header.png">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
         {CATEGORIES.map((cat, i) => (
           <div key={i} className="menu-item">
@@ -77,7 +77,7 @@ export default function DinnerMenu() {
               ))}
               {cat.premiumItems && cat.premiumItems.map((item, j) => (
                 <li key={j} className="font-barlow text-[16px] text-[var(--text)]">
-                  {item.name} <span className="text-[var(--gold)] text-[13px] ml-1 tracking-normal italic font-normal">★ {item.price} pricing</span>
+                  {item.name} <span className="text-[var(--gold-text)] text-[13px] ml-1 tracking-normal italic font-normal">★ {item.price} pricing</span>
                 </li>
               ))}
             </ul>

@@ -146,7 +146,7 @@ export default function Reviews() {
               </p>
 
               {/* Event Badge */}
-              <span className="inline-block mt-2 px-3 py-1 font-barlow font-light text-[10px] uppercase tracking-[1px] text-[var(--gold)] bg-[var(--gold-pale)] rounded-sm">
+              <span className="inline-block mt-2 px-3 py-1 font-barlow font-light text-[10px] uppercase tracking-[1px] text-[var(--gold-text)] bg-[var(--gold-pale)] rounded-sm">
                 {review.event}
               </span>
             </div>

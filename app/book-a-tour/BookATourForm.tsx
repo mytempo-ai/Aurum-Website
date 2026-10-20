@@ -78,8 +78,9 @@ export default function BookATourPage() {
           <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="form-field-wrapper">
-                <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Full Name *</label>
+                <label htmlFor="tour-name" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Full Name *</label>
                 <input 
+                  id="tour-name"
                   {...register("name", { required: "Name is required" })}
                   className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                   placeholder="John Doe"
@@ -88,8 +89,9 @@ export default function BookATourPage() {
               </div>
 
               <div className="form-field-wrapper">
-                <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Email Address *</label>
+                <label htmlFor="tour-email" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Email Address *</label>
                 <input 
+                  id="tour-email"
                   {...register("email", { 
                     required: "Email is required",
                     pattern: { value: /^\S+@\S+$/i, message: "Invalid email" }
@@ -103,8 +105,9 @@ export default function BookATourPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="form-field-wrapper">
-                <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Phone Number *</label>
+                <label htmlFor="tour-phone" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Phone Number *</label>
                 <input 
+                  id="tour-phone"
                   {...register("phone", { required: "Phone is required" })}
                   className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                   placeholder="(555) 555-5555"
@@ -113,8 +116,9 @@ export default function BookATourPage() {
               </div>
 
               <div className="form-field-wrapper">
-                <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Preferred Event Type *</label>
+                <label htmlFor="tour-eventType" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Preferred Event Type *</label>
                 <select 
+                  id="tour-eventType"
                   {...register("eventType", { required: "Please select an event type" })}
                   className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all appearance-none"
                 >
@@ -131,9 +135,10 @@ export default function BookATourPage() {
             </div>
 
             <div className="form-field-wrapper">
-              <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Additional Details / Questions</label>
+              <label htmlFor="tour-message" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Additional Details / Questions</label>
               <textarea 
-                {...register("message")}
+                id="tour-message"
+                  {...register("message")}
                 rows={5}
                 className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all resize-y"
                 placeholder="Tell us about your vision..."
@@ -164,7 +169,7 @@ export default function BookATourPage() {
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                 </svg>
                 <div>
-                  <h4 className="font-oswald font-bold text-[var(--gold-dark)] uppercase tracking-wider">Success!</h4>
+                  <p className="font-oswald font-bold text-[var(--gold-dark)] uppercase tracking-wider">Success!</p>
                   <p className="font-barlow text-[14px] text-[var(--gold-dark)]">
                     We&apos;ve received your inquiry. One of our event specialists will contact you shortly.
                   </p>

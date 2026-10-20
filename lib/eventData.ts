@@ -3,12 +3,22 @@ export type GalleryImage = { src: string; alt: string }
 export type EventData = {
   slug: string
   name: string
+  /** Search phrase used as the page title (brand is appended by the layout template) */
+  seoTitle: string
+  /** Meta description — keep under ~155 characters */
+  metaDescription: string
+  /** Short description for event cards (homepage, /events hub) */
+  cardDesc: string
   heroImage: string
   heroAlt: string
   tagline: string
   description: string[]
   highlights: string[]
   gallery: GalleryImage[]
+  /** Menu pages (slugs under /menus) that suit this event */
+  menus: string[]
+  /** Substrings matched against blog post slugs to list related articles */
+  blogTopics: string[]
   seoKeywords?: string[]
 }
 
@@ -19,6 +29,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/wedding.jpg',
     heroAlt: 'Elegant wedding at Aurum Events',
     tagline: "Say 'I Do' at Freehold's Most Stunning Venue",
+    seoTitle: "Wedding Venue in Freehold, NJ",
+    metaDescription: "NYC loft-style wedding venue in Freehold, NJ with in-house catering by Chef Aaron Hode. Ceremony, cocktail hour and reception from $65–$120 per person.",
+    cardDesc: "Say 'I do' in our stunning indoor & outdoor spaces. Customizable packages, exquisite catering, flawless service.",
+    menus: ['hors-doeuvres', 'stations', 'first-course', 'dinner', 'desserts'],
+    blogTopics: ['wedding', 'bridal', 'engagement'],
     seoKeywords: [
       'wedding venue Freehold NJ',
       'wedding venue NJ',
@@ -57,6 +72,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/mitzvah.jpg',
     heroAlt: 'Bar Mitzvah celebration at Aurum Events',
     tagline: 'A Sacred Milestone, Celebrated in Style',
+    seoTitle: "Bar & Bat Mitzvah Venue in Freehold, NJ",
+    metaDescription: "Bar and bat mitzvah venue in Freehold, NJ: VIP loft, entertainment-ready ballroom and in-house catering from $65–$120 per person. Book a tour today.",
+    cardDesc: "Celebrate tradition in style. Our team honors every tradition beautifully.",
+    menus: ['hors-doeuvres', 'stations', 'childrens-menu', 'dinner', 'desserts'],
+    blogTopics: ['mitzvah'],
     seoKeywords: [
       'Bar Mitzvah venue NJ',
       'Bat Mitzvah venue NJ',
@@ -93,6 +113,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/sweet16.jpg',
     heroAlt: 'Sweet Sixteen party at Aurum Events',
     tagline: 'Turn 16 in the Most Unforgettable Way',
+    seoTitle: "Sweet 16 Venue in Freehold, NJ",
+    metaDescription: "Sweet 16 and quinceañera venue in Freehold, NJ with LED lighting, a VIP loft and in-house catering from $65–$120 per person. Book a private tour.",
+    cardDesc: "An unforgettable milestone. Stylish decor, spacious rooms, gourmet catering & entertainment packages.",
+    menus: ['hors-doeuvres', 'stations', 'dinner', 'desserts'],
+    blogTopics: ['sweet-16', 'sweet-sixteen', '16th', 'quince'],
     seoKeywords: [
       'Sweet 16 venue NJ',
       'Sweet Sixteen venue Freehold NJ',
@@ -128,6 +153,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/corporate.jpg',
     heroAlt: 'Corporate gala at Aurum Events',
     tagline: 'Where Business Meets Brilliance',
+    seoTitle: "Corporate Event Venue in Freehold, NJ",
+    metaDescription: "Corporate event venue in Freehold, NJ for galas, dinners, launches and meetings, with full AV and in-house catering from $65–$120 per person.",
+    cardDesc: "State-of-the-art facilities for meetings, galas, product launches, and celebrations.",
+    menus: ['hors-doeuvres', 'stations', 'first-course', 'dinner'],
+    blogTopics: ['corporate', 'event-space', 'hall-rental', 'banquet'],
     seoKeywords: [
       'corporate catering Freehold NJ',
       'corporate event venue NJ',
@@ -164,6 +194,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/fundraiser.jpg',
     heroAlt: 'Fundraiser gala at Aurum Events',
     tagline: 'Make Your Cause Impossible to Forget',
+    seoTitle: "Fundraiser & Gala Venue in Freehold, NJ",
+    metaDescription: "Fundraiser and charity gala venue in Freehold, NJ with ballroom, patio and rooftop deck, and in-house catering from $65–$120 per person.",
+    cardDesc: "Impactful fundraising events with flawless hospitality and catering.",
+    menus: ['hors-doeuvres', 'stations', 'first-course', 'dinner', 'desserts'],
+    blogTopics: ['fundraiser', 'gala', 'charity', 'event-space'],
     seoKeywords: [
       'fundraiser venue NJ',
       'charity event venue NJ',
@@ -196,6 +231,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/holiday.jpg',
     heroAlt: 'Holiday party at Aurum Events',
     tagline: 'Make the Season Spectacularly Unforgettable',
+    seoTitle: "Holiday Party Venue in Freehold, NJ",
+    metaDescription: "Private and corporate holiday party venue in Freehold, NJ with seasonal menus by Chef Aaron Hode, from $65–$120 per person. Book your date.",
+    cardDesc: "Make the season magical with a fully private bespoke holiday experience.",
+    menus: ['hors-doeuvres', 'stations', 'dinner', 'desserts'],
+    blogTopics: ['holiday', 'christmas', 'party-venue', 'hall-rental'],
     seoKeywords: [
       'holiday party venue NJ',
       'holiday party venue Freehold NJ',
@@ -229,6 +269,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/private.jpg',
     heroAlt: 'Private social event at Aurum Events',
     tagline: 'Your Celebration, Entirely Your Own',
+    seoTitle: "Private Party Venue in Freehold, NJ",
+    metaDescription: "Private party venue in Freehold, NJ for birthdays, engagements, communions and anniversaries, with in-house catering from $65–$120 per person.",
+    cardDesc: "Completely exclusive. Fully customizable. Entirely yours.",
+    menus: ['hors-doeuvres', 'stations', 'childrens-menu', 'dinner', 'desserts'],
+    blogTopics: ['party', 'birthday', 'shower', 'communion', 'hall-rental', 'event-space'],
     seoKeywords: [
       'social event venue NJ',
       'private party venue NJ',
@@ -262,6 +307,11 @@ export const EVENTS: EventData[] = [
     heroImage: '/images/tradeshow.jpg',
     heroAlt: 'Trade show at Aurum Events',
     tagline: 'Showcase Your Brand at Its Best',
+    seoTitle: "Trade Show Venue in Freehold, NJ",
+    metaDescription: "Trade show and exhibition venue in Freehold, NJ with flexible floor plans, full AV and all-day catering from $65–$120 per person.",
+    cardDesc: "Spacious, tech-equipped venues for showcasing your brand.",
+    menus: ['hors-doeuvres', 'stations', 'first-course'],
+    blogTopics: ['trade-show', 'corporate', 'event-space'],
     seoKeywords: [
       'trade show venue NJ',
       'trade show catering NJ',

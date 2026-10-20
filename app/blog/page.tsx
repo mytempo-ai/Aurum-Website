@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
-import { getAllPosts, stripHtml, formatDate, slugToUrl } from '@/lib/contentful'
+import { getAllPosts, postDescription, formatDate, slugToUrl } from '@/lib/contentful'
+import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd'
+import Image from 'next/image'
 import BlogGrid from './BlogGrid'
 
 export const metadata: Metadata = {
-  title: 'Blog | Aurum Events & Catering — Freehold NJ',
+  title: 'Event Planning Blog — Freehold, NJ',
   description:
     'Tips, inspiration, and behind-the-scenes stories from Aurum Events & Catering in Freehold, NJ. Wedding planning, event ideas, catering trends, and more.',
   keywords: [
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: 'https://aurum.events/blog' },
   openGraph: {
-    title: 'Blog | Aurum Events & Catering — Freehold NJ',
+    title: 'Event Planning Blog — Freehold, NJ | Aurum Events',
     description: "Tips, inspiration and stories from Aurum Events & Catering — Freehold NJ's premier event venue.",
     url: 'https://aurum.events/blog',
     images: [{ url: '/images/blog-hero-bg.jpg', width: 1200, height: 630, alt: 'Aurum Events Blog' }],
@@ -32,25 +34,27 @@ export default async function BlogPage() {
     id: post.sys.id,
     title: post.fields.title,
     slug: slugToUrl(post.fields.slug),
-    excerpt: stripHtml(post.fields.longText, 120),
+    excerpt: postDescription(post.fields.longText, post.fields.title, 120),
     date: formatDate(post.sys.createdAt),
     imageUrl,
   }))
 
   return (
     <div className="pt-[60px] lg:pt-[72px]">
+      <JsonLd data={breadcrumbSchema([{ name: 'Blog', path: '/blog' }])} />
 
       {/* ══════════════════════════════════════════════════════════════════════
           HERO — with generated background image
       ══════════════════════════════════════════════════════════════════════ */}
       <div className="relative h-[360px] md:h-[460px] overflow-hidden">
         {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/images/blog-hero-bg.jpg"
           alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
           style={{ objectPosition: 'center 40%' }}
         />
         {/* Dark gradient overlay */}
@@ -88,7 +92,7 @@ export default async function BlogPage() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          POSTS SECTION — client component handles show more/all
+          POSTS SECTION — full archive
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="section-warm py-16 md:py-24">
         <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
@@ -104,7 +108,7 @@ export default async function BlogPage() {
             </p>
           </div>
 
-          {/* BlogGrid — client component with View All logic */}
+          {/* BlogGrid — every article rendered as a crawlable link */}
           <BlogGrid posts={processedPosts} />
         </div>
       </section>

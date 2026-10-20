@@ -37,10 +37,5 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Security headers — good practice
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+# Security headers (X-Frame-Options, CSP, Referrer-Policy, …) are set in
+# next.config.mjs so they also reach server-rendered pages.

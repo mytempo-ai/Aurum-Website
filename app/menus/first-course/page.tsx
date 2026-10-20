@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function FirstCourseMenu() {
   return (
-    <MenuLayout title="First Course" heroImage="/images/menu-header.png">
+    <MenuLayout title="First Course" slug="first-course" heroImage="/images/menu-header.png">
       <div className="mb-8 p-4 bg-[var(--surface-warm)] border border-[var(--border)] rounded">
         <p className="font-barlow text-[15px] italic text-[var(--text-brown)] text-center">
           First course is served with assorted fresh artisan breads, herbed butter, hummus, and olive oil.

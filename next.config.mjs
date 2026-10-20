@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
 const BUNNY_CDN = 'https://aurumsite.b-cdn.net'
 
+// Bunny pulls /_next/static from the live site (aurum.events), so only production
+// builds can use it: a Deploy Preview's new chunk hashes don't exist there yet and
+// would 404. Netlify sets CONTEXT ('production', 'deploy-preview', 'branch-deploy').
+const useCdn = process.env.NODE_ENV === 'production' && process.env.CONTEXT === 'production'
+
 const nextConfig = {
-  // Serve all /_next/static/ JS, CSS, and font chunks from Bunny CDN
-  assetPrefix: process.env.NODE_ENV === 'production' ? BUNNY_CDN : '',
+  // Serve all /_next/static/ JS, CSS, and font chunks from Bunny CDN (production only)
+  assetPrefix: useCdn ? BUNNY_CDN : '',
 
   // Allow next/image to load images hosted on Bunny CDN
   images: {

@@ -5,6 +5,10 @@
  */
 
 export const SITE_URL = 'https://aurum.events'
+
+/** Retell concierge widget — preloaded in the root layout, started by components/ui/ChatWidget */
+export const RETELL_WIDGET_SRC = 'https://dashboard.retellai.com/retell-widget.js'
+
 export const BRAND = 'Aurum Events & Catering'
 
 export const CONTACT = {

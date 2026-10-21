@@ -357,7 +357,9 @@ html.lenis body {
   overflow: hidden;
 }
 
-.lenis.lenis-smooth iframe {
+/* Only while a smooth scroll is in progress (per Lenis docs), so embedded
+   frames such as the map stay clickable the rest of the time */
+.lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
 

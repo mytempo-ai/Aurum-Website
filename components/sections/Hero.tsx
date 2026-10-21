@@ -5,12 +5,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { CHAT_WIDGET_LOADED_EVENT } from '@/components/ui/ChatWidget'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Each clip ships in a phone (720p) and desktop (1080p) encode. Nothing is
-// downloaded until the page has finished loading: the poster image below is what
-// paints first, then the clips fade in on top of it.
+// Each clip ships in a phone (720p) and desktop (1080p) encode. The poster image
+// below paints first; the clips start playing automatically as soon as the page
+// is interactive and fade in over it.
 const VIDEO_CONFIG = [
   { name: 'ballroom',     duration: 6, speed: 1   }, // Wide establishing shot
   { name: 'first-dance',  duration: 5, speed: 1   }, // Romantic energy
@@ -41,30 +42,43 @@ export default function Hero() {
     let timeoutId: ReturnType<typeof setTimeout> | undefined
     let cancelled = false
 
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // Phones get the 720p encodes; the clips start as soon as the page is
+    // interactive, with the poster image showing until the first frame plays
     const small = window.matchMedia('(max-width: 767px)').matches
-    // Data-saver and reduced-motion visitors keep the still poster
-    const videoEnabled = !reduceMotion && !connection?.saveData
 
-    const ensureSrc = (i: number) => {
-      const vid = videos[i]
-      if (vid && !vid.getAttribute('src')) {
-        vid.src = videoSrc(VIDEO_CONFIG[i].name, small)
-        vid.preload = 'auto'
-      }
+    // Fade a clip in once it is actually producing frames, so the poster never
+    // gives way to an empty element
+    const fadeInWhenPlaying = (vid: HTMLVideoElement) => {
+      const show = () => { if (!cancelled) gsap.to(vid, { opacity: 1, duration: 1.2, ease: 'power2.inOut' }) }
+      if (!vid.paused && vid.readyState >= 2) show()
+      else vid.addEventListener('playing', show, { once: true })
     }
 
     const play = (vid: HTMLVideoElement, i: number) => {
+      if (!vid.getAttribute('src')) vid.src = videoSrc(VIDEO_CONFIG[i].name, small)
       vid.playbackRate = VIDEO_CONFIG[i].speed
+      // play() is what makes iOS Safari start downloading; it ignores preload
       const p = vid.play()
       if (p !== undefined) p.catch(() => {})
     }
 
+    // Buffer the upcoming clip while the current one plays. iOS only fetches
+    // video data once play() is called, so start it and pause straight away.
+    const warm = (i: number) => {
+      const vid = videos[i]
+      if (!vid || vid.getAttribute('src')) return
+      vid.src = videoSrc(VIDEO_CONFIG[i].name, small)
+      vid.preload = 'auto'
+      const p = vid.play()
+      if (p !== undefined) p.then(() => { if (i !== current) vid.pause() }).catch(() => {})
+    }
+
+    let warmId: ReturnType<typeof setTimeout> | undefined
     const playNext = () => {
       const config = VIDEO_CONFIG[current]
-      // Fetch the upcoming clip while the current one plays
-      ensureSrc((current + 1) % videos.length)
+      // Start buffering the next clip ~3 s before its slot, not alongside this one
+      const next = (current + 1) % videos.length
+      warmId = setTimeout(() => warm(next), Math.max(0, config.duration - 3) * 1000)
       timeoutId = setTimeout(() => {
         const prev = current
         current = (current + 1) % videos.length
@@ -82,33 +96,29 @@ export default function Hero() {
             videos[prev].currentTime = 0
           }
         })
-        gsap.to(videos[current], { opacity: 1, duration: 1.2, ease: 'power2.inOut' })
+        fadeInWhenPlaying(videos[current])
 
         playNext()
       }, config.duration * 1000)
     }
 
     const startVideos = () => {
-      if (cancelled || !videos[0]) return
-      ensureSrc(0)
-      const first = videos[0]
-      const begin = () => {
-        if (cancelled) return
-        play(first, 0)
-        gsap.to(first, { opacity: 1, duration: 1.2, ease: 'power2.inOut' })
-        playNext()
-      }
-      if (first.readyState >= 3) begin()
-      else first.addEventListener('canplay', begin, { once: true })
+      if (cancelled || !videos[0] || videos[0].getAttribute('src')) return
+      videos[0].autoplay = true
+      play(videos[0], 0)
+      fadeInWhenPlaying(videos[0])
+      playNext()
     }
 
-    const onLoad = () => {
-      timeoutId = setTimeout(startVideos, small ? 1500 : 300)
-    }
-
-    if (videoEnabled) {
-      if (document.readyState === 'complete') onLoad()
-      else window.addEventListener('load', onLoad, { once: true })
+    // Phones: let the chat widget's script finish first (it shares a slower
+    // connection), then start the video — at most 2.5 s later. Desktop: start now.
+    let chatWaitId: ReturnType<typeof setTimeout> | undefined
+    const widgetLoaded = () => document.getElementById('retell-widget')?.dataset.loaded === 'true'
+    if (!small || widgetLoaded()) {
+      startVideos()
+    } else {
+      window.addEventListener(CHAT_WIDGET_LOADED_EVENT, startVideos, { once: true })
+      chatWaitId = setTimeout(startVideos, 2500)
     }
 
     const ctx = gsap.context(() => {
@@ -229,7 +239,9 @@ export default function Hero() {
 
     return () => {
       cancelled = true
-      window.removeEventListener('load', onLoad)
+      window.removeEventListener(CHAT_WIDGET_LOADED_EVENT, startVideos)
+      clearTimeout(chatWaitId)
+      clearTimeout(warmId)
       clearTimeout(timeoutId)
       ctx.revert()
     }

@@ -6,7 +6,8 @@ import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
 import LenisProvider from "@/components/layout/LenisProvider";
-import DeferredChatWidget from "@/components/ui/DeferredChatWidget";
+import ChatWidget from "@/components/ui/ChatWidget";
+import { RETELL_WIDGET_SRC } from "@/lib/site";
 import { EVENTS } from "@/lib/eventData";
 
 const FOOTER_EVENT_LINKS = EVENTS.map((e) => ({ href: `/events/${e.slug}`, label: e.seoTitle.replace(" in Freehold, NJ", "") }));
@@ -178,8 +179,9 @@ export default function RootLayout({
         <meta name="geo.placename" content="Freehold, New Jersey" />
         <meta name="geo.position" content="40.2643;-74.2738" />
         <meta name="ICBM" content="40.2643, -74.2738" />
-        {/* Chat widget: open connections to Retell early so its script and chat API respond fast */}
-        <link rel="preconnect" href="https://dashboard.retellai.com" crossOrigin="anonymous" />
+        {/* Chat widget: download Retell's script during page load and open the API
+            connection early, so the widget starts as soon as the page is interactive */}
+        <link rel="modulepreload" href={RETELL_WIDGET_SRC} />
         <link rel="preconnect" href="https://api.retellai.com" crossOrigin="anonymous" />
       </head>
       <body>
@@ -190,7 +192,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer eventLinks={FOOTER_EVENT_LINKS} />
         </LenisProvider>
-        <DeferredChatWidget />
+        <ChatWidget />
       </body>
     </html>
   );

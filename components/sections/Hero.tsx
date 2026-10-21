@@ -2,17 +2,31 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Each clip ships in a phone (720p) and desktop (1080p) encode. Nothing is
+// downloaded until the page has finished loading: the poster image below is what
+// paints first, then the clips fade in on top of it.
 const VIDEO_CONFIG = [
-  { src: '/videos/ballroom.mp4',    duration: 6, speed: 1   }, // Wide establishing shot
-  { src: '/videos/first-dance.mp4', duration: 5, speed: 1   }, // Romantic energy
-  { src: '/videos/champagne.mp4',   duration: 3, speed: 2.5 }, // Punchy fast motion — 8s÷2.5=3.2s runtime, slot<runtime so clip never loops
-  { src: '/videos/chef-plating.mp4',duration: 5, speed: 1   }, // Premium finish
+  { name: 'ballroom',     duration: 6, speed: 1   }, // Wide establishing shot
+  { name: 'first-dance',  duration: 5, speed: 1   }, // Romantic energy
+  { name: 'champagne',    duration: 3, speed: 2.5 }, // Punchy fast motion — 8s÷2.5=3.2s runtime, slot<runtime so clip never loops
+  { name: 'chef-plating', duration: 5, speed: 1   }, // Premium finish
 ]
+
+const videoSrc = (name: string, small: boolean) => `/videos/hero/${name}-${small ? 720 : 1080}.mp4`
+
+/** One inline-block span per character for the title reveal; the h1 keeps a plain-text label */
+const splitChars = (text: string) =>
+  text.split('').map((char, i) => (
+    <span key={i} className="inline-block" aria-hidden="true">
+      {char === ' ' ? '\u00A0' : char}
+    </span>
+  ))
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -22,35 +36,41 @@ export default function Hero() {
     const section = sectionRef.current
     if (!section) return
 
-    // Video crossfade with custom durations
     const videos = section.querySelectorAll<HTMLVideoElement>('.hero-vid')
     let current = 0
-    let timeoutId: NodeJS.Timeout
+    let timeoutId: ReturnType<typeof setTimeout> | undefined
+    let cancelled = false
 
-    // Set playback speeds — slot durations are set below clip runtime so ended event never fires
-    videos.forEach((vid, i) => {
-      if (VIDEO_CONFIG[i]) {
-        vid.playbackRate = VIDEO_CONFIG[i].speed
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const small = window.matchMedia('(max-width: 767px)').matches
+    // Data-saver and reduced-motion visitors keep the still poster
+    const videoEnabled = !reduceMotion && !connection?.saveData
+
+    const ensureSrc = (i: number) => {
+      const vid = videos[i]
+      if (vid && !vid.getAttribute('src')) {
+        vid.src = videoSrc(VIDEO_CONFIG[i].name, small)
+        vid.preload = 'auto'
       }
-    })
+    }
 
-    if (videos[0]) {
-      gsap.set(videos[0], { opacity: 1 })
-      videos[0].play().catch(() => {})
+    const play = (vid: HTMLVideoElement, i: number) => {
+      vid.playbackRate = VIDEO_CONFIG[i].speed
+      const p = vid.play()
+      if (p !== undefined) p.catch(() => {})
     }
 
     const playNext = () => {
       const config = VIDEO_CONFIG[current]
+      // Fetch the upcoming clip while the current one plays
+      ensureSrc((current + 1) % videos.length)
       timeoutId = setTimeout(() => {
         const prev = current
         current = (current + 1) % videos.length
 
-        // Prepare next video
         videos[current].currentTime = 0
-        const playPromise = videos[current].play()
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {})
-        }
+        play(videos[current], current)
 
         // Cinema crossfade — outgoing fades out, incoming fades in simultaneously
         gsap.to(videos[prev], {
@@ -68,10 +88,28 @@ export default function Hero() {
       }, config.duration * 1000)
     }
 
-    // Small delay to ensure first video is ready before starting the cycle
-    timeoutId = setTimeout(() => {
-      playNext()
-    }, 100)
+    const startVideos = () => {
+      if (cancelled || !videos[0]) return
+      ensureSrc(0)
+      const first = videos[0]
+      const begin = () => {
+        if (cancelled) return
+        play(first, 0)
+        gsap.to(first, { opacity: 1, duration: 1.2, ease: 'power2.inOut' })
+        playNext()
+      }
+      if (first.readyState >= 3) begin()
+      else first.addEventListener('canplay', begin, { once: true })
+    }
+
+    const onLoad = () => {
+      timeoutId = setTimeout(startVideos, small ? 1500 : 300)
+    }
+
+    if (videoEnabled) {
+      if (document.readyState === 'complete') onLoad()
+      else window.addEventListener('load', onLoad, { once: true })
+    }
 
     const ctx = gsap.context(() => {
       // Content entrance animation
@@ -95,27 +133,16 @@ export default function Hero() {
           }, 0)
         }
 
-        // Title character reveal (free SplitText alternative)
+        // Title character reveal (free SplitText alternative). The letter spans are
+        // server-rendered so the title is painted before any JavaScript runs.
         if (title) {
-          const rowSpans = title.querySelectorAll('.title-row')
-          const allCharSpans: HTMLSpanElement[] = []
-
-          rowSpans.forEach((row) => {
-            const text = row.textContent || ''
-            const chars = text.split('')
-            row.innerHTML = chars
-              .map(
-                (char) =>
-                  `<span class="inline-block">${char === ' ' ? '&nbsp;' : char}</span>`
-              )
-              .join('')
-            row.querySelectorAll('span').forEach((s) => allCharSpans.push(s))
-          })
+          const allCharSpans = title.querySelectorAll<HTMLSpanElement>('.title-row > span')
 
           if (allCharSpans.length > 0) {
+            // Slide up from behind the row's overflow mask. No opacity fade: a letter
+            // returning from opacity 0 counts as a fresh paint and delays LCP.
             tl.from(allCharSpans, {
-              y: 60,
-              opacity: 0,
+              yPercent: 110,
               duration: 0.5,
               stagger: 0.03,
               ease: 'power2.out',
@@ -201,6 +228,8 @@ export default function Hero() {
     })
 
     return () => {
+      cancelled = true
+      window.removeEventListener('load', onLoad)
       clearTimeout(timeoutId)
       ctx.revert()
     }
@@ -216,16 +245,24 @@ export default function Hero() {
       {/* Video Background */}
       {/* Container is 115% tall and offset -10% up so parallax (-15%) never exposes a gap */}
       <div className="hero-videos-container absolute inset-x-0 bg-black/50" style={{ top: '-10%', height: '120%' }}>
-        {VIDEO_CONFIG.map((config, i) => (
+        <Image
+          src="/images/hero-poster.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={70}
+          className="object-cover"
+        />
+        {VIDEO_CONFIG.map((config) => (
           <video
-            key={i}
+            key={config.name}
             className="hero-vid absolute inset-0 w-full h-full object-cover"
-            src={config.src}
-            autoPlay={i === 0}
             muted
             playsInline
-            preload={i === 0 ? "auto" : "none"}
-            style={{ opacity: i === 0 ? 1 : 0, display: 'block' }}
+            preload="none"
+            aria-hidden="true"
+            style={{ opacity: 0, display: 'block' }}
           />
         ))}
         {/* Dark Overlay */}
@@ -243,6 +280,7 @@ export default function Hero() {
 
 
         <h1
+          aria-label="Aurum Events & Catering"
           className="hero-title text-[var(--hero-text)] mb-4 sm:mb-6 uppercase text-center"
           style={{
             fontFamily: "'Oswald', sans-serif",
@@ -253,8 +291,8 @@ export default function Hero() {
             textShadow: '0 2px 24px rgba(0,0,0,0.55)',
           }}
         >
-          <span className="block whitespace-nowrap title-row">AURUM EVENTS</span>
-          <span className="block whitespace-nowrap title-row" style={{ fontSize: '0.9em', marginTop: '2px' }}>&amp; CATERING</span>
+          <span className="block whitespace-nowrap title-row overflow-hidden">{splitChars('AURUM EVENTS')}</span>
+          <span className="block whitespace-nowrap title-row overflow-hidden" style={{ fontSize: '0.9em', marginTop: '2px' }}>{splitChars('& CATERING')}</span>
         </h1>
 
         <div
@@ -293,7 +331,7 @@ export default function Hero() {
               letterSpacing: '3px',
               textTransform: 'uppercase',
               backgroundColor: 'var(--hero-gold)',
-              color: '#fff',
+              color: 'var(--on-gold)',
               padding: '16px 36px',
               border: '1.5px solid var(--hero-gold)',
               transition: 'all 0.3s',

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionLabel from '@/components/ui/SectionLabel'
@@ -105,7 +106,7 @@ function animateHeading(container: Element) {
   }
 }
 
-export default function EnhancementsPage() {
+export default function EnhancementsPage({ eventLinks }: { eventLinks: { href: string; label: string }[] }) {
   const introRef = useRef<HTMLDivElement>(null)
   const featuredRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
@@ -159,10 +160,13 @@ export default function EnhancementsPage() {
     <>
       {/* ── HERO ── */}
       <section className="relative w-full flex items-center justify-center overflow-hidden h-[300px] md:h-[60vh] md:min-h-[420px]">
-        <img
+        <Image
           src="/images/slide2.jpg"
           alt="Aurum Events enhancements"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0" style={{ backgroundColor: 'rgba(20,10,2,0.68)' }} />
         <div className="relative z-10 text-center px-6">
@@ -224,11 +228,13 @@ export default function EnhancementsPage() {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 16px rgba(200,147,58,0)'
                 }}
               >
-                <div className="overflow-hidden" style={{ height: '300px' }}>
-                  <img
+                <div className="relative overflow-hidden" style={{ height: '300px' }}>
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
                     style={{ objectPosition: item.objectPosition }}
                   />
                 </div>
@@ -281,12 +287,13 @@ export default function EnhancementsPage() {
                   el.style.boxShadow = 'none'
                 }}
               >
-                <div className="overflow-hidden" style={{ height: '220px', borderRadius: '4px 4px 0 0' }}>
-                  <img
+                <div className="relative overflow-hidden" style={{ height: '220px', borderRadius: '4px 4px 0 0' }}>
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="px-5 pt-4 pb-5">
@@ -305,16 +312,32 @@ export default function EnhancementsPage() {
           <p className="mt-12 text-center font-barlow font-light italic text-[14px] text-[var(--text-muted)]">
             Additional enhancements available — contact us for the full list and custom options.
           </p>
+
+          {/* Event pages these add-ons are booked with */}
+          <div className="mt-12 text-center">
+            <h2 className="font-oswald font-semibold text-[18px] uppercase tracking-[1.5px] text-[var(--text-brown)] mb-4">
+              Add Enhancements to Any Celebration
+            </h2>
+            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 font-barlow text-[15px]">
+              {eventLinks.map((e) => (
+                <li key={e.href}>
+                  <Link href={e.href} className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                    {e.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
       {/* ── CTA ── */}
       <section className="py-[100px] max-md:py-16" style={{ backgroundColor: 'var(--gold)' }}>
         <div className="max-w-[760px] mx-auto px-6 text-center" ref={ctaRef}>
-          <h2 className="cta-el font-oswald font-bold text-[clamp(28px,4vw,44px)] uppercase tracking-[2px] text-white leading-tight mb-4">
+          <h2 className="cta-el font-oswald font-bold text-[clamp(28px,4vw,44px)] uppercase tracking-[2px] text-[var(--on-gold)] leading-tight mb-4">
             Ready to Elevate Your Event?
           </h2>
-          <p className="cta-el font-barlow font-light italic text-[16px] text-white/85 mb-10">
+          <p className="cta-el font-barlow italic text-[16px] text-[var(--on-gold)] mb-10">
             Contact us to customize your perfect package
           </p>
           <div className="cta-el flex flex-wrap items-center justify-center gap-4">
@@ -325,8 +348,8 @@ export default function EnhancementsPage() {
               BOOK A TOUR
             </Link>
             <a
-              href="tel:7322940031"
-              className="inline-flex items-center justify-center font-oswald font-semibold text-[12px] uppercase tracking-[2px] bg-transparent text-white border-2 border-white px-8 py-4 transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5"
+              href="tel:+17322940031"
+              className="inline-flex items-center justify-center font-oswald font-semibold text-[12px] uppercase tracking-[2px] bg-transparent text-[var(--on-gold)] border-2 border-[var(--on-gold)] px-8 py-4 transition-all duration-200 hover:bg-white/10 hover:-translate-y-0.5"
             >
               CALL (732) 294-0031
             </a>

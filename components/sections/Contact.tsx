@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionLabel from '@/components/ui/SectionLabel'
+import { CONTACT, OPENING_HOURS } from '@/lib/site'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,7 +21,11 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const [submitState, setSubmitState] = useState<'idle' | 'success' | 'error'>('idle')
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormValues>()
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormValues>({
+    // eventType starts empty so the "Select…" placeholder shows and the required check
+    // applies; otherwise the browser preselects the first real option ("Wedding")
+    defaultValues: { name: '', email: '', phone: '', eventType: '', message: '' },
+  })
   
   useEffect(() => {
     if (!formRef.current) return
@@ -73,8 +78,9 @@ export default function Contact() {
           {/* Form Side */}
           <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
             <div className="form-field-wrapper">
-              <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Name *</label>
+              <label htmlFor="contact-name" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Name *</label>
               <input 
+                id="contact-name"
                 {...register("name", { required: "Name is required" })}
                 className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                 placeholder="John Doe"
@@ -83,8 +89,9 @@ export default function Contact() {
             </div>
 
             <div className="form-field-wrapper">
-              <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Email *</label>
+              <label htmlFor="contact-email" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Email *</label>
               <input 
+                id="contact-email"
                 {...register("email", { 
                   required: "Email is required",
                   pattern: { value: /^\S+@\S+$/i, message: "Invalid email" }
@@ -96,8 +103,9 @@ export default function Contact() {
             </div>
 
             <div className="form-field-wrapper">
-              <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Phone *</label>
+              <label htmlFor="contact-phone" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Phone *</label>
               <input 
+                id="contact-phone"
                 {...register("phone", { required: "Phone is required" })}
                 className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all"
                 placeholder="(555) 555-5555"
@@ -106,8 +114,10 @@ export default function Contact() {
             </div>
 
             <div className="form-field-wrapper">
-              <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Event Type *</label>
+              <label htmlFor="contact-eventType" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Event Type *</label>
               <select 
+                id="contact-eventType"
+                defaultValue=""
                 {...register("eventType", { required: "Please select an event type" })}
                 className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all appearance-none"
               >
@@ -123,8 +133,9 @@ export default function Contact() {
             </div>
 
             <div className="form-field-wrapper">
-              <label className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold)] mb-2">Message</label>
+              <label htmlFor="contact-message" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Message</label>
               <textarea 
+                id="contact-message"
                 {...register("message")}
                 rows={5}
                 className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all resize-y"
@@ -178,6 +189,7 @@ export default function Contact() {
           <div className="flex flex-col gap-8">
             <div className="w-full h-[260px] rounded overflow-hidden">
               <iframe
+                title="Map showing Aurum Events & Catering at 17 South Street, Freehold, NJ"
                 src="https://maps.google.com/maps?q=17%20South%20Street,%20Freehold,%20NJ%2007728&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
@@ -190,26 +202,38 @@ export default function Contact() {
 
             <div className="flex flex-col gap-4 font-barlow text-[16px] text-[var(--text-brown)]">
               <div className="flex items-start gap-4">
-                <span className="text-[18px]">📍</span>
+                <span className="text-[18px]" aria-hidden="true">📍</span>
                 <p>17 South Street,<br />Freehold, NJ 07728</p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-[18px]">📞</span>
+                <span className="text-[18px]" aria-hidden="true">📞</span>
                 <a href="tel:7322940031" className="hover:text-[var(--gold)] transition-colors">(732) 294-0031</a>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-[18px]">🌐</span>
+                <span className="text-[18px]" aria-hidden="true">✉️</span>
+                <a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--gold-text)] transition-colors">{CONTACT.email}</a>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-[18px]" aria-hidden="true">🕘</span>
+                <p className="text-[15px] leading-[1.6] text-[var(--text-brown)]">
+                  {OPENING_HOURS.map((h) => (
+                    <span key={h.label} className="block">{h.label}: {h.display}</span>
+                  ))}
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="text-[18px]" aria-hidden="true">🌐</span>
                 <p>English & Spanish spoken</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 pt-4 border-t border-[var(--border)]">
-              <a href="https://www.instagram.com/Aurum_events/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+              <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" aria-label="Aurum Events on Instagram" className="hover:scale-110 transition-transform">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
                   <path fill="var(--gold-dark)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
               </a>
-              <a href="https://www.facebook.com/Aurum-Events-and-Catering-269053676619639/" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+              <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" aria-label="Aurum Events on Facebook" className="hover:scale-110 transition-transform">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28">
                   <path fill="var(--gold-dark)" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>

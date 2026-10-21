@@ -47,7 +47,7 @@ export default function DessertsMenu() {
   ]
 
   return (
-    <MenuLayout title="Desserts" heroImage="/images/menu-header.png">
+    <MenuLayout title="Desserts" slug="desserts" heroImage="/images/menu-header.png">
       <div className="flex flex-col gap-12">
         <div className="menu-item">
           <h3 className="font-oswald font-bold text-2xl text-[var(--text-brown)] border-b-2 border-[var(--gold)] pb-3 mb-6 uppercase tracking-[1px]">

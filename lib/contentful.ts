@@ -73,11 +73,8 @@ function resolveAssetDimensions(
   return img ? { width: img.width, height: img.height } : { width: 1200, height: 630 }
 }
 
-/** Strip HTML tags and decode entities — used for card excerpts */
-export function stripHtml(html: string, maxLength = 140): string {
-  const plain = html
-    .replace(/<[^>]+>/g, ' ')
-    // Decode common HTML entities
+function decodeEntities(text: string): string {
+  return text
     .replace(/&amp;/gi, '&')
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
@@ -85,10 +82,72 @@ export function stripHtml(html: string, maxLength = 140): string {
     .replace(/&#39;/gi, "'")
     .replace(/&nbsp;/gi, ' ')
     .replace(/&apos;/gi, "'")
-    .replace(/&#\d+;/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-  return plain.length > maxLength ? plain.slice(0, maxLength).trimEnd() + '…' : plain
+    .replace(/&#(\d+);/gi, (_, code) => String.fromCharCode(Number(code)))
+}
+
+function toPlainText(html: string): string {
+  return decodeEntities(html.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()
+}
+
+/** Shorten text to `max` chars, preferring a sentence end, then a word boundary */
+function truncate(text: string, max: number): string {
+  if (text.length <= max) return text
+  const head = text.slice(0, max)
+  const sentenceEnd = Math.max(head.lastIndexOf('. '), head.lastIndexOf('! '), head.lastIndexOf('? '))
+  if (sentenceEnd >= max * 0.5) return head.slice(0, sentenceEnd + 1)
+  const wordEnd = head.slice(0, max - 1).lastIndexOf(' ')
+  return head.slice(0, wordEnd > 0 ? wordEnd : max - 1).replace(/[\s,;:—–-]+$/, '') + '…'
+}
+
+/** Strip HTML tags and decode entities */
+export function stripHtml(html: string, maxLength = 140): string {
+  return truncate(toPlainText(html), maxLength)
+}
+
+const isByline = (text: string) => /^by\s+aurum\b/i.test(text) || /^(written\s+)?by\s+\S+.*·/i.test(text)
+
+/**
+ * Summary for meta descriptions and blog cards: the article's first real
+ * paragraph, skipping the repeated title and the "By Aurum Events · date" byline.
+ */
+export function postDescription(html: string, title: string, max = 155): string {
+  const normalizedTitle = title.trim().toLowerCase()
+  const paragraphs = Array.from(html.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi))
+    .map((m) => toPlainText(m[1]))
+    .filter((t) => t.length >= 60 && !isByline(t) && t.toLowerCase() !== normalizedTitle)
+
+  if (paragraphs.length) return truncate(paragraphs[0], max)
+
+  // No usable <p>: fall back to the plain text with the title and byline removed
+  let text = toPlainText(html.replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi, ' '))
+  if (text.toLowerCase().startsWith(normalizedTitle)) text = text.slice(title.trim().length).trim()
+  text = text.replace(/^by\s+aurum[^·]*(·[^·]*){0,2}?\b(19|20)\d{2}\b/i, '').trim()
+  return text ? truncate(text, max) : `${title} — event planning guide from Aurum Events & Catering in Freehold, NJ.`
+}
+
+/**
+ * Normalise CMS article HTML before rendering:
+ * - the page already renders the post title as its only <h1>, so an <h1> that
+ *   repeats the title is dropped and any other <h1> becomes an <h2>
+ * - internal links lose their trailing slash (/menus/ → /menus) to skip a 308 hop
+ */
+export function prepareArticleHtml(html: string, title: string): string {
+  const normalizedTitle = title.trim().toLowerCase()
+  return html
+    .replace(/<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi, (_, attrs: string, inner: string) =>
+      toPlainText(inner).toLowerCase() === normalizedTitle ? '' : `<h2${attrs}>${inner}</h2>`
+    )
+    .replace(
+      /href=(["'])(?:https?:\/\/(?:www\.)?aurum\.events)?(\/[^"'#?\s]+?)\/+(?=[#?"'])/gi,
+      (_, quote: string, path: string) => `href=${quote}https://aurum.events${path}`
+    )
+}
+
+/** Contentful Images API URL — resized and served as WebP */
+export function contentfulImage(url: string, width: number, quality = 75): string {
+  if (!url || !url.includes('ctfassets.net')) return url
+  const sep = url.includes('?') ? '&' : '?'
+  return `${url}${sep}w=${width}&fm=webp&q=${quality}`
 }
 
 /** Convert a Contentful slug (may have spaces) to a clean URL slug with hyphens */
@@ -120,7 +179,7 @@ export async function getAllPosts(): Promise<
   { post: BlogPost; imageUrl: string; imageDimensions: { width: number; height: number } }[]
 > {
 
-  const url = `${BASE_URL}/entries?access_token=${ACCESS_TOKEN}&content_type=aurumBlogs&include=2&order=-sys.createdAt`
+  const url = `${BASE_URL}/entries?access_token=${ACCESS_TOKEN}&content_type=aurumBlogs&include=2&order=-sys.createdAt&limit=200`
 
   try {
     const res = await fetch(url, { next: { revalidate: 60 } }) // ISR: revalidate every 60s

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Inter, Oswald, Barlow, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/layout/Nav";
@@ -7,18 +6,24 @@ import Footer from "@/components/layout/Footer";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
 import LenisProvider from "@/components/layout/LenisProvider";
-import StructuredData from "@/components/seo/StructuredData";
+import DeferredChatWidget from "@/components/ui/DeferredChatWidget";
+import { EVENTS } from "@/lib/eventData";
+
+const FOOTER_EVENT_LINKS = EVENTS.map((e) => ({ href: `/events/${e.slug}`, label: e.seoTitle.replace(" in Freehold, NJ", "") }));
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald', display: 'swap' });
+// Barlow and Playfair are only used below the first screen: no <link rel=preload>,
+// so their 10 files don't compete with the hero on first load (still display: swap)
 const barlow = Barlow({ 
   weight: ['300', '400', '500'],
   style: ['normal', 'italic'],
   subsets: ['latin'], 
   variable: '--font-barlow', 
-  display: 'swap' 
+  display: 'swap',
+  preload: false,
 });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair', display: 'swap', weight: ['400', '700'], style: ['normal', 'italic'] });
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair', display: 'swap', weight: ['400', '700'], style: ['normal', 'italic'], preload: false });
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -29,11 +34,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://aurum.events'),
+  // Page titles supply only the search phrase; the brand is appended once here
   title: {
-    default: 'Aurum Events & Catering — Freehold NJ Premier Event Venue',
-    template: '%s | Aurum Events & Catering',
+    default: 'Aurum Events & Catering — Event Venue in Freehold, NJ',
+    template: '%s | Aurum Events',
   },
-  description: 'Freehold NJ\'s premiere event space. Weddings, Sweet 16s, Bar/Bat Mitzvahs, Corporate Events, and more. NYC loft ambiance with Executive Chef Aaron Hode. Call (732) 294-0031.',
+  description: "Freehold NJ's NYC loft-style event venue with in-house catering for weddings, Sweet 16s, mitzvahs and corporate events. From $65–$120 per person.",
   keywords: [
     // Brand
     'Aurum Events',
@@ -150,12 +156,12 @@ export const metadata: Metadata = {
     canonical: 'https://aurum.events',
   },
   icons: {
-    icon: '/images/footer-logo.png',
-    apple: '/images/footer-logo.png',
-    shortcut: '/images/footer-logo.png',
-  },
-  verification: {
-    google: 'your-google-search-console-verification-token',
+    icon: [
+      { url: '/images/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/images/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: { url: '/images/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    shortcut: '/images/icon-48.png',
   },
 };
 
@@ -172,8 +178,9 @@ export default function RootLayout({
         <meta name="geo.placename" content="Freehold, New Jersey" />
         <meta name="geo.position" content="40.2643;-74.2738" />
         <meta name="ICBM" content="40.2643, -74.2738" />
-        {/* JSON-LD structured data for SEO and GEO */}
-        <StructuredData />
+        {/* Chat widget: open connections to Retell early so its script and chat API respond fast */}
+        <link rel="preconnect" href="https://dashboard.retellai.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.retellai.com" crossOrigin="anonymous" />
       </head>
       <body>
         <LenisProvider>
@@ -181,24 +188,9 @@ export default function RootLayout({
           <ScrollProgress />
           <Nav />
           <main>{children}</main>
-          <Footer />
+          <Footer eventLinks={FOOTER_EVENT_LINKS} />
         </LenisProvider>
-        <Script
-          id="retell-widget"
-          src="https://dashboard.retellai.com/retell-widget.js"
-          strategy="lazyOnload"
-          type="module"
-          data-public-key="public_key_791aa9fa55765bfd1776d"
-          data-agent-id="agent_d70716fca0fc829b07bb93c056"
-          data-agent-version="Aurum Concierge"
-          data-title="Aurum Concierge"
-          data-logo-url="NOTHING"
-          data-color="#C8933A"
-          data-popup-message="How may I help you? Interested in booking an event?"
-          data-show-ai-popup="true"
-          data-show-ai-popup-time="1"
-          data-auto-open="false"
-        />
+        <DeferredChatWidget />
       </body>
     </html>
   );

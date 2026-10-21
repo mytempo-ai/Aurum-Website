@@ -13,6 +13,10 @@
   --gold: #C8933A;
   --gold-light: #E8B86D;
   --gold-dark: #9B6A1E;
+  /* Gold for small text on light backgrounds — 5.5:1 on white (WCAG AA). Keep --gold for large/decorative use */
+  --gold-text: #8A6212;
+  /* Text colour on gold-filled buttons — 6.9:1 on --gold */
+  --on-gold: #1C0F06;
   --gold-pale: #FBF0DC;
   --gold-glow: rgba(200, 147, 58, 0.12);
 
@@ -21,7 +25,7 @@
   /* slightly richer for headings */
   --text-muted: #5C4A38;
   /* improved contrast from #6B5C4E */
-  --text-light: #998070;
+  --text-light: #776050;
 
   --border: #EDE0CC;
   --border-strong: #D4B896;
@@ -133,7 +137,7 @@ h6 {
     font-size: 11px;
     letter-spacing: 3px;
     background-color: var(--gold);
-    color: #fff;
+    color: var(--on-gold);
     padding: 15px 36px;
     border: 1.5px solid var(--gold);
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
@@ -142,6 +146,7 @@ h6 {
   .btn-gold-filled:hover {
     background-color: var(--gold-dark);
     border-color: var(--gold-dark);
+    color: #fff;
     box-shadow: 0 8px 24px rgba(200, 147, 58, 0.35);
     transform: translateY(-2px);
   }
@@ -192,7 +197,7 @@ h6 {
     font-size: 10.5px;
     text-transform: uppercase;
     letter-spacing: 5px;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-bottom: 14px;
   }
 

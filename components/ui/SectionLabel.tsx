@@ -11,7 +11,7 @@ interface SectionLabelProps {
 export default function SectionLabel({ text, children, className = '' }: SectionLabelProps) {
   return (
     <span
-      className={`section-label-el block mb-3 heading-serif text-[11px] uppercase tracking-[5px] text-[var(--gold)] ${className}`}
+      className={`section-label-el block mb-3 heading-serif text-[11px] uppercase tracking-[5px] text-[var(--gold-text)] ${className}`}
     >
       {text ?? children}
     </span>

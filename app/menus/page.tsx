@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
+import { MENU_PAGES } from '@/lib/menuData'
+import { EVENTS } from '@/lib/eventData'
+import { PRICING } from '@/lib/site'
+import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Catering Menus | Aurum Events & Catering — Freehold, NJ',
-  description: 'Explore Aurum Events & Catering\'s full menus — passed hors d\'oeuvres, action stations, plated dinners, children\'s selections, and elaborate dessert displays. Premier catering in Freehold, Monmouth County NJ.',
+  title: 'Catering Menus in Freehold, NJ',
+  description: "Hors d'oeuvres, action stations, plated dinners, children's menus and desserts from Aurum's in-house kitchen in Freehold, NJ. From $65–$120 per person.",
   keywords: [
     'catering menus NJ',
     'event catering menu',
@@ -24,34 +29,26 @@ export const metadata: Metadata = {
     canonical: 'https://aurum.events/menus',
   },
   openGraph: {
-    title: 'Catering Menus | Aurum Events & Catering — Freehold, NJ',
+    title: 'Catering Menus in Freehold, NJ | Aurum Events',
     description: 'Passed hors d\'oeuvres, action stations, plated dinners, and spectacular dessert displays. In-house catering excellence at Aurum Events & Catering, Freehold NJ.',
     url: 'https://aurum.events/menus',
     images: [{ url: '/images/menu-header.png', width: 1200, height: 630, alt: 'Catering Menus at Aurum Events Freehold NJ' }],
   },
 }
 
-const CATEGORIES = [
-  { id: 'hors-doeuvres', title: "Hors d'Oeuvres", desc: "Passed & stationary appetizers to start the evening", image: "/images/menu/hors-doeuvres-1.jpg" },
-  { id: 'stations', title: "Action Stations", desc: "Interactive dining experiences in every corner", image: "/images/menu/stations-1.jpg" },
-  { id: 'first-course', title: "First Course", desc: "Fresh greens and elegant starters", image: "/images/menu/first-course-1.jpg" },
-  { id: 'dinner', title: "Dinner Selections", desc: "Expertly crafted mains and sides", image: "/images/menu/dinner-1.jpg" },
-  { id: 'childrens-menu', title: "Children's Menu", desc: "Kid-friendly favorites", image: "/images/menu/kids-1.jpg" },
-  { id: 'desserts', title: "Desserts", desc: "Sweet finales to remember", image: "/images/menu/dessert-1.jpg" },
-]
-
 export default function MenusPage() {
   return (
     <div className="pt-[72px]">
+      <JsonLd data={breadcrumbSchema([{ name: 'Menus', path: '/menus' }])} />
       <div className="relative h-[300px] md:h-[400px] overflow-hidden">
         <div className="absolute inset-0 bg-[var(--hero-bg)]">
-          <img
+          <Image
             src="/images/menu-header.png"
             alt="Aurum Events & Catering full-service menus — Freehold NJ"
-            className="w-full h-full object-cover opacity-60"
-            width={1600}
-            height={900}
-            fetchPriority="high"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
@@ -67,15 +64,14 @@ export default function MenusPage() {
 
       <div className="max-w-[1200px] mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {CATEGORIES.map((cat) => (
-            <Link key={cat.id} href={`/menus/${cat.id}`} className="group block h-[320px] relative overflow-hidden rounded bg-[var(--surface)]">
-              <img
+          {MENU_PAGES.map((cat) => (
+            <Link key={cat.slug} href={`/menus/${cat.slug}`} className="group block h-[320px] relative overflow-hidden rounded bg-[var(--surface)]">
+              <Image
                 src={cat.image}
                 alt={`${cat.title} — Aurum Events catering Freehold NJ`}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                width={600}
-                height={320}
-                loading="lazy"
+                fill
+                sizes="(min-width: 1024px) 368px, (min-width: 768px) 50vw, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300" />
               <div className="absolute inset-x-8 bottom-8 z-10 border-t border-[var(--gold)]/50 pt-4">
@@ -85,6 +81,41 @@ export default function MenusPage() {
             </Link>
           ))}
         </div>
+
+        {/* Pricing & planning */}
+        <section className="mt-20 grid gap-10 md:grid-cols-2 border-t border-[var(--border)] pt-14">
+          <div>
+            <h2 className="font-oswald font-bold text-[26px] uppercase tracking-[1.5px] text-[var(--text-brown)] mb-4">
+              Catering Pricing
+            </h2>
+            <p className="font-barlow text-[16px] leading-[1.8] text-[var(--text-muted)] mb-4">
+              Event packages with in-house catering range from{' '}
+              <strong className="text-[var(--text-brown)]">{PRICING.display}</strong>. Where you land in that range depends on the
+              courses, action stations and enhancements you choose; market-priced items such as dry-aged steaks, Chilean sea bass
+              and halibut are quoted at the time of booking.
+            </p>
+            <p className="font-barlow text-[16px] leading-[1.8] text-[var(--text-muted)]">
+              Have dietary needs or want a tasting? Call{' '}
+              <a href="tel:+17322940031" className="text-[var(--gold-text)] underline underline-offset-4">(732) 294-0031</a> or{' '}
+              <Link href="/book-a-tour" className="text-[var(--gold-text)] underline underline-offset-4">book a tour</Link>{' '}
+              and our team will build a menu around your guests.
+            </p>
+          </div>
+          <div>
+            <h2 className="font-oswald font-bold text-[26px] uppercase tracking-[1.5px] text-[var(--text-brown)] mb-4">
+              Menus for Every Event
+            </h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-barlow text-[15px]">
+              {EVENTS.map((e) => (
+                <li key={e.slug}>
+                  <Link href={`/events/${e.slug}`} className="inline-block py-1 text-[var(--gold-text)] underline underline-offset-4 hover:text-[var(--gold-dark)]">
+                    {e.seoTitle}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
       </div>
     </div>
   )

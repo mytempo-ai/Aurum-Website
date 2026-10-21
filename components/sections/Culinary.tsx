@@ -115,7 +115,7 @@ export default function Culinary() {
           <div>
             <div className="gold-line mb-6" />
 
-            <p className="font-barlow font-normal text-[10px] uppercase tracking-[4px] text-[var(--gold)] mb-2">
+            <p className="font-barlow font-normal text-[10px] uppercase tracking-[4px] text-[var(--gold-text)] mb-2">
               EXECUTIVE CHEF
             </p>
 

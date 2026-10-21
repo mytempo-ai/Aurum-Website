@@ -1,124 +1,45 @@
 import type { MetadataRoute } from 'next'
+import { EVENTS } from '@/lib/eventData'
+import { MENU_PAGES } from '@/lib/menuData'
+import { getAllPosts, slugToUrl } from '@/lib/contentful'
+import { SITE_URL } from '@/lib/site'
 
-const BASE_URL = 'https://aurum.events'
-const NOW = new Date('2026-05-06')
+// Rebuilt hourly so new or edited blog posts appear with their real dates
+export const revalidate = 3600
 
-export default function sitemap(): MetadataRoute.Sitemap {
+type Entry = MetadataRoute.Sitemap[number]
+
+// Static pages carry no lastmod: a date stamped at build time on every URL
+// teaches search engines to ignore the field. Blog posts use Contentful's
+// updatedAt, which is accurate.
+const page = (path: string, priority: number, changeFrequency: Entry['changeFrequency'] = 'monthly'): Entry => ({
+    url: `${SITE_URL}${path}`,
+    changeFrequency,
+    priority,
+})
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const posts = await getAllPosts()
+    const postEntries: MetadataRoute.Sitemap = posts.map(({ post }) => ({
+        url: `${SITE_URL}/blog/${slugToUrl(post.fields.slug)}`,
+        lastModified: new Date(post.sys.updatedAt),
+        changeFrequency: 'monthly',
+        priority: 0.6,
+    }))
+    const newestPost = posts.reduce<Date | undefined>((latest, { post }) => {
+        const d = new Date(post.sys.updatedAt)
+        return !latest || d > latest ? d : latest
+    }, undefined)
+
     return [
-        {
-            url: BASE_URL,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 1.0,
-        },
-        {
-            url: `${BASE_URL}/book-a-tour`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${BASE_URL}/blog`,
-            lastModified: NOW,
-            changeFrequency: 'weekly',
-            priority: 0.7,
-        },
-        {
-            url: `${BASE_URL}/menus`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${BASE_URL}/menus/hors-doeuvres`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
-            url: `${BASE_URL}/menus/stations`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
-            url: `${BASE_URL}/menus/first-course`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
-            url: `${BASE_URL}/menus/dinner`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
-            url: `${BASE_URL}/menus/childrens-menu`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.5,
-        },
-        {
-            url: `${BASE_URL}/menus/desserts`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
-            url: `${BASE_URL}/enhancements`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        // Event detail pages — slugs must match lib/eventData.ts
-        {
-            url: `${BASE_URL}/events/weddings`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${BASE_URL}/events/sweet-sixteens`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${BASE_URL}/events/bar-bat-mitzvahs`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${BASE_URL}/events/corporate-events`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${BASE_URL}/events/fundraisers`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${BASE_URL}/events/holiday-parties`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${BASE_URL}/events/social-events`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${BASE_URL}/events/trade-shows`,
-            lastModified: NOW,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
+        page('', 1.0),
+        page('/book-a-tour', 0.9),
+        page('/events', 0.9),
+        ...EVENTS.map((e) => page(`/events/${e.slug}`, 0.8)),
+        page('/menus', 0.8),
+        ...MENU_PAGES.map((m) => page(`/menus/${m.slug}`, 0.6)),
+        page('/enhancements', 0.7),
+        { ...page('/blog', 0.7, 'weekly'), ...(newestPost ? { lastModified: newestPost } : {}) },
+        ...postEntries,
     ]
 }

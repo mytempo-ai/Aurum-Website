@@ -3,6 +3,9 @@
 import { useEffect } from 'react'
 import { RETELL_WIDGET_SRC } from '@/lib/site'
 
+/** Fired on window once the widget script has run (see Hero: phones start the video after it) */
+export const CHAT_WIDGET_LOADED_EVENT = 'aurum:chat-widget-loaded'
+
 const WIDGET_ATTRS: Record<string, string> = {
   'data-public-key': 'public_key_791aa9fa55765bfd1776d',
   'data-agent-id': 'agent_d70716fca0fc829b07bb93c056',
@@ -30,6 +33,12 @@ export default function ChatWidget() {
     script.type = 'module'
     script.async = true
     Object.entries(WIDGET_ATTRS).forEach(([k, v]) => script.setAttribute(k, v))
+    const markLoaded = () => {
+      script.dataset.loaded = 'true'
+      window.dispatchEvent(new Event(CHAT_WIDGET_LOADED_EVENT))
+    }
+    script.addEventListener('load', markLoaded, { once: true })
+    script.addEventListener('error', markLoaded, { once: true })
     document.body.appendChild(script)
   }, [])
 

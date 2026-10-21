@@ -11,7 +11,9 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
   const lenisRef = useRef<Lenis | null>(null)
 
   useEffect(() => {
-    const lenis = new Lenis()
+    // allowNestedScroll: wheel/trackpad scrolling inside scrollable areas — such as
+    // the chat widget's message list — scrolls that area instead of the page
+    const lenis = new Lenis({ allowNestedScroll: true })
     lenisRef.current = lenis
 
     // Official GSAP + Lenis integration

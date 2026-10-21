@@ -21,7 +21,11 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const [submitState, setSubmitState] = useState<'idle' | 'success' | 'error'>('idle')
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormValues>()
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormValues>({
+    // eventType starts empty so the "Select…" placeholder shows and the required check
+    // applies; otherwise the browser preselects the first real option ("Wedding")
+    defaultValues: { name: '', email: '', phone: '', eventType: '', message: '' },
+  })
   
   useEffect(() => {
     if (!formRef.current) return
@@ -113,6 +117,7 @@ export default function Contact() {
               <label htmlFor="contact-eventType" className="block font-oswald font-medium text-[11px] uppercase tracking-[2px] text-[var(--gold-text)] mb-2">Event Type *</label>
               <select 
                 id="contact-eventType"
+                defaultValue=""
                 {...register("eventType", { required: "Please select an event type" })}
                 className="w-full bg-white border border-[var(--border)] rounded-sm px-4 py-3.5 font-barlow text-[16px] focus:border-[var(--gold)] focus:ring-4 focus:ring-[var(--gold-glow)] outline-none transition-all appearance-none"
               >
